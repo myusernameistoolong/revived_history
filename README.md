@@ -8,7 +8,7 @@ To ensure historical accuracy while maintaining gameplay balance, I conducted ex
 
 > 📰 This mod has been featured in media and was supported by an active community of contributors and players.
 
-![Screenshot showing historical colonization in 1725](read_me_image.jpg)
+![Screenshot showing historical_ai](images/read_me_image.jpg)
 ---
 
 ## 🎯 Features
