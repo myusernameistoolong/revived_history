@@ -1,0 +1,5705 @@
+namespace = flavor_rh
+namespace = flavor_ned_rh
+namespace = flavor_hab_rh
+namespace = flavor_spa_rh
+namespace = flavor_fra_rh
+namespace = flavor_usa_rh
+namespace = flavor_rus_rh
+
+# Swedish Delware
+country_event = {
+	id = flavor_rh.10000
+	title = "flavor_swe.RHtit1"
+	desc = "flavor_swe.RHdesc1"
+	picture = EXPLORERS_eventPicture
+
+	fire_only_once = yes
+	
+	trigger = {
+		is_year = 1587
+		NOT = { is_year = 1737 }
+		tag = SWE
+		957 = {
+			OR = {
+				is_empty = yes
+				owner = {
+					capital_scope = {
+						colonial_region = colonial_pennsylvania
+					}
+					is_colonial_nation = no
+				}
+			}
+			has_discovered = yes
+		}
+	}
+	
+	mean_time_to_happen = {
+		months = 24
+	}
+
+	option = {			# Awesome
+		name = "flavor_swe.RHans1"
+		
+		add_prestige = 5
+		
+		hidden_effect = {
+			957 = {				
+				if = {
+					limit = { is_empty = yes }
+					change_religion = ROOT	
+					change_culture = ROOT
+				}
+				else_if = {
+				limit = { is_colony = yes country_or_non_sovereign_subject_holds = ROOT  }
+				add_colonysize = 999
+				}
+				else_if = {
+					limit = { is_city = yes NOT = { country_or_non_sovereign_subject_holds = ROOT } }
+					add_claim = ROOT
+				}
+				
+				add_territorial_core = ROOT
+			}
+		}
+			
+		957 = {
+			cede_province = ROOT
+		}
+	}
+}
+
+# Demand Jamaica ANSWER
+country_event = {
+	id = flavor_spa_rh.1002
+	title = "flavor_eng.RHtit6"
+	desc = "flavor_eng.RHdesc6"
+	picture = BORDER_TENSION_eventPicture
+
+	is_triggered_only = yes
+
+	option = {			# Yes, we give it to the british
+		name = "flavor_eng.RHans11"
+		ai_chance = { factor = 75 } #75
+		add_prestige = -5
+		every_province = {
+			limit = {
+				OR = {
+					province_id = 487
+				}
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+			remove_core = ROOT
+			remove_claim = ROOT
+
+			cede_province = FROM
+			add_core = FROM
+			add_permanent_claim = FROM
+		}
+		
+		FROM = {
+			add_truce_with = ROOT
+		}
+	}
+	option = {			# No, we must resist
+		name = "flavor_eng.RHans12"
+		ai_chance = { factor = 25 } #25
+		
+		every_province = {
+			limit = {
+				OR = {
+					province_id = 487
+				}
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+			add_permanent_claim = FROM
+		}
+		
+		487 = {
+			owner = {
+				FROM = {
+					declare_war_with_cb = {
+						who = PREV
+						casus_belli = cb_conquest
+						war_goal_province = 487
+					}
+				}
+			}
+		}
+	}
+}
+
+# Peace treaty Louisiana REQUEST ENGLAND
+country_event = {
+	id = flavor_eng.1003
+	title = "flavor_spa.RHtit1"
+	desc = "flavor_spa.RHdesc1"
+	picture = DIPLOMACY_eventPicture
+
+	is_triggered_only = yes
+
+	option = {			# Yes, sounds like a plan
+		name = "flavor_spa.RHans1"
+		ai_chance = { factor = 100 }
+		if = {
+			limit = {
+				exists = SPA
+			}
+			SPA = {
+				country_event = { id = flavor_spa_rh.1003 days = 1 }
+			}
+		}
+		else = {
+			if = {
+				limit = {
+					exists = IBA
+				}
+				IBA = {
+					country_event = { id = flavor_spa_rh.1003 days = 1 }
+				}
+			}
+			else
+			{
+				CAS = {
+					country_event = { id = flavor_spa_rh.1003 days = 1 }
+				}
+			}
+		}
+		
+		set_country_flag = paris_treaty
+	}
+	option = {			# No, I don't care
+		name = "flavor_spa.RHans2"
+		ai_chance = { factor = 0 }
+
+		if = {
+			limit = {
+				exists = SPA
+			}
+			add_opinion = {
+				who = SPA
+				modifier = opinion_disappointed
+				years = 20
+			}
+		}
+		else = {
+			if = {
+				limit = {
+					exists = IBA
+				}
+				add_opinion = {
+					who = IBA
+					modifier = opinion_disappointed
+					years = 20
+				}
+			}
+			else
+			{
+				add_opinion = {
+					who = CAS
+					modifier = opinion_disappointed
+					years = 20
+				}
+			}
+		}
+		set_country_flag = paris_treaty
+	}
+}
+
+# Peace treaty Louisiana REQUEST SPAIN
+country_event = {
+	id = flavor_spa_rh.1004
+	title = "flavor_spa.RHtit2"
+	desc = "flavor_spa.RHdesc2"
+	picture = DIPLOMACY_eventPicture
+
+	is_triggered_only = yes
+
+	option = {			# Yes, sounds like a plan
+		name = "flavor_spa.RHans1"
+		ai_chance = { factor = 100 }
+		if = {
+			limit = {
+				exists = GBR
+			}
+			GBR = {
+				country_event = { id = flavor_eng.1004 days = 1 }
+			}
+		}
+		else = {
+			ENG = {
+				country_event = { id = flavor_eng.1004 days = 1 }
+			}
+		}
+		
+		set_country_flag = paris_treaty
+	}
+	option = {			# No, I don't care
+		name = "flavor_spa.RHans2_alt"
+		ai_chance = { factor = 0 }
+		
+		if = {
+			limit = {
+				exists = GBR
+			}
+			add_opinion = {
+				who = GBR
+				modifier = opinion_disappointed
+				years = 20
+			}
+		}
+		else = {
+			add_opinion = {
+				who = ENG
+				modifier = opinion_disappointed
+				years = 20
+			}
+		}
+		set_country_flag = paris_treaty
+	}
+}
+
+# Peace treaty Louisiana ANSWER ENGLAND
+country_event = {
+	id = flavor_eng.1004
+	title = "flavor_spa.RHtit1"
+	desc = "flavor_spa.RHdesc1"
+	picture = DIPLOMACY_eventPicture
+
+	is_triggered_only = yes
+
+	option = {			# Yes, we accept
+		name = "flavor_spa.RHans3"
+		ai_chance = { factor = 100 } #60
+		
+		every_province = {
+			limit = {
+				OR = {
+					colonial_region = colonial_louisiana
+					colonial_region = colonial_texas
+				}
+				OR = {
+					country_or_non_sovereign_subject_holds = ROOT
+					controlled_by = ROOT
+					controlled_by = FROM
+					controller = {
+						OR = {
+							is_subject_of = ROOT
+							is_subject_of = FROM
+						}
+					}
+				}
+			}
+			remove_core = ROOT
+			remove_claim = ROOT
+
+			cede_province = FROM
+			add_permanent_claim = FROM
+			add_core = FROM
+		}
+		
+		every_province = {
+			limit = {
+				OR = {
+					colonial_region = colonial_florida
+					colonial_region = colonial_ohio
+					colonial_region = colonial_quebec
+					colonial_region = colonial_acadia
+					colonial_region = colonial_kentucky
+					colonial_region = colonial_mississippi
+					province_id = 2598
+					province_id = 2005
+				}
+				OR = {
+					country_or_non_sovereign_subject_holds = FROM
+					controlled_by = FROM
+					controlled_by = ROOT
+					controller = {
+						OR = {
+							is_subject_of = FROM
+							is_subject_of = ROOT
+						}
+					}
+				}
+			}
+			remove_core = FROM
+			remove_claim = FROM
+
+			cede_province = ROOT
+			add_permanent_claim = ROOT
+			add_core = ROOT
+		}
+		
+		FROM = {
+			add_truce_with = ROOT
+		}
+		
+		ROOT = {
+			add_truce_with = FRA
+			white_peace = FRA
+		}
+		
+		FROM = {
+			add_truce_with = FRA
+			white_peace = FRA
+		}
+		
+		add_opinion = {
+			who = ROOT
+			modifier = returned_core_to_me
+		}
+		
+		add_opinion = {
+			who = FROM
+			modifier = returned_core_to_me
+		}
+		FRA = {
+			add_opinion = {
+				who = ROOT
+				modifier = opinion_forced_return_territory
+				years = 20
+			}
+		}
+		FRA = {
+			add_opinion = {
+				who = FROM
+				modifier = opinion_forced_return_territory
+				years = 20
+			}
+		}
+	}
+	option = {			# No, we refuse
+		name = "flavor_spa.RHans4"
+		ai_chance = { factor = 0 } #40
+		
+		every_province = {
+			limit = {
+				OR = {
+					colonial_region = colonial_louisiana
+					colonial_region = colonial_ohio
+					colonial_region = colonial_quebec
+					colonial_region = colonial_acadia
+					colonial_region = colonial_kentucky
+					colonial_region = colonial_mississippi
+					colonial_region = colonial_louisiana
+					colonial_region = colonial_texas
+					province_id = 2598
+					province_id = 2005
+				}
+				OR = {
+					country_or_non_sovereign_subject_holds = ROOT
+					controlled_by = ROOT
+					controller = {
+						is_subject_of = ROOT
+					}
+				}
+			}
+			add_permanent_claim = FROM
+		}
+		
+		if = {
+			limit = {
+				exists = GBR
+			}
+			add_opinion = {
+				who = GBR
+				modifier = opinion_disappointed
+				years = 20
+			}
+		}
+		else = {
+			add_opinion = {
+				who = ENG
+				modifier = opinion_disappointed
+				years = 20
+			}
+		}
+		
+		if = {
+			limit = {
+				exists = SPA
+			}
+			add_opinion = {
+				who = SPA
+				modifier = opinion_disappointed
+				years = 20
+			}
+		}
+		else = {
+			if = {
+				limit = {
+					exists = IBA
+				}
+				add_opinion = {
+					who = IBA
+					modifier = opinion_disappointed
+					years = 20
+				}
+			}
+			else = {
+				add_opinion = {
+					who = CAS
+					modifier = opinion_disappointed
+					years = 20
+				}
+			}
+		}
+	}
+}
+
+# Peace treaty Louisiana ANSWER SPAIN
+country_event = {
+	id = flavor_spa_rh.1003
+	title = "flavor_spa.RHtit2"
+	desc = "flavor_spa.RHdesc2"
+	picture = DIPLOMACY_eventPicture
+
+	is_triggered_only = yes
+
+	option = {			# Yes, we accept
+		name = "flavor_spa.RHans3"
+		ai_chance = { factor = 100 } #60
+		
+		every_province = {
+			limit = {
+				OR = {
+					colonial_region = colonial_louisiana
+					colonial_region = colonial_texas
+				}
+				OR = {
+					country_or_non_sovereign_subject_holds = FROM
+					controlled_by = FROM
+					controlled_by = ROOT
+					controller = {
+						OR = {
+							is_subject_of = FROM
+							is_subject_of = ROOT
+						}
+					}
+				}
+			}
+			remove_core = FROM
+			remove_claim = FROM
+
+			cede_province = ROOT
+			add_permanent_claim = ROOT
+			add_core = ROOT
+		}
+		
+		every_province = {
+			limit = {
+				OR = {
+					colonial_region = colonial_florida
+					colonial_region = colonial_ohio
+					colonial_region = colonial_quebec
+					colonial_region = colonial_acadia
+					colonial_region = colonial_kentucky
+					colonial_region = colonial_mississippi
+					province_id = 2598
+					province_id = 2005
+				}
+				OR = {
+					country_or_non_sovereign_subject_holds = ROOT
+					controlled_by = ROOT
+					controlled_by = FROM
+					controller = {
+						OR = {
+							is_subject_of = ROOT
+							is_subject_of = FROM
+						}
+					}
+				}
+			}
+			remove_core = ROOT
+			remove_claim = ROOT
+
+			cede_province = FROM
+			add_permanent_claim = FROM
+			add_core = FROM
+		}
+		
+		FROM = {
+			add_truce_with = ROOT
+		}
+		
+		ROOT = {
+			add_truce_with = FRA
+			white_peace = FRA
+		}
+		
+		FROM = {
+			add_truce_with = FRA
+			white_peace = FRA
+		}
+		
+		add_opinion = {
+			who = ROOT
+			modifier = returned_core_to_me
+		}
+		
+		add_opinion = {
+			who = FROM
+			modifier = returned_core_to_me
+		}
+		FRA = {
+			add_opinion = {
+				who = ROOT
+				modifier = opinion_forced_return_territory
+				years = 20
+			}
+		}
+		FRA = {
+			add_opinion = {
+				who = FROM
+				modifier = opinion_forced_return_territory
+				years = 20
+			}
+		}
+	}
+	option = {			# No, we refuse
+		name = "flavor_spa.RHans4"
+		ai_chance = { factor = 0 } #40
+		
+		every_province = {
+			limit = {
+				OR = {
+					colonial_region = colonial_louisiana
+					colonial_region = colonial_ohio
+					colonial_region = colonial_quebec
+					colonial_region = colonial_acadia
+					colonial_region = colonial_kentucky
+					colonial_region = colonial_mississippi
+					colonial_region = colonial_louisiana
+					colonial_region = colonial_texas
+					province_id = 2598
+					province_id = 2005
+				}
+				OR = {
+					country_or_non_sovereign_subject_holds = ROOT
+					controlled_by = ROOT
+					controller = {
+						is_subject_of = ROOT
+					}
+				}
+			}
+			add_permanent_claim = FROM
+		}
+		
+		if = {
+			limit = {
+				exists = GBR
+			}
+			add_opinion = {
+				who = GBR
+				modifier = opinion_disappointed
+				years = 20
+			}
+		}
+		else = {
+			add_opinion = {
+				who = ENG
+				modifier = opinion_disappointed
+				years = 20
+			}
+		}
+		
+		if = {
+			limit = {
+				exists = SPA
+			}
+			add_opinion = {
+				who = SPA
+				modifier = opinion_disappointed
+				years = 20
+			}
+		}
+		else = {
+			if = {
+				limit = {
+					exists = IBA
+				}
+				add_opinion = {
+					who = IBA
+					modifier = opinion_disappointed
+					years = 20
+				}
+			}
+			else = {
+				add_opinion = {
+					who = CAS
+					modifier = opinion_disappointed
+					years = 20
+				}
+			}
+		}
+	}
+}
+
+# Peace treaty Brazil ANSWER NETHERLANDS - unused, sorry kids
+country_event = {
+	id = flavor_ned_rh.1000
+	title = "flavor_ned_rh.RHtit1"
+	desc = "flavor_ned_rh.RHdesc1"
+	picture = DIPLOMACY_eventPicture
+
+	is_triggered_only = yes
+
+	option = {			# Yes, we accept
+		name = "flavor_ned_rh.RHans1"
+		ai_chance = { factor = 100 } #60
+		
+		every_province = {
+			limit = {
+				OR = {
+					area = grao_para_area
+					area = maranhao_area
+					area = piaui_area
+					area = ceara_area
+					area = pernambuco_area
+					area = sao_francisco_area
+					area = bahia_area
+				}
+				OR = {
+					country_or_non_sovereign_subject_holds = FROM
+					controlled_by = ROOT
+					controller = {
+						is_subject_of = ROOT
+					}
+				}
+			}
+			cede_province = ROOT
+			add_permanent_claim = ROOT
+			add_core = ROOT
+		}
+		
+		ROOT = {
+			add_truce_with = POR
+			white_peace = POR
+		}
+	}
+}
+
+# The Alaska Purchase REQUEST
+country_event = {
+	id = flavor_rus_rh.1000
+	title = "flavor_rus.RHtit1"
+	desc = "flavor_rus.RHdesc1"
+	picture = DIPLOMACY_eventPicture
+
+	fire_only_once = yes
+	
+	trigger = {
+		tag = RUS
+		exists = USA
+		is_year = 1760
+		#NOT = { is_year = 1900 }
+		colonial_alaska = {
+			OR = {
+				owned_by = ROOT
+				owner = {
+					is_colonial_nation_of = ROOT
+				}
+			}
+		}
+		OR = {
+			ENG = { is_great_power = yes }
+			GBR = { is_great_power = yes }
+		}
+		USA = { treasury = 750 }
+	}
+	
+	mean_time_to_happen = { months = 36 }
+	
+	option = {
+		name = "flavor_rus.RHans1"
+		ai_chance = { factor = 100 } #60
+		
+		USA = {
+			country_event = { id = flavor_usa_rh.1000 days = 1 } # Sell
+		}
+	}
+
+	option = {
+		name = "flavor_rus.RHans2"
+		ai_chance = { factor = 0 } #40
+		# Refuse
+	}
+}
+
+# Sell Alaska ANSWER
+country_event = {
+	id = flavor_usa_rh.1000
+	title = "flavor_usa.RHtit1"
+	desc = "flavor_usa.RHdesc1"
+	picture = DIPLOMACY_eventPicture
+
+	is_triggered_only = yes
+
+	option = {			# Yes, let's buy it
+		name = "flavor_usa.RHans1"
+		ai_chance = { factor = 100 }
+		#ai_chance = {
+		#	if = {
+		#		limit = {
+		#			treasury = 500
+		#		}
+		#		factor = 90 #90
+		#	}
+		#	else = {
+		#		factor = 10 #10
+		#	}
+		#}
+		
+		add_treasury = -1000
+		hidden_effect = {
+			FROM = {
+				add_treasury = 1000
+			}
+		}
+		
+		every_province = {
+			limit = {
+				OR = {
+					colonial_region = colonial_alaska
+				}
+				country_or_non_sovereign_subject_holds = FROM
+			}
+			remove_core = FROM
+			remove_claim = FROM
+
+			cede_province = ROOT
+			add_core = ROOT
+			add_permanent_claim = ROOT
+		}
+		
+		FROM = {
+			add_truce_with = ROOT
+		}
+		add_opinion = { 
+			who = RUS 
+			modifier = opinion_gave_province
+			years = 20
+		}
+	}
+	option = {			# No, it's not worth it
+		name = "flavor_usa.RHans2"
+		ai_chance = { factor = 0 }
+		#ai_chance = {
+		#	if = {
+		#		limit = {
+		#			treasury = 500
+		#		}
+		#		factor = 10 #10
+		#	}
+		#	else = {
+		#		factor = 90 #90
+		#	}
+		#}
+		add_opinion = { 
+			who = RUS 
+			modifier = opinion_disappointed
+			years = 20
+		}
+	}
+}
+
+# Demand Haiti
+country_event = {
+	id = flavor_fra_rh.90001
+	title = "flavor_fra.RHtit1"
+	desc = "flavor_fra.RHdesc1"
+	picture = BORDER_TENSION_eventPicture
+
+	fire_only_once = yes
+	
+	trigger = {
+		is_year = 1625
+		NOT = { is_year = 1750 }
+		tag = FRA
+		is_at_war = no
+		hispaniola_area = {
+			OR = {
+				country_or_non_sovereign_subject_holds = CAS
+				country_or_non_sovereign_subject_holds = SPA
+			}	
+			has_discovered = yes
+		}
+	}
+	
+	mean_time_to_happen = {
+		months = 12
+	}
+
+	option = {			# Yes, they are essential
+		name = "flavor_fra.RHans1"
+		ai_chance = { factor = 100 }
+		if = {
+			limit = {
+				exists = SPA
+			}
+			SPA = {
+				country_event = { id = flavor_spa_rh.1005 days = 1 }
+			}
+		}
+		else = {
+			CAS = {
+				country_event = { id = flavor_spa_rh.1005 days = 1 }
+			}
+		}
+	}
+	option = {			# No, I don't care
+		name = "flavor_fra.RHans2"
+		ai_chance = { factor = 0 }
+	}
+}
+
+# Demand Haiti ANSWER
+country_event = {
+	id = flavor_spa_rh.1005
+	title = "flavor_spa.RHtit5"
+	desc = "flavor_spa.RHdesc5"
+	picture = BORDER_TENSION_eventPicture
+
+	is_triggered_only = yes
+
+	option = {			# Yes, we give it to the French
+		name = "flavor_spa.RHans5"
+		ai_chance = { factor = 75 } #75
+		add_prestige = -5
+		every_province = {
+			limit = {
+				OR = {
+					area = hispaniola_area
+				}
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+			remove_core = ROOT
+			remove_claim = ROOT
+
+			cede_province = FROM
+			add_core = FROM
+			add_permanent_claim = FROM
+		}
+		
+		FROM = {
+			add_truce_with = ROOT
+		}
+	}
+	option = {			# No, we must resist
+		name = "flavor_spa.RHans6"
+		ai_chance = { factor = 25 } #25
+		
+		every_province = {
+			limit = {
+				OR = {
+					area = hispaniola_area
+				}
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+			add_permanent_claim = FROM
+		}
+		
+		488 = {
+			owner = {
+				FROM = {
+					declare_war_with_cb = {
+						who = PREV
+						casus_belli = cb_conquest
+						war_goal_province = 488
+					}
+				}
+			}
+		}
+	}
+}
+
+#Haitian Revolution 
+country_event = {
+	id = flavor_rh.10001
+	title = "flavor_rh.10001.RHtit"
+	desc = "flavor_rh.10001.RHdesc"
+	picture = ANGRY_MOB_eventPicture
+	
+	fire_only_once = yes
+	major = yes
+	
+	trigger = {
+		current_age = age_of_revolutions
+		is_year = 1790
+		NOT = { HAT = { exists = yes } }
+		any_subject_country = {
+			is_colonial_nation_of = ROOT
+			capital_scope = {
+				area = hispaniola_area
+			}
+		}
+	}
+
+	mean_time_to_happen = {
+		months = 240
+		modifier = {
+			factor = 0.75
+			is_year	= 1800
+		}
+		modifier = {
+			factor = 0.1
+			NOT = {
+				capital_scope = {
+					controlled_by = ROOT
+				}
+			}
+		}
+		modifier = {
+			factor = 0.9
+			war_exhaustion = 2.5
+		}
+		modifier = {
+			factor = 0.8
+			war_exhaustion = 5
+		}
+		modifier = {
+			factor = 0.7
+			war_exhaustion = 10
+		}
+		modifier = {
+			factor = 0.5
+			NOT = { prestige = 0 }
+		}
+		modifier = {
+			factor = 0.5
+			NOT = { stability = 0 }
+		}
+		modifier = {
+			factor = 1.2
+			stability = 1
+		}
+		modifier = {
+			factor = 1.2
+			prestige = 50
+		}
+		modifier = {
+			factor = 1.2
+			is_bankrupt = no
+		}
+		modifier = {
+			factor = 0.9
+			is_at_war = yes
+		}
+		modifier = {
+			factor = 0.01
+			is_bankrupt = yes
+		}
+		modifier = {
+			factor = 0.1
+			is_in_deficit = yes
+		}
+		modifier = {
+			factor = 0.8
+			FRA = {
+				exists = yes
+			}
+			any_subject_country = {
+				is_colonial_nation_of = FRA
+				capital_scope = {
+					area = hispaniola_area
+				}
+			}
+		}
+	}
+
+	option = {
+		name = "flavor_rh.10001.RHans1"
+		ai_chance = { factor = 99 }
+		
+		every_subject_country = {
+			if = {
+				limit = {
+					is_colonial_nation_of = ROOT
+					capital_scope = {
+						area = hispaniola_area
+					}
+				}
+				add_liberty_desire = 75
+				add_country_modifier = {
+					name = "fra_haitian_revolution"
+					duration = 7300
+				}
+			}
+		}
+		set_global_flag = hiati_independence
+	}
+	option = {
+		name = "flavor_rh.10001.RHans2"
+		ai_chance = {
+			factor = 1
+		}
+		add_prestige = -25
+		every_subject_country = {
+			if = {
+				limit = {
+					is_colonial_nation_of = ROOT
+					capital_scope = {
+						area = hispaniola_area
+					}
+				}
+				grant_independence = yes
+			}
+		}
+		set_global_flag = hiati_independence
+	}
+}
+#Decolonization of the Americas - La Plata
+country_event = {
+	id = flavor_rh.10002
+	title = "flavor_rh.10002.RHtit"
+	desc = "flavor_rh.10002.RHdesc"
+	picture = ANGRY_MOB_eventPicture
+	
+	fire_only_once = yes
+	major = yes
+	
+	trigger = {
+		current_age = age_of_revolutions
+		is_year = 1800
+		OR = {
+			NOT = { CHL = { exists = yes } }
+			NOT = { PRG = { exists = yes } }
+			NOT = { LAP = { exists = yes } }
+		}
+		OR = {
+			HAT = { exists = yes }
+			any_country = {
+				has_global_flag = hiati_independence
+			}
+			AND = {
+				NOT = {
+					capital_scope = {
+						controlled_by = ROOT
+					}
+				}
+			}
+		}
+		any_subject_country = {
+			is_colonial_nation_of = ROOT
+			capital_scope = {
+				OR = {
+					colonial_region = colonial_la_upper_plata
+					colonial_region = colonial_la_plata
+				}
+			}
+			#paraguay_area = {
+			#	owned_by = PREV
+			#}
+		}
+	}
+
+	mean_time_to_happen = {
+		months = 240
+		modifier = {
+			factor = 0.75
+			is_year	= 1800
+		}
+		modifier = {
+			factor = 0.1
+			NOT = {
+				capital_scope = {
+					controlled_by = ROOT
+				}
+			}
+		}
+		modifier = {
+			#EXTRA
+			factor = 0.25
+			war_exhaustion = 15
+		}
+		modifier = {
+			factor = 0.9
+			war_exhaustion = 2.5
+		}
+		modifier = {
+			factor = 0.8
+			war_exhaustion = 5
+		}
+		modifier = {
+			factor = 0.7
+			war_exhaustion = 10
+		}
+		modifier = {
+			factor = 0.5
+			NOT = { prestige = 0 }
+		}
+		modifier = {
+			factor = 0.5
+			NOT = { stability = 0 }
+		}
+		modifier = {
+			factor = 1.2
+			stability = 1
+		}
+		modifier = {
+			factor = 1.2
+			prestige = 50
+		}
+		modifier = {
+			factor = 1.2
+			is_bankrupt = no
+		}
+		modifier = {
+			factor = 0.9
+			is_at_war = yes
+		}
+		modifier = {
+			factor = 0.01
+			is_bankrupt = yes
+		}
+		modifier = {
+			factor = 0.1
+			is_in_deficit = yes
+		}
+		modifier = {
+			factor = 0.8
+			OR = {
+				CAS = { exists = yes }
+				SPA = { exists = yes }
+			}
+			any_subject_country = {
+				OR = {
+					is_colonial_nation_of = CAS
+					is_colonial_nation_of = SPA
+				}
+				capital_scope = {
+					OR = {
+						colonial_region = colonial_la_upper_plata
+						colonial_region = colonial_la_plata
+					}
+				}
+			}
+		}
+	}
+
+	option = {
+		name = "flavor_rh.10002.RHans1"
+		ai_chance = { factor = 99 }
+		
+		every_subject_country = {
+			if = {
+				limit = {
+					is_colonial_nation_of = ROOT
+					capital_scope = {
+						OR = {
+							colonial_region = colonial_la_upper_plata
+							colonial_region = colonial_la_plata
+						}
+					}
+				}
+				add_liberty_desire = 75
+				add_country_modifier = {
+					name = "american_decolonization"
+					duration = 7300
+				}
+			}
+		}
+		set_global_flag = la_plata_independence
+		#set_global_flag = la_plata_released
+	}
+	#option = {
+	#	name = "flavor_rh.10002.RHans2"
+	#	ai_chance = {
+	#		factor = 1
+	#	}
+	#	add_prestige = -25
+	#	every_subject_country = {
+	#		if = {
+	#			limit = {
+	#				is_colonial_nation_of = ROOT
+	#				capital_scope = {
+	#					OR = {
+	#						colonial_region = colonial_la_upper_plata
+	#						colonial_region = colonial_la_plata
+	#					}
+	#				}
+	#			}
+	#			grant_independence = yes
+	#		}
+	#	}
+	#	set_global_flag = la_plata_independence
+	#	#set_global_flag = la_plata_released
+	#}
+}
+#Decolonization of the Americas - Colombia
+country_event = {
+	id = flavor_rh.10003
+	title = "flavor_rh.10003.RHtit"
+	desc = "flavor_rh.10003.RHdesc"
+	picture = ANGRY_MOB_eventPicture
+	
+	fire_only_once = yes
+	major = yes
+	
+	trigger = {
+		current_age = age_of_revolutions
+		is_year = 1800
+		OR = {
+			NOT = { COL = { exists = yes } }
+		}
+		OR = {
+			CHL = { exists = yes }
+			PRG = { exists = yes }
+			LAP = { exists = yes }
+			any_country = {
+				has_global_flag = la_plata_independence
+			}
+			AND = {
+				NOT = {
+					capital_scope = {
+						controlled_by = ROOT
+					}
+				}
+			}
+		}
+		any_subject_country = {
+			is_colonial_nation_of = ROOT
+			capital_scope = {
+				colonial_region = colonial_colombia
+			}
+		}
+	}
+
+	mean_time_to_happen = {
+		months = 240
+		modifier = {
+			factor = 0.75
+			is_year	= 1800
+		}
+		modifier = {
+			factor = 0.1
+			NOT = {
+				capital_scope = {
+					controlled_by = ROOT
+				}
+			}
+		}
+		modifier = {
+			factor = 0.9
+			war_exhaustion = 2.5
+		}
+		modifier = {
+			factor = 0.8
+			war_exhaustion = 5
+		}
+		modifier = {
+			factor = 0.7
+			war_exhaustion = 10
+		}
+		modifier = {
+			factor = 0.5
+			NOT = { prestige = 0 }
+		}
+		modifier = {
+			factor = 0.5
+			NOT = { stability = 0 }
+		}
+		modifier = {
+			factor = 1.2
+			stability = 1
+		}
+		modifier = {
+			factor = 1.2
+			prestige = 50
+		}
+		modifier = {
+			factor = 1.2
+			is_bankrupt = no
+		}
+		modifier = {
+			factor = 0.9
+			is_at_war = yes
+		}
+		modifier = {
+			factor = 0.01
+			is_bankrupt = yes
+		}
+		modifier = {
+			factor = 0.1
+			is_in_deficit = yes
+		}
+		modifier = {
+			factor = 0.8
+			OR = {
+				CAS = { exists = yes }
+				SPA = { exists = yes }
+			}
+			any_subject_country = {
+				OR = {
+					is_colonial_nation_of = CAS
+					is_colonial_nation_of = SPA
+				}
+				capital_scope = {
+					colonial_region = colonial_colombia
+				}
+			}
+		}
+	}
+
+	option = {
+		name = "flavor_rh.10003.RHans1"
+		ai_chance = { factor = 99 }
+		
+		every_subject_country = {
+			if = {
+				limit = {
+					is_colonial_nation_of = ROOT
+					capital_scope = {
+						colonial_region = colonial_colombia
+					}
+				}
+				add_liberty_desire = 75
+				add_country_modifier = {
+					name = "american_decolonization"
+					duration = 7300
+				}
+			}
+		}
+		set_global_flag = columbia_independence
+	}
+	#option = {
+	#	name = "flavor_rh.10003.RHans2"
+	#	ai_chance = {
+	#		factor = 1
+	#	}
+	#	add_prestige = -25
+	#	every_subject_country = {
+	#		if = {
+	#			limit = {
+	#				is_colonial_nation_of = ROOT
+	#				capital_scope = {
+	#					colonial_region = colonial_columbia
+	#				}
+	#			}
+	#			grant_independence = yes
+	#		}
+	#	}
+	#	set_global_flag = columbia_independence
+	#}
+}
+#Decolonization of the Americas - Mexico
+country_event = {
+	id = flavor_rh.10004
+	title = "flavor_rh.10004.RHtit"
+	desc = "flavor_rh.10004.RHdesc"
+	picture = ANGRY_MOB_eventPicture
+	
+	fire_only_once = yes
+	major = yes
+	
+	trigger = {
+		current_age = age_of_revolutions
+		is_year = 1800
+		NOT = { COL = { exists = yes } }
+		OR = {
+			CHL = { exists = yes }
+			PRG = { exists = yes }
+			LAP = { exists = yes }
+			any_country = {
+				has_global_flag = la_plata_independence
+			}
+			AND = {
+				NOT = {
+					capital_scope = {
+						controlled_by = ROOT
+					}
+				}
+			}
+		}
+		any_subject_country = {
+			is_colonial_nation_of = ROOT
+			capital_scope = {
+				OR = {
+					colonial_region = colonial_mexico
+					colonial_region = colonial_honduras
+					colonial_region = colonial_texas
+					colonial_region = colonial_arizona
+					colonial_region = colonial_california
+				}
+			}
+		}
+	}
+
+	mean_time_to_happen = {
+		months = 240
+		modifier = {
+			factor = 0.75
+			is_year	= 1800
+		}
+		modifier = {
+			factor = 0.1
+			NOT = {
+				capital_scope = {
+					controlled_by = ROOT
+				}
+			}
+		}
+		modifier = {
+			factor = 0.9
+			war_exhaustion = 2.5
+		}
+		modifier = {
+			factor = 0.8
+			war_exhaustion = 5
+		}
+		modifier = {
+			factor = 0.7
+			war_exhaustion = 10
+		}
+		modifier = {
+			factor = 0.5
+			NOT = { prestige = 0 }
+		}
+		modifier = {
+			factor = 0.5
+			NOT = { stability = 0 }
+		}
+		modifier = {
+			factor = 1.2
+			stability = 1
+		}
+		modifier = {
+			factor = 1.2
+			prestige = 50
+		}
+		modifier = {
+			factor = 1.2
+			is_bankrupt = no
+		}
+		modifier = {
+			factor = 0.9
+			is_at_war = yes
+		}
+		modifier = {
+			factor = 0.01
+			is_bankrupt = yes
+		}
+		modifier = {
+			factor = 0.1
+			is_in_deficit = yes
+		}
+		modifier = {
+			factor = 0.8
+			OR = {
+				CAS = { exists = yes }
+				SPA = { exists = yes }
+			}
+			any_subject_country = {
+				OR = {
+					is_colonial_nation_of = CAS
+					is_colonial_nation_of = SPA
+				}
+				capital_scope = {
+					OR = {
+						colonial_region = colonial_mexico
+						colonial_region = colonial_honduras
+						colonial_region = colonial_texas
+						colonial_region = colonial_arizona
+						colonial_region = colonial_california
+					}
+				}
+			}
+		}
+	}
+
+	option = {
+		name = "flavor_rh.10004.RHans1"
+		ai_chance = { factor = 99 }
+		
+		every_subject_country = {
+			if = {
+				limit = {
+					is_colonial_nation_of = ROOT
+					capital_scope = {
+						OR = {
+							colonial_region = colonial_mexico
+							colonial_region = colonial_honduras
+							colonial_region = colonial_texas
+							colonial_region = colonial_arizona
+							colonial_region = colonial_california
+						}
+					}
+				}
+				add_liberty_desire = 75
+				add_country_modifier = {
+					name = "american_decolonization"
+					duration = 7300
+				}
+			}
+		}
+		set_global_flag = mexico_independence
+	}
+	#option = {
+	#	name = "flavor_rh.10004.RHans2"
+	#	ai_chance = {
+	#		factor = 1
+	#	}
+	#	add_prestige = -25
+	#	every_subject_country = {
+	#		if = {
+	#			limit = {
+	#				is_colonial_nation_of = ROOT
+	#				capital_scope = {
+	#					OR = {
+	#						colonial_region = colonial_mexico
+	#						colonial_region = colonial_honduras
+	#						colonial_region = colonial_texas
+	#						colonial_region = colonial_arizona
+	#						colonial_region = colonial_california
+	#					}
+	#				}
+	#			}
+	#			grant_independence = yes
+	#		}
+	#	}
+	#	set_global_flag = mexico_independence
+	#}
+}
+#Decolonization of the Americas - Peru
+country_event = {
+	id = flavor_rh.10005
+	title = "flavor_rh.10005.RHtit"
+	desc = "flavor_rh.10005.RHdesc"
+	picture = ANGRY_MOB_eventPicture
+	
+	fire_only_once = yes
+	major = yes
+	
+	trigger = {
+		current_age = age_of_revolutions
+		is_year = 1800
+		NOT = { COL = { exists = yes } }
+		OR = {
+			COL = { exists = yes }
+			any_country = {
+				has_global_flag = columbia_independence
+			}
+			AND = {
+				NOT = {
+					capital_scope = {
+						controlled_by = ROOT
+					}
+				}
+			}
+		}
+		any_subject_country = {
+			is_colonial_nation_of = ROOT
+			capital_scope = {
+				colonial_region = colonial_peru
+			}
+		}
+	}
+
+	mean_time_to_happen = {
+		months = 240
+		modifier = {
+			factor = 0.75
+			is_year	= 1800
+		}
+		modifier = {
+			factor = 0.1
+			NOT = {
+				capital_scope = {
+					controlled_by = ROOT
+				}
+			}
+		}
+		modifier = {
+			factor = 0.9
+			war_exhaustion = 2.5
+		}
+		modifier = {
+			factor = 0.8
+			war_exhaustion = 5
+		}
+		modifier = {
+			factor = 0.7
+			war_exhaustion = 10
+		}
+		modifier = {
+			factor = 0.5
+			NOT = { prestige = 0 }
+		}
+		modifier = {
+			factor = 0.5
+			NOT = { stability = 0 }
+		}
+		modifier = {
+			factor = 1.2
+			stability = 1
+		}
+		modifier = {
+			factor = 1.2
+			prestige = 50
+		}
+		modifier = {
+			factor = 1.2
+			is_bankrupt = no
+		}
+		modifier = {
+			factor = 0.9
+			is_at_war = yes
+		}
+		modifier = {
+			factor = 0.01
+			is_bankrupt = yes
+		}
+		modifier = {
+			factor = 0.1
+			is_in_deficit = yes
+		}
+		modifier = {
+			factor = 0.8
+			OR = {
+				CAS = { exists = yes }
+				SPA = { exists = yes }
+			}
+			any_subject_country = {
+				OR = {
+					is_colonial_nation_of = CAS
+					is_colonial_nation_of = SPA
+				}
+				capital_scope = {
+					colonial_region = colonial_peru
+				}
+			}
+		}
+	}
+
+	option = {
+		name = "flavor_rh.10005.RHans1"
+		ai_chance = { factor = 99 }
+		
+		every_subject_country = {
+			if = {
+				limit = {
+					is_colonial_nation_of = ROOT
+					capital_scope = {
+						colonial_region = colonial_peru
+					}
+				}
+				add_liberty_desire = 75
+				add_country_modifier = {
+					name = "american_decolonization"
+					duration = 7300
+				}
+			}
+		}
+		set_global_flag = peru_independence
+	}
+	#option = {
+	#	name = "flavor_rh.10005.RHans2"
+	#	ai_chance = {
+	#		factor = 1
+	#	}
+	#	add_prestige = -25
+	#	every_subject_country = {
+	#		if = {
+	#			limit = {
+	#				is_colonial_nation_of = ROOT
+	#				capital_scope = {
+	#					colonial_region = colonial_peru
+	#				}
+	#			}
+	#			grant_independence = yes
+	#		}
+	#	}
+	#	set_global_flag = peru_independence
+	#}
+}
+# North German state joins Germany
+country_event = {
+	id = flavor_rh.10006
+	title = "flavor_rh.10006.RHtit"
+	desc = "flavor_rh.10006.RHdesc"
+	picture = DIPLOMACY_eventPicture
+	
+	major = yes
+	
+	trigger = {
+		ai = yes
+		#was_player = no
+		culture_group = germanic
+		NOT = {
+			OR = {
+				primary_culture = dutch
+				primary_culture = flemish
+				primary_culture = frisian
+				primary_culture = brabantian
+			}
+		}
+		is_at_war = no
+		NOT = { tag = BRA }
+		NOT = { tag = PRU }
+		NOT = { tag = NGC }
+		NOT = { tag = GER }
+		NOT = { tag = HAB }
+		NOT = { tag = SWI }
+		NOT = { tag = BOH }
+		OR = {
+			PRU = { exists = yes }
+			NGC = { exists = yes }
+			GER = { exists = yes }
+		}
+		OR = {
+			PRU = { has_country_flag = united_german_confederation }
+			NGC = { has_country_flag = united_german_confederation }
+			GER = { has_country_flag = united_german_confederation }
+			AND = {
+				current_age = age_of_revolutions
+				is_year = 1800
+				#is_part_of_hre = no
+				OR = {
+					BRA = { exists = yes num_of_cities = 12 }
+					PRU = { exists = yes num_of_cities = 8 }
+					NGC = { exists = yes num_of_cities = 8 }
+					GER = { exists = yes num_of_cities = 8 }
+				}
+			}
+		}
+		#is_free_or_tributary_trigger = yes
+		any_owned_province = {
+			region = north_german_region
+		}
+		NOT = {
+			has_country_flag = state_joined_germany
+		}
+	}
+	
+	mean_time_to_happen = {
+		months = 12
+	}
+	
+	option = {
+		name = "flavor_rh.10006.RHans1"
+		if = {
+			limit = {
+				AND = {
+					PRU = { exists = yes }
+					OR = {
+						PRU = { has_country_flag = united_german_confederation }
+						AND = {
+							current_age = age_of_revolutions
+							OR = {
+								is_year = 1800
+								is_part_of_hre = no
+							}
+						}
+					}
+				}
+			}
+			PRU = {
+				country_event = { id = flavor_rh.10007 days = 1 }
+			}
+		}
+		else = {
+			if = {
+				limit = {
+					AND = {
+						NGC = { exists = yes }
+						OR = {
+							NGC = { has_country_flag = united_german_confederation }
+							AND = {
+								current_age = age_of_revolutions
+								OR = {
+									is_year = 1800
+									is_part_of_hre = no
+								}
+							}
+						}
+					}
+				}
+				NGC = {
+					country_event = { id = flavor_rh.10007 days = 1 }
+				}
+			}
+			else = {
+				if = {
+					limit = {
+						AND = {
+							GER = { exists = yes }
+							OR = {
+								GER = { has_country_flag = united_german_confederation }
+								AND = {
+									current_age = age_of_revolutions
+									OR = {
+										is_year = 1800
+										is_part_of_hre = no
+									}
+								}
+							}
+						}
+					}
+					GER = {
+						country_event = { id = flavor_rh.10007 days = 1 }
+					}
+				}
+			}
+		}
+		set_country_flag = state_joined_germany
+	}
+}
+# South German state joins Germany
+country_event = {
+	id = flavor_rh.10008
+	title = "flavor_rh.10008.RHtit"
+	desc = "flavor_rh.10008.RHdesc"
+	picture = DIPLOMACY_eventPicture
+	
+	major = yes
+	
+	trigger = {
+		ai = yes
+		#was_player = no
+		culture_group = germanic
+		NOT = {
+			OR = {
+				primary_culture = dutch
+				primary_culture = flemish
+				primary_culture = frisian
+				primary_culture = brabantian
+			}
+		}
+		is_subject = no
+		is_at_war = no
+		NOT = { tag = BRA }
+		NOT = { tag = PRU }
+		NOT = { tag = NGC }
+		NOT = { tag = GER }
+		NOT = { tag = SWI }
+		NOT = { tag = BOH }
+		NOT = { tag = HAB }
+		if = {
+			limit = {
+				HAB = {
+					NOT = {
+						num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+							value = 12
+							continent = europe
+							is_city = yes
+						}
+					}
+				}
+			}
+			NOT = { tag = HAB }
+		}
+		OR = {
+			AND = {
+				PRU = { exists = yes }
+				current_age = age_of_revolutions
+				is_year = 1850
+			}
+			NGC = { exists = yes }
+			GER = { exists = yes }
+		}
+		OR = {
+			NGC = { has_country_flag = franco_prussian_war_victory }
+			GER = { has_country_flag = franco_prussian_war_victory }
+			AND = {
+				current_age = age_of_revolutions
+				is_year = 1850
+				#is_part_of_hre = no
+				OR = {
+					BRA = { exists = yes num_of_cities = 24 }
+					#EXTRA start
+					PRU = { exists = yes num_of_cities = 12 }
+					#EXTRA end
+					NGC = { exists = yes num_of_cities = 12 }
+					GER = { exists = yes num_of_cities = 12 }
+				}
+			}
+		}
+		#is_free_or_tributary_trigger = yes
+		any_owned_province = {
+			region = south_german_region
+		}
+		NOT = {
+			has_country_flag = state_joined_germany
+		}
+	}
+	
+	mean_time_to_happen = {
+		months = 12
+	}
+	
+	option = {
+		name = "flavor_rh.10008.RHans1"
+		if = {
+			limit = {
+				AND = {
+					PRU = { exists = yes }
+					current_age = age_of_revolutions
+					OR = {
+						is_year = 1850
+						is_part_of_hre = no
+					}
+				}
+			}
+			PRU = {
+				country_event = { id = flavor_rh.10007 days = 1 }
+			}
+		}
+		if = {
+			limit = {
+				AND = {
+					NGC = { exists = yes }
+					OR = {
+						NGC = { has_country_flag = united_german_confederation }
+						AND = {
+							current_age = age_of_revolutions
+							OR = {
+								is_year = 1850
+								is_part_of_hre = no
+							}
+						}
+					}
+				}
+			}
+			NGC = {
+				country_event = { id = flavor_rh.10007 days = 1 }
+			}
+		}
+		else = {
+			if = {
+				limit = {
+					AND = {
+						GER = { exists = yes }
+						OR = {
+							GER = { has_country_flag = united_german_confederation }
+							AND = {
+								current_age = age_of_revolutions
+								OR = {
+									is_year = 1850
+									is_part_of_hre = no
+								}
+							}
+						}
+					}
+				}
+				GER = {
+					country_event = { id = flavor_rh.10007 days = 1 }
+				}
+			}
+		}
+		set_country_flag = state_joined_germany
+	}
+}
+
+# Incorporated into Germany
+country_event = {
+	id = flavor_rh.10007
+	title = "flavor_rh.10007.RHtit"
+	desc = "flavor_rh.10007.RHdesc"
+	picture = DIPLOMACY_eventPicture
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = "flavor_rh.10007.RHans1"
+		FROM = {
+			set_in_empire = no
+		}
+		create_subject = {
+			subject_type = german_vassal
+			subject = FROM
+		}
+		#inherit = FROM
+	}
+}
+
+# The incorporation of Cleves into Brandenburg
+country_event = {
+	id = flavor_rh.10009
+	title = "flavor_rh.10009.RHtit"
+	desc = "flavor_rh.10009.RHdesc"
+	picture = GOOD_WITH_MONARCH_eventPicture
+	
+	fire_only_once = yes
+	
+	trigger = {
+		OR = {
+			tag = BRA
+			tag = PRU
+			tag = NGC
+		}
+		government = monarchy
+		KLE = {
+			government = monarchy
+			ai = yes
+			#was_player = no
+			NOT = { num_of_subjects = 1 }
+			OR = {
+				AND = {
+					has_opinion = { who = ROOT value = 100 }
+					marriage_with = ROOT
+				}
+				has_heir = no
+			}
+			is_subject = no
+		}
+		is_year = 1550
+		NOT = { is_year = 1750 }
+	}
+	
+	mean_time_to_happen = {
+		months = 32
+	}
+	
+	option = {
+		name = "flavor_rh.10009.RHans1"
+		ROOT = {
+			create_union = KLE
+		}
+	}
+}
+
+# Bohemia PU under Austria
+country_event = {
+	id = flavor_hab_rh.10000
+	title = "flavor_hab_rh.10000.RHtit"
+	desc = "flavor_hab_rh.10000.RHdesc"
+	picture = GOOD_WITH_MONARCH_eventPicture
+
+	major = yes
+	fire_only_once = yes
+	
+	trigger = {
+		tag = BOH
+		HAB = {
+			government = monarchy
+		}
+		is_year = 1460
+		NOT = { is_year = 1650 }
+		BOH = {
+			government = monarchy
+			ai = yes
+			#was_player = no
+			OR = {
+				AND = {
+					has_opinion = { who = HAB value = 100 }
+					marriage_with = HAB
+				}
+				has_heir = no
+			}
+			is_subject = no
+		}
+	}
+	
+	mean_time_to_happen = {
+		months = 360
+		modifier = {
+			factor = 0.75
+			HAB = {
+				has_opinion = { who = ROOT value = 50 }
+			}
+		}
+		modifier = {
+			factor = 0.50
+			HAB = {
+				has_opinion = { who = ROOT value = 100 }
+			}
+		}
+		modifier = {
+			factor = 0.75
+			HAB = {
+				has_opinion = { who = ROOT value = 150 }
+			}
+		}
+		modifier = {
+			factor = 0.50
+			HAB = {
+				has_opinion = { who = ROOT value = 200 }
+			}
+		}
+		modifier = {
+			factor = 0.50
+			HAB = {
+				ai = yes
+			}
+		}
+		modifier = {
+			factor = 0.20
+			has_heir = no
+		}
+		modifier = {
+			factor = 0.50
+			HAB = {
+				marriage_with = ROOT
+			}
+		}
+		modifier = {
+			factor = 0.95
+			HAB = {
+				prestige = 25
+			}
+		}
+		modifier = {
+			factor = 0.90
+			HAB = {
+				prestige = 50
+			}
+		}
+		modifier = {
+			factor = 0.80
+			HAB = {
+				prestige = 75
+			}
+		}
+		modifier = {
+			factor = 0.70
+			HAB = {
+				prestige = 95
+			}
+		}
+		modifier = {
+			factor = 0.65
+			NOT = { prestige = 0 }
+ 		}
+		modifier = {
+			factor = 0.55
+			NOT = { stability = 0 }
+ 		}
+		modifier = {
+			factor = 0.25
+			is_bankrupt = yes
+			HAB = { is_bankrupt = no }
+ 		}
+		modifier = {
+			factor = 0.05
+			is_year = 1529
+		}
+	}
+
+	option = {
+		ai_chance = { factor = 25 }
+		name = flavor_hab_rh.10000.RHans1
+		remove_historical_friend = HAB
+		HAB = { remove_historical_friend = BOH }
+		HAB = {
+			tooltip = {
+				add_casus_belli = {	
+					target = BOH
+					type = cb_claim_throne
+					months = 60
+				}	
+			}
+		}
+	}
+	option = {
+		name = flavor_hab_rh.10000.RHans2
+		ai_chance = { factor = 75 }
+		add_stability_or_adm_power = yes
+		HAB = {
+			create_union = BOH
+		}
+	}
+}
+
+# Treaty of Berlin
+country_event = {
+	id = flavor_rh.10010
+	title = "flavor_rh.10010.RHtit"
+	desc = "flavor_rh.10010.RHdesc"
+	picture = DIPLOMACY_eventPicture
+
+	is_triggered_only = yes
+
+	option = {			# Yes, we accept
+		name = "flavor_rh.10010.RHans1"
+		ai_chance = { factor = 100 }
+		
+		every_province = {
+			limit = {
+				OR = {
+					area = silesia_area
+					province_id = 60
+					province_id = 1763
+				}
+				OR = {
+					controlled_by = ROOT
+					controller = {
+						is_subject_of = ROOT
+					}
+				}
+				OR = {
+					country_or_non_sovereign_subject_holds = HAB
+					owner = {
+						OR = {
+							AND = {
+								is_subject_of = BOH
+								BOH = {
+									is_subject_of = HAB
+								}
+							}
+							is_subject_of = HAB
+						}
+					}
+				}
+			}
+			if = {
+				limit = {
+					NOT = { is_core = ROOT }
+					NOT = { is_permanent_claim = ROOT }
+				}
+				add_permanent_claim = ROOT
+			}
+			cede_province = ROOT
+		}
+		ROOT = {
+			add_truce_with = HAB
+			white_peace = HAB
+		}
+		HAB = {
+			add_opinion = {
+				who = ROOT
+				modifier = opinion_forced_return_territory
+				years = 20
+			}
+		}
+		HAB = {
+			add_prestige = -10
+		}
+	}
+	option = {			# No, we refuse
+		name = "flavor_rh.10010.RHans2"
+		ai_chance = { factor = 0 }
+		
+		ROOT = {
+			add_truce_with = HAB
+			white_peace = HAB
+		}
+		HAB = {
+			add_opinion = {
+				who = ROOT
+				modifier = returned_core_to_me
+				years = 20
+			}
+		}
+	}
+}
+
+# Treaty of Berlin
+country_event = {
+	id = flavor_rh.10011
+	title = "flavor_rh.10011.RHtit"
+	desc = "flavor_rh.10011.RHdesc"
+	picture = DIPLOMACY_eventPicture
+
+	is_triggered_only = yes
+
+	option = {			# Yes, we accept
+		name = "flavor_rh.10011.RHans1"
+		ai_chance = { factor = 100 }
+		
+		every_province = {
+			limit = {
+				OR = {
+					area = upper_rhineland_area
+					province_id = 188
+					province_id = 189
+					province_id = 80
+					province_id = 1761
+				}
+				OR = {
+					controlled_by = ROOT
+					controller = {
+						is_subject_of = ROOT
+					}
+				}
+				OR = {
+					country_or_non_sovereign_subject_holds = FRA
+					owner = {
+						OR = {
+							AND = {
+								is_subject_of = PRO
+								PRO = {
+									is_subject_of = FRA
+								}
+							}
+							is_subject_of = FRA
+						}
+					}
+				}
+			}
+			if = {
+				limit = {
+					NOT = { is_core = ROOT }
+					NOT = { is_permanent_claim = ROOT }
+				}
+				add_permanent_claim = ROOT
+			}
+			cede_province = ROOT
+		}
+		ROOT = {
+			add_truce_with = FRA
+			white_peace = FRA
+		}
+		FRA = {
+			add_opinion = {
+				who = ROOT
+				modifier = opinion_forced_return_territory
+				years = 20
+			}
+		}
+		FRA = {
+			add_prestige = -10
+		}
+	}
+	option = {			# No, we refuse
+		name = "flavor_rh.10011.RHans2"
+		ai_chance = { factor = 0 }
+		
+		ROOT = {
+			add_truce_with = FRA
+			white_peace = FRA
+		}
+		FRA = {
+			add_opinion = {
+				who = ROOT
+				modifier = returned_core_to_me
+				years = 20
+			}
+		}
+	}
+}
+
+# Drain Amsterdam
+country_event = {
+	id = flavor_rh.10012
+	title = "flavor_rh.10012.RHtit"
+	desc = "flavor_rh.10012.RHdesc"
+	picture = CITY_DEVELOPMENT_eventPicture
+
+	is_triggered_only = yes
+
+	option = {			# OK
+		name = "flavor_rh.10012.RHans1"
+	}
+}
+
+# German Silesia
+country_event = {
+	id = flavor_rh.10013
+	title = "flavor_rh.10013.RHtit"
+	desc = "flavor_rh.10013.RHdesc"
+	picture = EUROPEAN_REFUGEES_eventPicture
+
+	is_triggered_only = yes
+
+	option = {			# OK
+		name = "flavor_rh.10013.RHans1"
+	}
+}
+
+# German Silesia
+country_event = {
+	id = flavor_rh.10014
+	title = "flavor_rh.10014.RHtit"
+	desc = "flavor_rh.10014.RHdesc"
+	picture = EUROPEAN_REFUGEES_eventPicture
+	
+	fire_only_once = yes
+	
+	trigger = {
+		has_country_flag = german_silesia
+	}
+		
+	mean_time_to_happen = {
+		months = 360
+		modifier = {
+			factor = 1
+			manpower = 1
+		}
+		modifier = {
+			factor = 2
+			is_at_war = no
+		}
+		modifier = {
+			factor = 0.25
+			prestige = 50
+		}
+		modifier = {
+			factor = 0.25
+			prestige = 80
+		}
+		modifier = {
+			factor = 0.25
+			prestige = 90
+		}
+		modifier = {
+			factor = 0.5
+			stability = 1
+		}
+		modifier = {
+			factor = 0.5
+			stability = 2
+		}
+		modifier = {
+			factor = 0.5
+			stability = 3
+		}
+	}
+
+	option = {			# OK
+		name = "flavor_rh.10014.RHans1"
+		every_province = {
+			limit = {
+				area = silesia_area
+				NOT = {
+					OR = {
+						culture = pommeranian
+						culture = prussian
+						culture = hannoverian
+						culture = hessian
+						culture = saxon
+						culture = franconian
+						culture = swabian
+						culture = swiss
+						culture = bavarian
+						culture = austrian
+					}
+				}
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+			#if = {
+			#	limit = { tag = HAB }
+			#	change_culture = austrian
+			#} else = {
+			#	change_culture = prussian
+			#}
+			change_culture = german_schlesian
+		}
+		set_country_flag = german_silesia_finished
+	}
+}
+
+# Drain Amsterdam
+country_event = {
+	id = flavor_rh.10015
+	title = "flavor_rh.10015.RHtit"
+	desc = "flavor_rh.10015.RHdesc"
+	picture = CITY_DEVELOPMENT_eventPicture
+	
+	fire_only_once = yes
+	
+	trigger = {
+		has_country_flag = drain_amsterdam
+	}
+		
+	mean_time_to_happen = {
+		months = 360
+		modifier = {
+			factor = 2
+			is_at_war = no
+		}
+		modifier = {
+			factor = 0.25
+			prestige = 50
+		}
+		modifier = {
+			factor = 0.25
+			prestige = 80
+		}
+		modifier = {
+			factor = 0.25
+			prestige = 90
+		}
+		modifier = {
+			factor = 0.5
+			stability = 1
+		}
+		modifier = {
+			factor = 0.5
+			stability = 2
+		}
+		modifier = {
+			factor = 0.5
+			stability = 3
+		}
+	}
+
+	option = {			# OK
+		name = "flavor_rh.10015.RHans1"
+		97 = {
+			add_base_tax = 5
+			add_base_production = 5
+			add_base_manpower = 5
+		}
+	}
+}
+# BRA & PRU friend event
+country_event = {
+	id = flavor_rh.10016
+	title = "flavor_rh.10016.RHtit"
+	desc = "flavor_rh.10016.RHdesc"
+	picture = CITY_DEVELOPMENT_eventPicture
+	
+	fire_only_once = yes
+	hidden = yes
+	
+	trigger = {
+		OR = {
+			tag = BRA
+			tag = PRU
+		}
+		BRA = {
+			government = monarchy
+			exists = yes
+			is_subject = no
+			ai = yes
+		}
+		PRU = {
+			government = monarchy
+			exists = yes
+			is_subject = no
+			ai = yes
+		}
+	}
+	mean_time_to_happen = {
+		months = 12
+	}
+
+	option = {			# OK
+		name = "flavor_rh.10016.RHans1"
+		BRA = {
+			add_historical_friend = PRU
+		}
+		PRU = {
+			add_historical_friend = BRA
+		}
+	}
+}
+# HAB & BOH friend event
+country_event = {
+	id = flavor_rh.10017
+	title = "flavor_rh.10017.RHtit"
+	desc = "flavor_rh.10017.RHdesc"
+	picture = CITY_DEVELOPMENT_eventPicture
+	
+	fire_only_once = yes
+	hidden = yes
+	
+	trigger = {
+		OR = {
+			tag = HAB
+			tag = BOH
+		}
+		HAB = {
+			government = monarchy
+			exists = yes
+			is_subject = no
+			ai = yes
+		}
+		BOH = {
+			government = monarchy
+			exists = yes
+			is_subject = no
+			ai = yes
+		}
+		is_year = 1460
+		NOT = { is_year = 1650 }
+	}
+	mean_time_to_happen = {
+		months = 12
+	}
+
+	option = {			# OK
+		name = "flavor_rh.10017.RHans1"
+		HAB = {
+			add_historical_friend = BOH
+		}
+		BOH = {
+			add_historical_friend = HAB
+		}
+	}
+}
+# HAB & BOH remove friend event
+country_event = {
+	id = flavor_rh.10018
+	title = "flavor_rh.10018.RHtit"
+	desc = "flavor_rh.10018.RHdesc"
+	picture = CITY_DEVELOPMENT_eventPicture
+	
+	fire_only_once = yes
+	hidden = yes
+	
+	trigger = {
+		OR = {
+			tag = HAB
+			tag = BOH
+		}
+		OR = {
+			HAB = {
+				historical_friend_with = BOH 
+			}
+			BOH = {
+				historical_friend_with = HAB 
+			}
+		}
+		is_year = 1650
+	}
+	mean_time_to_happen = {
+		months = 24
+	}
+	option = {			# OK
+		name = "flavor_rh.10018.RHans1"
+		HAB = {
+			remove_historical_friend = BOH
+		}
+		BOH = {
+			remove_historical_friend = HAB
+		}
+	}
+}
+
+# Texas joins USA
+country_event = {
+	id = flavor_rh.10019
+	title = "flavor_rh.10019.RHtit"
+	desc = "flavor_rh.10019.RHdesc"
+	picture = DIPLOMACY_eventPicture
+	
+	fire_only_once = yes
+	major = yes
+	
+	trigger = {
+		tag = TEX
+		USA = {
+			exists = yes
+			is_colonial_nation = no
+		}
+		any_owned_province = {
+			any_neighbor_province = {
+				owner = {
+					tag = USA
+				}
+			}
+		}
+	}
+	mean_time_to_happen = {
+		months = 60
+	}
+	option = { # Yes
+		name = "flavor_rh.10019.RHans1"
+		USA = {
+			country_event = { id = flavor_rh.10020 days = 1 }
+		}
+	}
+	
+	option = { # No
+		name = "flavor_rh.10019.RHans2"
+	}
+}
+# Colonial regions joins Mexico
+country_event = {
+	id = flavor_rh.10027
+	title = "flavor_rh.10027.RHtit"
+	desc = "flavor_rh.10027.RHdesc"
+	picture = DIPLOMACY_eventPicture
+	
+	hidden = yes
+	
+	trigger = {
+		OR = {
+			AND = {
+				tag = CAL
+				is_colonial_nation = no
+				#is_former_colonial_nation = yes
+				ai = yes
+			}
+			AND = {
+				capital_scope = {
+					colonial_region = colonial_arizona
+				}
+				is_colonial_nation = no
+				is_former_colonial_nation = yes
+				ai = yes
+			}
+		}
+		any_owned_province = {
+			any_neighbor_province = {
+				owner = {
+					tag = MEX
+				}
+			}
+		}
+	}
+	mean_time_to_happen = {
+		months = 6
+	}
+	option = { # Yes
+		name = "flavor_rh.10027.RHans1"
+		
+		MEX = {
+			country_event = { id = flavor_rh.10028 days = 1 }
+		}
+	}
+	
+	option = { # No
+		name = "flavor_rh.10027.RHans2"
+	}
+}
+# Incorporated into Mexico
+country_event = {
+	id = flavor_rh.10028
+	title = "flavor_rh.10028.RHtit"
+	desc = "flavor_rh.10028.RHdesc"
+	picture = DIPLOMACY_eventPicture
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = "flavor_rh.10028.RHans1"
+		every_province = {
+			limit = {
+				owned_by = FROM
+			}
+			add_territorial_core = ROOT
+		}
+		inherit = FROM
+	}
+}
+# Incorporated into USA
+country_event = {
+	id = flavor_rh.10020
+	title = "flavor_rh.10020.RHtit"
+	desc = "flavor_rh.10020.RHdesc"
+	picture = DIPLOMACY_eventPicture
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = "flavor_rh.10020.RHans1"
+		inherit = FROM
+	}
+	option = {
+		name = "flavor_rh.10020.RHans2"
+		every_province = {
+			limit = {
+				OR = {
+					area = high_plains_area
+					area = lower_plains_area
+				}				
+				country_or_non_sovereign_subject_holds = FROM
+			}
+			remove_core = FROM
+			remove_claim = FROM
+
+			cede_province = ROOT
+			add_permanent_claim = ROOT
+			add_core = ROOT
+		}
+		create_subject = {
+			subject_type = vassal
+			subject = FROM
+		}
+	}
+}
+# Nootka Convention REQUEST Spain
+country_event = {
+	id = flavor_rh.10021
+	title = "flavor_rh.10021.RHtit"
+	desc = "flavor_rh.10021.RHdesc"
+	picture = DIPLOMACY_eventPicture
+
+	fire_only_once = yes
+	
+	trigger = {
+		NOT = { has_global_flag = nootka_treaty } 
+		OR = {
+			tag = ENG
+			tag = GBR
+		}
+		OR = {
+			CAS = { exists = yes }
+			SPA = { exists = yes }
+			IBA = { exists = yes }
+		}
+		colonial_columbia = {
+			type = all
+			is_city = yes
+		}
+		colonial_oregon = {
+			type = all
+			is_city = yes
+		}
+		OR = {
+			colonial_columbia = {
+				any_neighbor_province = {
+					country_or_non_sovereign_subject_holds = ROOT
+				}
+			}
+			colonial_oregon = {
+				any_neighbor_province = {
+					country_or_non_sovereign_subject_holds = ROOT
+				}
+			}
+		}
+		OR = {
+			colonial_columbia = {
+				OR = {
+					country_or_non_sovereign_subject_holds = CAS
+					country_or_non_sovereign_subject_holds = SPA
+					country_or_non_sovereign_subject_holds = IBA
+				}
+			}
+			colonial_oregon = {
+				OR = {
+					country_or_non_sovereign_subject_holds = CAS
+					country_or_non_sovereign_subject_holds = SPA
+					country_or_non_sovereign_subject_holds = IBA
+				}
+			}
+		}
+	}
+
+	option = {			# Yes, sounds like a plan
+		name = "flavor_rh.10021.RHans1"
+		ai_chance = { factor = 100 }
+		if = {
+			limit = {
+				exists = SPA
+			}
+			SPA = {
+				country_event = { id = flavor_rh.10022 days = 1 }
+			}
+		}
+		else = {
+			if = {
+				limit = {
+					exists = IBA
+				}
+				IBA = {
+					country_event = { id = flavor_rh.10022 days = 1 }
+				}
+			}
+			else
+			{
+				CAS = {
+					country_event = { id = flavor_rh.10022 days = 1 }
+				}
+			}
+		}
+	}
+	option = {			# No, we cannot take the risk
+		name = "flavor_rh.10021.RHans2"
+		ai_chance = { factor = 0 }
+
+		if = {
+			limit = {
+				exists = SPA
+			}
+			add_opinion = {
+				who = SPA
+				modifier = returned_core_to_me
+				years = 20
+			}
+		}
+		else = {
+			if = {
+				limit = {
+					exists = IBA
+				}
+				add_opinion = {
+					who = IBA
+					modifier = returned_core_to_me
+					years = 20
+				}
+			}
+			else
+			{
+				add_opinion = {
+					who = CAS
+					modifier = returned_core_to_me
+					years = 20
+				}
+			}
+		}
+		set_global_flag = nootka_treaty
+	}
+}
+# Nootka Convention ANSWER Spain
+country_event = {
+	id = flavor_rh.10022
+	title = "flavor_rh.10022.RHtit"
+	desc = "flavor_rh.10022.RHdesc"
+	picture = DIPLOMACY_eventPicture
+
+	is_triggered_only = yes
+
+	option = {			# Yes, sounds like a plan
+		name = "flavor_rh.10022.RHans1"
+		ai_chance = { factor = 100 }
+		every_province = {
+			limit = {
+				OR = {
+					colonial_region = colonial_columbia
+				}
+				OR = {
+					country_or_non_sovereign_subject_holds = ROOT
+					controlled_by = ROOT
+					controlled_by = FROM
+					controller = {
+						OR = {
+							is_subject_of = ROOT
+							is_subject_of = FROM
+						}
+					}
+				}
+			}
+			remove_core = ROOT
+			remove_claim = ROOT
+
+			cede_province = FROM
+			add_permanent_claim = FROM
+			add_core = FROM
+			
+			if = {
+				limit = {
+					OR = {
+						culture = mexican
+						culture = leonese
+						culture = castillian
+						culture = aragonese
+						culture = catalan
+						culture = galician
+						culture = andalucian
+						culture = basque
+					}
+				}
+				change_culture = english
+			}
+		}
+		every_province = {
+			limit = {
+				OR = {
+					colonial_region = colonial_oregon
+				}
+				OR = {
+					country_or_non_sovereign_subject_holds = FROM
+					controlled_by = FROM
+					controlled_by = ROOT
+					controller = {
+						OR = {
+							is_subject_of = FROM
+							is_subject_of = ROOT
+						}
+					}
+				}
+			}
+			remove_core = FROM
+			remove_claim = FROM
+
+			cede_province = ROOT
+			add_permanent_claim = ROOT
+			add_core = ROOT
+		}
+		
+		FROM = {
+			add_truce_with = ROOT
+		}
+		set_global_flag = nootka_treaty
+	}
+	option = {			# No, I am not interested
+		name = "flavor_rh.10022.RHans2"
+		ai_chance = { factor = 0 }
+		
+		add_opinion = {
+			who = FROM
+			modifier = opinion_disappointed
+			years = 20
+		}
+		set_global_flag = nootka_treaty
+	}
+}
+# Increase tensions TTC
+country_event = {
+	id = flavor_rh.10023
+	title = "flavor_rh.10023.RHtit"
+	desc = "flavor_rh.10023.RHdesc"
+	picture = ANGRY_MOB_eventPicture
+	
+	fire_only_once = yes
+	hidden = yes
+	
+	trigger = {
+		current_age = age_of_revolutions
+		NOT = { tag = TTC }
+		TTC = {
+			exists = yes
+			is_colonial_nation_of = ROOT
+		}
+	}
+	mean_time_to_happen = {
+		months = 120
+	}
+
+	option = {			# OK
+		name = "flavor_rh.10023.RHans1"
+		TTC = {
+			if = {
+				limit = {
+					is_colonial_nation_of = ROOT
+				}
+				add_liberty_desire = 75
+				add_country_modifier = {
+					name = "american_decolonization"
+					duration = 7300
+				}
+			}
+		}
+		set_global_flag = usa_tensions_increased
+	}
+}
+# American Independence
+country_event = {
+	id = flavor_rh.10058
+	title = "flavor_rh.10058.RHtit"
+	desc = "flavor_rh.10058.RHdesc"
+	picture = EUROPEAN_REFUGEES_eventPicture
+	
+	fire_only_once = yes
+	hidden = yes
+	
+	trigger = {
+		current_age = age_of_revolutions
+		NOT = { tag = TTC }
+		TTC = {
+			exists = yes
+			is_colonial_nation_of = ROOT
+			ai = yes
+		}
+		ROOT = { ai = yes }
+		has_global_flag = usa_tensions_increased
+	}
+	mean_time_to_happen = {
+		months = 60
+	}
+	
+	option = {
+		name = "flavor_rh.10058.RHans1"
+		#Ask all enemies to join
+		ROOT = {
+			if = {
+				limit = {
+					ai = yes
+				}
+				every_enemy_country = {
+					country_event = { id = flavor_rh.10059 days = 1 }
+				}
+			}
+		}
+		#Strengthen TTC
+		TTC = {
+			if = {
+				limit = {
+					is_colonial_nation_of = ROOT
+					ai = yes
+				}
+				add_liberty_desire = 75
+				add_country_modifier = {
+					name = "american_decolonization"
+					duration = 7300
+				}
+				declare_war_with_cb = {
+					who = ROOT
+					casus_belli = cb_colonial_independance_war
+				}
+				#Build Army
+				add_treasury = 1000
+				add_prestige = 10
+				capital_scope = {
+					add_building = fort_17th
+					build_to_forcelimit = {
+						infantry = 0.7
+						cavalry = 0.3
+						artillery = 0.3
+					}
+				}
+				random_owned_province = {
+					limit = {
+						has_port = yes
+					}
+					build_to_forcelimit = {
+						heavy_ship = 0.3
+						light_ship = 0.3
+						transport = 0.2
+					}
+				}
+			}
+		}
+	}
+}
+	
+# Oregon Treaty REQUEST
+country_event = {
+	id = flavor_rh.10024
+	title = "flavor_rh.10024.RHtit"
+	desc = "flavor_rh.10024.RHdesc"
+	picture = DIPLOMACY_eventPicture
+
+	fire_only_once = yes
+	
+	trigger = {
+		NOT = { has_global_flag = oregon_treaty } 
+		OR = {
+			tag = TTC
+			tag = USA
+		}
+		colonial_oregon = {
+			type = all
+			is_city = yes
+		}
+		colonial_oregon = {
+			any_neighbor_province = {
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+		}
+		colonial_oregon = {
+			NOT = { country_or_non_sovereign_subject_holds = ROOT }
+		}
+	}
+	mean_time_to_happen = {
+		months = 18
+	}
+	
+	option = {			# Yes, sounds like a plan
+		name = "flavor_rh.10024.RHans1"
+		ai_chance = { factor = 100 }
+		
+		every_country = {
+			limit = {
+				colonial_oregon = {
+					country_or_non_sovereign_subject_holds = PREV
+				}
+				NOT = { tag = ROOT }
+			}
+			country_event = { id = flavor_rh.10025 days = 1 }
+		}
+		set_global_flag = oregon_treaty
+	}
+	option = {			# No, we cannot take the risk
+		name = "flavor_rh.10024.RHans2"
+		ai_chance = { factor = 0 }
+
+		every_country = {
+			limit = {
+				colonial_oregon = {
+					country_or_non_sovereign_subject_holds = PREV
+				}
+				NOT = { tag = ROOT }
+			}
+			add_opinion = {
+				who = ROOT
+				modifier = returned_core_to_me
+				years = 20
+			}
+		}
+		set_global_flag = oregon_treaty
+	}
+}
+# Nootka Convention ANSWER
+country_event = {
+	id = flavor_rh.10025
+	title = "flavor_rh.10025.RHtit"
+	desc = "flavor_rh.10025.RHdesc"
+	picture = DIPLOMACY_eventPicture
+
+	is_triggered_only = yes
+
+	option = {			# Yes, sounds like a plan
+		name = "flavor_rh.10025.RHans1"
+		ai_chance = { factor = 100 }
+		if = {
+			limit = {
+				ROOT = {
+					OR = {
+						tag = ENG
+						tag = GBR
+					}
+				}
+			}
+			every_province = {
+				limit = {
+					OR = {
+						colonial_region = colonial_oregon
+						colonial_region = colonial_louisiana
+						colonial_region = colonial_ohio
+						province_id = 2511
+						province_id = 2016
+					}
+					country_or_non_sovereign_subject_holds = ROOT
+				}
+				remove_core = ROOT
+				remove_claim = ROOT
+
+				cede_province = FROM
+				add_permanent_claim = FROM
+				add_core = FROM
+			}
+			every_province = {
+				limit = {
+					OR = {
+						colonial_region = colonial_hudson_bay
+						colonial_region = colonial_columbia
+						colonial_region = colonial_quebec
+						colonial_region = colonial_alberta
+						province_id = 2005
+						province_id = 2598
+					}
+					country_or_non_sovereign_subject_holds = FROM
+				}
+				remove_core = FROM
+				remove_claim = FROM
+
+				cede_province = ROOT
+				add_permanent_claim = ROOT
+				add_core = ROOT
+			}
+			every_province = {
+				limit = {
+					OR = {
+						province_id = 2511
+						province_id = 2016
+					}
+					country_or_non_sovereign_subject_holds = ROOT
+				}
+				remove_core = ROOT
+				remove_claim = ROOT
+
+				cede_province = FROM
+				add_permanent_claim = FROM
+				add_core = FROM
+			}
+		} else = {
+			every_province = {
+				limit = {
+					OR = {
+						colonial_region = colonial_oregon
+					}
+					country_or_non_sovereign_subject_holds = ROOT
+				}
+				remove_core = ROOT
+				remove_claim = ROOT
+
+				cede_province = FROM
+				add_permanent_claim = FROM
+				add_core = FROM
+			}
+		}
+		
+		FROM = {
+			add_truce_with = ROOT
+		}
+		set_global_flag = oregon_treaty
+	}
+	option = {			# No, I am not interested
+		name = "flavor_rh.10025.RHans2"
+		ai_chance = { factor = 0 }
+		
+		add_opinion = {
+			who = FROM
+			modifier = opinion_disappointed
+			years = 20
+		}
+		set_global_flag = oregon_treaty
+	}
+}
+# Treaty of Guadalupe Hidalgo
+country_event = {
+	id = flavor_rh.10026
+	title = "flavor_rh.10026.RHtit"
+	desc = "flavor_rh.10026.RHdesc"
+	picture = DIPLOMACY_eventPicture
+
+	is_triggered_only = yes
+
+	option = {			# Yes, sounds like a plan
+		name = "flavor_rh.10026.RHans1"
+		ai_chance = { factor = 100 }
+		every_province = {
+			limit = {
+				OR = {
+					colonial_region = colonial_texas
+					colonial_region = colonial_arizona
+					area = california_area
+					area = arizona_area
+					area = colorado_plateau_area
+					area = new_mexico_area
+					area = central_valley_area
+					area = apacheria_area
+					area = northern_california_area
+					area = great_basin_area
+				}
+				OR = {
+					country_or_non_sovereign_subject_holds = owner
+					controlled_by = owner
+					controlled_by = ROOT
+					controller = {
+						OR = {
+							is_subject_of = owner
+							is_subject_of = ROOT
+						}
+					}
+				}
+				OR = {
+					NOT = {
+						owner = { is_subject_of = ROOT }
+					}
+					province_id = 2496
+					province_id = 4630
+					province_id = 882
+				}
+			}
+			remove_core = owner
+			remove_claim = owner
+
+			cede_province = ROOT
+			add_permanent_claim = ROOT
+			add_core = ROOT
+		}
+		ROOT = {
+			white_peace = MEX
+			add_truce_with = MEX
+		}
+		set_global_flag = mexican_cession
+	}
+	option = {			# No, I am not interested
+		name = "flavor_rh.10026.RHans2"
+		ai_chance = { factor = 0 }
+		
+		set_global_flag = mexican_cession
+	}
+}
+# Oregon to the British
+country_event = {
+	id = flavor_rh.10029
+	title = "flavor_rh.10029.RHtit"
+	desc = "flavor_rh.10029.RHdesc"
+	picture = DIPLOMACY_eventPicture
+
+	fire_only_once = yes
+	
+	trigger = {
+		NOT = { has_global_flag = late_oregon_dispute }
+		OR = {
+			tag = ENG
+			tag = GBR
+		}
+		is_great_power = yes
+		#is_at_war = no
+		exists = MEX
+		MEX = {
+			is_at_war = no
+			NOT = {
+				capital_scope = { colonial_region = colonial_oregon }
+			}
+		}
+		colonial_oregon = {
+			OR = {
+				owned_by = MEX
+				owner = {
+					is_colonial_nation_of = MEX
+				}
+			}
+			any_neighbor_province = {
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+		}
+	}
+	
+	mean_time_to_happen = { months = 36 }
+	
+	option = {
+		name = "flavor_rh.10029.RHans1"
+		ai_chance = { factor = 100 } #60
+		
+		every_province = {
+			limit = {
+				OR = {
+					colonial_region = colonial_oregon
+				}
+				OR = {
+					country_or_non_sovereign_subject_holds = MEX
+					controlled_by = MEX
+					controlled_by = ROOT
+					controller = {
+						OR = {
+							is_subject_of = MEX
+							is_subject_of = ROOT
+						}
+					}
+				}
+			}
+			remove_core = MEX
+			remove_claim = MEX
+
+			cede_province = ROOT
+			add_permanent_claim = ROOT
+			add_core = ROOT
+		}
+		MEX = {
+			add_opinion = {
+				who = ROOT
+				modifier = opinion_took_province
+				years = 20
+			}
+		}
+		set_global_flag = late_oregon_dispute
+	}
+
+	option = {
+		name = "flavor_rh.10029.RHans2"
+		ai_chance = { factor = 0 } #40
+		# Refuse
+		MEX = {
+			add_opinion = {
+				who = ROOT
+				modifier = returned_core_to_me
+				years = 20
+			}
+		}
+		set_global_flag = late_oregon_dispute
+	}
+}
+# USA & TEX friend event
+country_event = {
+	id = flavor_rh.10030
+	title = "flavor_rh.10030.RHtit"
+	desc = "flavor_rh.10030.RHdesc"
+	picture = CITY_DEVELOPMENT_eventPicture
+	
+	fire_only_once = yes
+	hidden = yes
+	
+	trigger = {
+		OR = {
+			tag = USA
+			tag = TEX
+		}
+		USA = {
+			exists = yes
+			is_subject = no
+		}
+		TEX = {
+			exists = yes
+			is_subject = no
+		}
+	}
+	mean_time_to_happen = {
+		months = 12
+	}
+
+	option = {			# OK
+		name = "flavor_rh.10017.RHans1"
+		USA = {
+			add_historical_friend = TEX
+		}
+		TEX = {
+			add_historical_friend = USA
+		}
+	}
+}
+#Demand Honduras Request
+country_event = {
+	id = flavor_rh.10031
+	title = "flavor_rh.10031.RHtit"
+	desc = "flavor_rh.10031.RHdesc"
+	picture = BORDER_TENSION_eventPicture
+
+	is_triggered_only = yes
+
+	option = {			# Yes, they are essential
+		name = "flavor_rh.10031.RHans1"
+		ai_chance = { factor = 100 }
+		if = {
+			limit = {
+				exists = ENG
+			}
+			ENG = {
+				country_event = { id = flavor_rh.10032 days = 1 }
+			}
+		}
+		else = {
+			if = {
+				limit = {
+					exists = GBR
+				}
+				GBR = {
+					country_event = { id = flavor_rh.10032 days = 1 }
+				}
+			}
+		}
+	}
+	option = {			# No, I don't care
+		name = "flavor_rh.10031.RHans2"
+		ai_chance = { factor = 0 }
+	}
+}
+# Demand Honduras ANSWER
+country_event = {
+	id = flavor_rh.10032
+	title = "flavor_rh.10032.RHtit"
+	desc = "flavor_rh.10032.RHdesc"
+	picture = BORDER_TENSION_eventPicture
+
+	is_triggered_only = yes
+
+	option = {			# Yes, we give it to the Spanish
+		name = "flavor_rh.10032.RHans1"
+		ai_chance = { factor = 100 } #100
+		every_province = {
+			limit = {
+				OR = {
+					province_id = 4589
+					province_id = 843
+					province_id = 838
+					
+					#Bahamas
+					province_id = 482
+					province_id = 483
+				}
+				country_or_non_sovereign_subject_holds = FROM
+			}
+			remove_core = FROM
+			remove_claim = FROM
+
+			cede_province = ROOT
+			add_core = ROOT
+			add_permanent_claim = ROOT
+		}
+		every_province = {
+			limit = {
+				OR = {
+					colonial_region = colonial_florida
+					province_id = 4559
+				}
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+			remove_core = ROOT
+			remove_claim = ROOT
+
+			cede_province = FROM
+			add_core = FROM
+			add_permanent_claim = FROM
+		}
+		
+		FROM = {
+			add_truce_with = ROOT
+		}
+	}
+	option = {			# No, we must resist
+		name = "flavor_rh.10032.RHans2"
+		ai_chance = { factor = 0 } #0
+		
+		every_province = {
+			limit = {
+				OR = {
+					colonial_region = colonial_florida
+					province_id = 4559
+				}
+				country_or_non_sovereign_subject_holds = FROM
+			}
+			add_permanent_claim = ROOT
+		}
+		
+		4559 = {
+			owner = {
+				FROM = {
+					declare_war_with_cb = {
+						who = PREV
+						casus_belli = cb_conquest
+						war_goal_province = 4559
+					}
+				}
+			}
+		}
+	}
+}
+#Adams–Onís Treaty DEMAND
+country_event = {
+	id = flavor_rh.10033
+	title = "flavor_rh.10033.RHtit"
+	desc = "flavor_rh.10033.RHdesc"
+	picture = DIPLOMACY_eventPicture
+	
+	fire_only_once = yes
+	
+	trigger = {
+		tag = USA
+		USA = {
+			exists = yes
+			is_subject = no
+			is_at_war = no
+			manpower_percentage = 0.25
+		}
+		OR = {
+			exists = CAS
+			exists = SPA
+			exists = IBA
+		}
+		colonial_florida = {
+			OR = {
+				country_or_non_sovereign_subject_holds = CAS
+				country_or_non_sovereign_subject_holds = SPA
+				country_or_non_sovereign_subject_holds = IBA
+			}
+			any_neighbor_province = {
+				owner = {
+					tag = USA
+				}
+			}
+		}
+		OR = {
+			exists = MEX
+			exists = TAX
+			exists = HAT
+			NOT = {
+				colonial_mexico = {
+					OR = {
+						country_or_non_sovereign_subject_holds = CAS
+						country_or_non_sovereign_subject_holds = SPA
+						country_or_non_sovereign_subject_holds = IBA
+					}
+				}
+			}
+			NOT = {
+				colonial_texas = {
+					OR = {
+						country_or_non_sovereign_subject_holds = CAS
+						country_or_non_sovereign_subject_holds = SPA
+						country_or_non_sovereign_subject_holds = IBA
+					}
+				}
+			}
+			NOT = {
+				colonial_california = {
+					OR = {
+						country_or_non_sovereign_subject_holds = CAS
+						country_or_non_sovereign_subject_holds = SPA
+						country_or_non_sovereign_subject_holds = IBA
+					}
+				}
+			}
+		}
+	}
+	mean_time_to_happen = {
+		months = 12
+	}
+	option = {			# YES
+		name = "flavor_rh.10033.RHans1"
+		ai_chance = { factor = 100 } #100
+		
+		if = {
+			limit = { exists = CAS }
+			CAS = { country_event = { id = flavor_rh.10034 days = 1 } }
+		} else = {
+			if = {
+				limit = { exists = SPA }
+				SPA = { country_event = { id = flavor_rh.10034 days = 1 } }
+			} else = {
+				if = {
+					limit = { exists = IBA }
+					IBA = { country_event = { id = flavor_rh.10034 days = 1 } }
+				}
+			}
+		}
+	}
+	option = {			# NO
+		name = "flavor_rh.10033.RHans2"
+		ai_chance = { factor = 0 } #0
+		
+		# Refuse
+		if = {
+			limit = { exists = CAS }
+			CAS = {
+				add_opinion = {
+					who = ROOT
+					modifier = returned_core_to_me
+					years = 20
+				}
+			}
+		} else = {
+			if = {
+				limit = { exists = SPA }
+				SPA = {
+					add_opinion = {
+						who = ROOT
+						modifier = returned_core_to_me
+						years = 20
+					}
+				}
+			} else = {
+				if = {
+					limit = { exists = IBA }
+					IBA = {
+						add_opinion = {
+							who = ROOT
+							modifier = returned_core_to_me
+							years = 20
+						}
+					}
+				}
+			}
+		}
+	}
+}
+#Adams–Onís Treaty Answer
+country_event = {
+	id = flavor_rh.10034
+	title = "flavor_rh.10034.RHtit"
+	desc = "flavor_rh.10034.RHdesc"
+	picture = DIPLOMACY_eventPicture
+
+	is_triggered_only = yes
+
+	option = {			# Yes, we give it to the Americans
+		name = "flavor_rh.10034.RHans1"
+		ai_chance = { factor = 100 } #100
+		every_province = {
+			limit = {
+				OR = {
+					colonial_region = colonial_florida
+				}
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+			remove_core = ROOT
+			remove_claim = ROOT
+
+			cede_province = FROM
+			add_core = FROM
+			add_permanent_claim = FROM
+		}
+		
+		FROM = {
+			add_truce_with = ROOT
+		}
+	}
+	option = {			# No, we must resist
+		name = "flavor_rh.10034.RHans2"
+		ai_chance = { factor = 0 } #0
+		
+		every_province = {
+			limit = {
+				OR = {
+					colonial_region = colonial_florida
+				}
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+			add_permanent_claim = FROM
+		}
+		ROOT = {
+			declare_war_with_cb = {
+				who = FROM
+				casus_belli = cb_conquest
+				war_goal_province = 2536
+			}
+		}
+	}
+}
+#Third Treaty of San Ildefonso DEMAND
+country_event = {
+	id = flavor_rh.10035
+	title = "flavor_rh.10035.RHtit"
+	desc = "flavor_rh.10035.RHdesc"
+	picture = DIPLOMACY_eventPicture
+	
+	fire_only_once = yes
+	hidden = yes
+	
+	trigger = {
+		has_global_flag = hiati_independence
+		tag = FRA
+		OR = {
+			exists = CAS
+			exists = SPA
+			exists = IBA
+		}
+		OR = {
+			ai = yes
+			tuscany_area = {
+				type = all
+				country_or_non_sovereign_subject_holds = FRA
+			}
+		}
+		colonial_louisiana = {
+			OR = {
+				country_or_non_sovereign_subject_holds = CAS
+				country_or_non_sovereign_subject_holds = SPA
+				country_or_non_sovereign_subject_holds = IBA
+			}
+		}
+	}
+	mean_time_to_happen = {
+		months = 120
+	}
+	option = {			# YES
+		name = "flavor_rh.10035.RHans1"
+		ai_chance = { factor = 100 } #100
+		if = {
+			limit = { exists = CAS }
+			CAS = { country_event = { id = flavor_rh.10036 days = 1 } }
+		} else = {
+			if = {
+				limit = { exists = SPA }
+				SPA = { country_event = { id = flavor_rh.10036 days = 1 } }
+			} else = {
+				if = {
+					limit = { exists = IBA }
+					IBA = { country_event = { id = flavor_rh.10036 days = 1 } }
+				}
+			}
+		}
+	}
+	option = {			# NO
+		name = "flavor_rh.10035.RHans2"
+		ai_chance = { factor = 0 } #0
+		# Refuse
+		if = {
+			limit = { exists = CAS }
+			CAS = {
+				add_opinion = {
+					who = ROOT
+					modifier = returned_core_to_me
+					years = 20
+				}
+			}
+		} else = {
+			if = {
+				limit = { exists = SPA }
+				SPA = {
+					add_opinion = {
+						who = ROOT
+						modifier = returned_core_to_me
+						years = 20
+					}
+				}
+			} else = {
+				if = {
+					limit = { exists = IBA }
+					IBA = {
+						add_opinion = {
+							who = ROOT
+							modifier = returned_core_to_me
+							years = 20
+						}
+					}
+				}
+			}
+		}
+	}
+}
+#Third Treaty of San Ildefonso Answer
+country_event = {
+	id = flavor_rh.10036
+	title = "flavor_rh.10036.RHtit"
+	desc = "flavor_rh.10036.RHdesc"
+	picture = DIPLOMACY_eventPicture
+
+	is_triggered_only = yes
+
+	option = {			# Yes, we give it to the French
+		name = "flavor_rh.10036.RHans1"
+		ai_chance = { factor = 100 } #100
+		every_province = {
+			limit = {
+				OR = {
+					colonial_region = colonial_louisiana
+				}
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+			remove_core = ROOT
+			remove_claim = ROOT
+
+			cede_province = FROM
+			add_core = FROM
+			add_permanent_claim = FROM
+		}
+		
+		every_province = {
+			limit = {
+				OR = {
+					area = tuscany_area
+				}
+				country_or_non_sovereign_subject_holds = FROM
+			}
+			remove_core = FROM
+			remove_claim = FROM
+
+			cede_province = ROOT
+			add_core = ROOT
+			add_permanent_claim = ROOT
+		}
+		
+		FROM = {
+			add_truce_with = ROOT
+		}
+	}
+	option = {			# No, we must resist
+		name = "flavor_rh.10036.RHans2"
+		ai_chance = { factor = 0 } #0
+		
+		ROOT = {
+			add_opinion = {
+				who = FROM
+				modifier = opinion_disappointed
+				years = 20
+			}
+		}
+	}
+}
+#Independence of America
+country_event = {
+	id = flavor_rh.10037
+	title = "flavor_rh.10037.RHtit"
+	desc = "flavor_rh.10037.RHdesc"
+	picture = DIPLOMACY_eventPicture
+
+	is_triggered_only = yes
+	hidden = yes
+	
+	option = {
+		name = "flavor_rh.10037.RHans1"
+		if = {
+			limit = {
+				OR = {
+					truce_with = ENG
+					truce_with = GBR 
+				}
+			}
+			if = {
+				limit = {
+					OR = {
+						exists = ENG
+						exists = GBR
+					}
+					colonial_florida = {
+						OR = {
+							country_or_non_sovereign_subject_holds = ENG
+							country_or_non_sovereign_subject_holds = GBR
+						}
+					}
+				}
+				if = {
+					limit = { exists = CAS }
+					CAS = {
+						country_event = { id = flavor_rh.10031 days = 10 }
+					}
+				} else = {
+					if = {
+						limit = { exists = SPA }
+						SPA = {
+							country_event = { id = flavor_rh.10031 days = 10 }
+						}
+					} else = {
+						if = {
+							limit = { exists = IBA }
+							IBA = {
+								country_event = { id = flavor_rh.10031 days = 10 }
+							}
+						}
+					}
+				}
+			}
+			every_country = {
+				limit = {
+					truce_with = ROOT
+					NOT = { alliance_with = ROOT }
+				}
+				every_province = {
+					limit = {
+						country_or_non_sovereign_subject_holds = PREV
+						OR = {
+							colonial_region = colonial_new_england
+							colonial_region = colonial_pennsylvania
+							colonial_region = colonial_virginia
+							colonial_region = colonial_carolina
+							colonial_region = colonial_georgia
+							colonial_region = colonial_mississippi
+							colonial_region = colonial_kentucky
+							colonial_region = colonial_ohio
+							#colonial_region = colonial_florida
+							area = maine_area
+						}
+					}
+					remove_core = owner
+					
+					add_permanent_claim = ROOT
+					add_core = ROOT
+					add_territorial_core = ROOT
+					cede_province = ROOT
+				}
+			}
+			ROOT = {
+				add_adm_power = 500
+				add_dip_power = 500
+				add_mil_power = 500
+				add_treasury = 1500
+			}
+		}
+	}
+}
+# PRU & KLE friend event
+country_event = {
+	id = flavor_rh.10038
+	title = "flavor_rh.10038.RHtit"
+	desc = "flavor_rh.10038.RHdesc"
+	picture = CITY_DEVELOPMENT_eventPicture
+	
+	fire_only_once = yes
+	hidden = yes
+	
+	trigger = {
+		OR = {
+			tag = PRU
+			tag = KLE
+		}
+		PRU = {
+			exists = yes
+		}
+		KLE = {
+			exists = yes
+		}
+		is_year = 1550
+	}
+	mean_time_to_happen = {
+		months = 12
+	}
+
+	option = {			# OK
+		name = "flavor_rh.10038.RHans1"
+		PRU = {
+			add_historical_friend = KLE
+		}
+		KLE = {
+			add_historical_friend = PRU
+		}
+	}
+}
+# American Independence Manager
+country_event = {
+	id = flavor_rh.10039
+	title = "flavor_rh.10039.RHtit"
+	desc = "flavor_rh.10039.RHdesc"
+	picture = CITY_DEVELOPMENT_eventPicture
+	
+	fire_only_once = yes
+	hidden = yes
+	
+	trigger = {
+		has_global_flag = usa_released_war
+		is_colonial_nation = no
+		is_subject = no
+		is_at_war = no
+		OR = {
+			is_former_colonial_nation = yes
+			tag = TTC
+			tag = USA
+		}
+		capital_scope = {
+			OR = {
+				region = northeast_america_region
+				region = southeast_america_region
+			}
+		}
+	}
+	option = {			# OK
+		name = "flavor_rh.10039.RHans1"
+		
+		if = {
+			limit = { exists = TTC }
+			TTC = {
+				country_event = { id = flavor_rh.10037 days = 2 }
+			}
+		} else = {
+			if = {
+				limit = { exists = USA }
+				USA = {
+					country_event = { id = flavor_rh.10037 days = 2 }
+				}
+			}
+		}
+		
+		set_global_flag = usa_released
+		clr_global_flag = usa_released_war
+	}
+}
+# Mexico Independence Manager
+country_event = {
+	id = flavor_rh.10040
+	title = "flavor_rh.10040.RHtit"
+	desc = "flavor_rh.10040.RHdesc"
+	picture = CITY_DEVELOPMENT_eventPicture
+	
+	fire_only_once = yes
+	hidden = yes
+	
+	trigger = {
+		has_global_flag = mexico_released
+		is_at_war = no
+		OR = {
+			AND = {
+				MEX = { exists = no }
+				tag = CAM
+			}
+			AND = {
+				CAM = { exists = no }
+				tag = MEX
+			}
+			AND = {
+				MEX = { exists = no }
+				CAM = { exists = no }
+				is_former_colonial_nation = yes
+			}
+		}
+		capital_scope = {
+			OR = {
+				colonial_region = colonial_mexico
+				colonial_region = colonial_honduras
+			}
+		}
+	}
+	option = {			# OK
+		name = "flavor_rh.10040.RHans1"
+		
+		if = {
+			limit = { OR = { tag = MEX is_former_colonial_nation = yes } }
+			every_owned_province = {
+				limit = {
+					OR = {
+						colonial_region = colonial_honduras
+					}
+				}
+				remove_core = ROOT
+				
+				add_permanent_claim = CAM
+				add_permanent_claim = MEX
+				add_core = CAM
+				add_territorial_core = CAM
+				cede_province = CAM
+			}
+			CAM = {
+				capital_scope = {
+					build_to_forcelimit = {
+						infantry = 0.6
+						cavalry = 0.3
+						artillery = 0.2
+					}
+				}
+				random_owned_province = {
+					limit = {
+						has_port = yes
+					}
+					build_to_forcelimit = {
+						heavy_ship = 0.3
+						light_ship = 0.3
+						transport = 0.2
+					}
+				}
+			}
+		} else = {
+			if = {
+				limit = { tag = CAM }
+				every_owned_province = {
+					limit = {
+						OR = {
+							colonial_region = colonial_mexico
+						}
+					}
+					remove_core = ROOT
+					
+					add_permanent_claim = MEX
+					add_core = MEX
+					add_territorial_core = MEX
+					cede_province = MEX
+				}
+				MEX = {
+					capital_scope = {
+						build_to_forcelimit = {
+							infantry = 0.6
+							cavalry = 0.3
+							artillery = 0.2
+						}
+					}
+					random_owned_province = {
+						limit = {
+							has_port = yes
+						}
+						build_to_forcelimit = {
+							heavy_ship = 0.3
+							light_ship = 0.3
+							transport = 0.2
+						}
+					}
+				}
+			}
+		}
+	}
+}
+# Colombia Independence Manager
+country_event = {
+	id = flavor_rh.10041
+	title = "flavor_rh.10041.RHtit"
+	desc = "flavor_rh.10041.RHdesc"
+	picture = CITY_DEVELOPMENT_eventPicture
+	
+	fire_only_once = yes
+	hidden = yes
+	
+	trigger = {
+		has_global_flag = col_released
+		is_at_war = no
+		OR = {
+			AND = {
+				VNZ = { exists = no }
+				ECU = { exists = no }
+				tag = COL
+			}
+			AND = {
+				COL = { exists = no }
+				ECU = { exists = no }
+				tag = VNZ
+			}
+			AND = {
+				VNZ = { exists = no }
+				COL = { exists = no }
+				tag = ECU
+			}
+			AND = {
+				COL = { exists = no }
+				VNZ = { exists = no }
+				ECU = { exists = no }
+				is_former_colonial_nation = yes
+			}
+		}
+		capital_scope = {
+			OR = {
+				colonial_region = colonial_colombia
+			}
+		}
+	}
+	option = {			# OK
+		name = "flavor_rh.10041.RHans1"
+		
+		if = {
+			limit = { OR = { tag = COL is_former_colonial_nation = yes } }
+			every_owned_province = {
+				limit = {
+					OR = {
+						area = venezuela_area
+						area = antisuyu_area
+						area = central_llanos_area
+						area = maracaibo_area
+						area = eastern_llanos
+						area = upper_guyana_area
+						province_id = 2803
+						#province_id = 2815
+					}
+				}
+				remove_core = ROOT
+				
+				add_permanent_claim = VNZ
+				add_core = VNZ
+				add_territorial_core = VNZ
+				cede_province = VNZ
+			}
+			every_owned_province = {
+				limit = {
+					OR = {
+						area = iquitos_area
+						area = quito_area
+						province_id = 2002
+					}
+				}
+				remove_core = ROOT
+				
+				add_permanent_claim = ECU
+				add_core = ECU
+				add_territorial_core = ECU
+				cede_province = ECU
+			}
+			VNZ = {
+				capital_scope = {
+					build_to_forcelimit = {
+						infantry = 0.6
+						cavalry = 0.3
+						artillery = 0.1
+					}
+				}
+				random_owned_province = {
+					limit = {
+						has_port = yes
+					}
+					build_to_forcelimit = {
+						heavy_ship = 0.3
+						light_ship = 0.3
+						transport = 0.2
+					}
+				}
+			}
+			ECU = {
+				capital_scope = {
+					build_to_forcelimit = {
+						infantry = 0.6
+						cavalry = 0.3
+						artillery = 0.1
+					}
+				}
+				random_owned_province = {
+					limit = {
+						has_port = yes
+					}
+					build_to_forcelimit = {
+						heavy_ship = 0.3
+						light_ship = 0.3
+						transport = 0.2
+					}
+				}
+			}
+		} else = {
+			if = {
+				limit = { OR = { tag = ECU } }
+				every_owned_province = {
+					limit = {
+						OR = {
+							area = venezuela_area
+							area = antisuyu_area
+							area = central_llanos_area
+							area = maracaibo_area
+							area = eastern_llanos
+							area = upper_guyana_area
+							province_id = 2803
+							#province_id = 2815
+						}
+					}
+					remove_core = ROOT
+					
+					add_permanent_claim = VNZ
+					add_core = VNZ
+					cede_province = VNZ
+				}
+				every_owned_province = {
+					limit = {
+						OR = {
+							area = colombian_amazonas_area
+							area = western_llanos
+							area = popayan_area
+							area = cordillera_occidental_area
+							area = bogota_area
+							area = panama_area
+							area = coquivacoa_area
+						}
+					}
+					remove_core = ROOT
+					
+					add_permanent_claim = COL
+					add_core = COL
+					cede_province = COL
+				}
+				VNZ = {
+					capital_scope = {
+						build_to_forcelimit = {
+							infantry = 0.6
+							cavalry = 0.3
+							artillery = 0.1
+						}
+					}
+					random_owned_province = {
+						limit = {
+							has_port = yes
+						}
+						build_to_forcelimit = {
+							heavy_ship = 0.3
+							light_ship = 0.3
+							transport = 0.2
+						}
+					}
+				}
+				COL = {
+					capital_scope = {
+						build_to_forcelimit = {
+							infantry = 0.6
+							cavalry = 0.3
+							artillery = 0.1
+						}
+					}
+					random_owned_province = {
+						limit = {
+							has_port = yes
+						}
+						build_to_forcelimit = {
+							heavy_ship = 0.3
+							light_ship = 0.3
+							transport = 0.2
+						}
+					}
+				}
+			} else = {
+				if = {
+					limit = { OR = { tag = VNZ } }
+					every_owned_province = {
+						limit = {
+							OR = {
+								area = iquitos_area
+								area = quito_area
+								province_id = 2002
+							}
+						}
+						remove_core = ROOT
+						
+						add_permanent_claim = ECU
+						add_core = ECU
+						cede_province = ECU
+					}
+					every_owned_province = {
+						limit = {
+							OR = {
+								area = colombian_amazonas_area
+								area = western_llanos
+								area = popayan_area
+								area = cordillera_occidental_area
+								area = bogota_area
+								area = panama_area
+								area = coquivacoa_area
+							}
+						}
+						remove_core = ROOT
+						
+						add_permanent_claim = COL
+						add_core = COL
+						cede_province = COL
+					}
+					COL = {
+						capital_scope = {
+							build_to_forcelimit = {
+								infantry = 0.6
+								cavalry = 0.3
+								artillery = 0.1
+							}
+						}
+						random_owned_province = {
+							limit = {
+								has_port = yes
+							}
+							build_to_forcelimit = {
+								heavy_ship = 0.3
+								light_ship = 0.3
+								transport = 0.2
+							}
+						}
+					}
+					ECU = {
+						capital_scope = {
+							build_to_forcelimit = {
+								infantry = 0.6
+								cavalry = 0.3
+								artillery = 0.1
+							}
+						}
+						random_owned_province = {
+							limit = {
+								has_port = yes
+							}
+							build_to_forcelimit = {
+								heavy_ship = 0.3
+								light_ship = 0.3
+								transport = 0.2
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+}
+# Peru Independence Manager
+country_event = {
+	id = flavor_rh.10042
+	title = "flavor_rh.10042.RHtit"
+	desc = "flavor_rh.10042.RHdesc"
+	picture = CITY_DEVELOPMENT_eventPicture
+	
+	fire_only_once = yes
+	hidden = yes
+	
+	trigger = {
+		has_global_flag = peru_released
+		is_at_war = no
+		OR = {
+			AND = {
+				PEU = { exists = no }
+				tag = BOL
+			}
+			AND = {
+				BOL = { exists = no }
+				tag = PEU
+			}
+			AND = {
+				PEU = { exists = no }
+				BOL = { exists = no }
+				is_former_colonial_nation = yes
+			}
+		}
+		capital_scope = {
+			OR = {
+				colonial_region = colonial_peru
+			}
+		}
+	}
+	option = {			# OK
+		name = "flavor_rh.10042.RHans1"
+		
+		if = {
+			limit = { OR = { tag = PEU is_former_colonial_nation = yes } }
+			every_owned_province = {
+				limit = {
+					OR = {
+						area = beni_area
+						area = upper_peru
+						area = potosi_area
+						area = moxos_area
+						province_id = 802
+						province_id = 2831
+					}
+				}
+				remove_core = ROOT
+				
+				add_permanent_claim = BOL
+				add_core = BOL
+				add_territorial_core = BOL
+				cede_province = BOL
+			}
+			BOL = {
+				capital_scope = {
+					build_to_forcelimit = {
+						infantry = 0.6
+						cavalry = 0.3
+						artillery = 0.1
+					}
+				}
+				random_owned_province = {
+					limit = {
+						has_port = yes
+					}
+					build_to_forcelimit = {
+						heavy_ship = 0.3
+						light_ship = 0.3
+						transport = 0.2
+					}
+				}
+			}
+		} else = {
+			if = {
+				limit = { OR = { tag = BOL is_former_colonial_nation = yes } }
+				every_owned_province = {
+					limit = {
+						OR = {
+							area = ucayali_area
+							area = cajamarca_area
+							area = huanuco_area
+							area = chimor_area
+							area = kuntisuyu_area
+							area = peruan_coast
+							province_id = 804
+							province_id = 2947
+						}
+					}
+					remove_core = ROOT
+					
+					add_permanent_claim = PEU
+					add_core = PEU
+					add_territorial_core = PEU
+					cede_province = PEU
+				}
+				PEU = {
+					capital_scope = {
+						build_to_forcelimit = {
+							infantry = 0.8
+							cavalry = 0.3
+							artillery = 0.2
+						}
+					}
+					random_owned_province = {
+						limit = {
+							has_port = yes
+						}
+						build_to_forcelimit = {
+							heavy_ship = 0.3
+							light_ship = 0.3
+							transport = 0.2
+						}
+					}
+				}
+			}
+		}
+	}
+}
+# Argentine Independence Manager
+country_event = {
+	id = flavor_rh.10043
+	title = "flavor_rh.10043.RHtit"
+	desc = "flavor_rh.10043.RHdesc"
+	picture = CITY_DEVELOPMENT_eventPicture
+	
+	fire_only_once = yes
+	hidden = yes
+	
+	trigger = {
+		has_global_flag = la_plata_released
+		is_at_war = no
+		OR = {
+			AND = {
+				PRG = { exists = no }
+				LAP = { exists = no }
+				tag = CHL
+			}
+			AND = {
+				CHL = { exists = no }
+				LAP = { exists = no }
+				tag = PRG
+			}
+			AND = {
+				CHL = { exists = no }
+				PRG = { exists = no }
+				tag = LAP
+			}
+			AND = {
+				PRG = { exists = no }
+				CHL = { exists = no }
+				LAP = { exists = no }
+				is_former_colonial_nation = yes
+			}
+		}
+		capital_scope = {
+			OR = {
+				colonial_region = colonial_la_plata
+				colonial_region = colonial_la_upper_plata
+			}
+		}
+	}
+	option = {			# OK
+		name = "flavor_rh.10043.RHans1"
+		
+		if = {
+			limit = { OR = { tag = LAP is_former_colonial_nation = yes } }
+			every_owned_province = {
+				limit = {
+					OR = {
+						area = northern_chile_area
+						area = central_chile_area
+						area = southern_chile_area
+					}
+				}
+				remove_core = ROOT
+				
+				add_permanent_claim = CHL
+				add_core = CHL
+				add_territorial_core = CHL
+				cede_province = CHL
+			}
+			every_owned_province = {
+				limit = {
+					OR = {
+						area = paraguay_area
+					}
+				}
+				remove_core = ROOT
+				
+				add_permanent_claim = PRG
+				add_core = PRG
+				add_territorial_core = PRG
+				cede_province = PRG
+			}
+			CHL = {
+				capital_scope = {
+					build_to_forcelimit = {
+						infantry = 0.6
+						cavalry = 0.3
+						artillery = 0.1
+					}
+				}
+				random_owned_province = {
+					limit = {
+						has_port = yes
+					}
+					build_to_forcelimit = {
+						heavy_ship = 0.3
+						light_ship = 0.3
+						transport = 0.2
+					}
+				}
+			}
+			PRG = {
+				capital_scope = {
+					build_to_forcelimit = {
+						infantry = 0.7
+						cavalry = 0.2
+						artillery = 0.3
+					}
+				}
+				random_owned_province = {
+					limit = {
+						has_port = yes
+					}
+					build_to_forcelimit = {
+						heavy_ship = 0.3
+						light_ship = 0.3
+						transport = 0.2
+					}
+				}
+			}
+		}
+	}
+}
+# Netherlands Start Buff
+country_event = {
+	id = flavor_rh.10044
+	title = "flavor_rh.10044.RHtit"
+	desc = "flavor_rh.10044.RHdesc"
+	picture = CITY_DEVELOPMENT_eventPicture
+	
+	fire_only_once = yes
+	hidden = yes
+	
+	trigger = {
+		NOT = { has_global_flag = netherlands_released }
+		exists = NED
+	}
+
+	immediate = {
+		set_global_flag = netherlands_released
+		NED = {
+			change_government = republic
+			add_government_reform = dutch_republic
+			
+			add_country_modifier = {
+				name = "ned_unity"
+				duration = 18250
+			}
+			add_country_modifier = {
+				name = "ned_sourvenity"
+				duration = 18250
+			}
+			add_army_tradition = 50
+			add_stability = 3
+			add_treasury = 500
+			add_adm_power = 500
+			add_dip_power = 500
+			add_mil_power = 500
+			add_manpower = 30
+			add_adm_tech = 2
+			add_dip_tech = 2
+			add_mil_tech = 2
+			add_prestige = 50
+			add_republican_tradition = 25
+		}
+		every_owned_province = {
+			limit = {
+				region = low_countries_region
+			}
+			add_claim = NED
+		}
+	}
+	option = {
+	}
+}
+
+# Italian Carniola
+country_event = {
+	id = flavor_rh.10045
+	title = "flavor_rh.10045.RHtit"
+	desc = "flavor_rh.10045.RHdesc"
+	picture = EUROPEAN_REFUGEES_eventPicture
+
+	is_triggered_only = yes
+
+	option = {			# OK
+		name = "flavor_rh.10045.RHans1"
+	}
+}
+
+# Italian Carniola
+country_event = {
+	id = flavor_rh.10046
+	title = "flavor_rh.10046.RHtit"
+	desc = "flavor_rh.10046.RHdesc"
+	picture = EUROPEAN_REFUGEES_eventPicture
+	
+	fire_only_once = yes
+	
+	trigger = {
+		has_country_flag = italian_slovenia
+	}
+		
+	mean_time_to_happen = {
+		months = 36000
+		modifier = {
+			factor = 1
+			manpower = 1
+		}
+		modifier = {
+			factor = 2
+			is_at_war = no
+		}
+		modifier = {
+			factor = 0.25
+			prestige = 50
+		}
+		modifier = {
+			factor = 0.25
+			prestige = 80
+		}
+		modifier = {
+			factor = 0.25
+			prestige = 90
+		}
+		modifier = {
+			factor = 0.5
+			stability = 1
+		}
+		modifier = {
+			factor = 0.5
+			stability = 2
+		}
+		modifier = {
+			factor = 0.5
+			stability = 3
+		}
+	}
+
+	option = {			# OK
+		name = "flavor_rh.10046.RHans1"
+		every_province = {
+			limit = {
+				area = carinthia_area
+				NOT = {
+					OR = {
+						culture = lombard
+						culture = tuscan
+						culture = sardinian
+						culture = romagnan
+						culture = ligurian
+						culture = venetian
+						culture = neapolitan
+						culture = piedmontese
+						culture = umbrian
+						culture = sicilian
+						culture = maltese
+						culture = piedmontese
+					}
+				}
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+			change_culture = venetian
+		}
+	}
+}
+# Italian Adriatic
+country_event = {
+	id = flavor_rh.10047
+	title = "flavor_rh.10047.RHtit"
+	desc = "flavor_rh.10047.RHdesc"
+	picture = EUROPEAN_REFUGEES_eventPicture
+
+	is_triggered_only = yes
+
+	option = {			# OK
+		name = "flavor_rh.10047.RHans1"
+	}
+}
+
+# Italian Adriatic
+country_event = {
+	id = flavor_rh.10048
+	title = "flavor_rh.10048.RHtit"
+	desc = "flavor_rh.10048.RHdesc"
+	picture = EUROPEAN_REFUGEES_eventPicture
+	
+	fire_only_once = yes
+	
+	trigger = {
+		has_country_flag = italian_adriatic
+	}
+		
+	mean_time_to_happen = {
+		months = 36000
+		modifier = {
+			factor = 1
+			manpower = 1
+		}
+		modifier = {
+			factor = 2
+			is_at_war = no
+		}
+		modifier = {
+			factor = 0.25
+			prestige = 50
+		}
+		modifier = {
+			factor = 0.25
+			prestige = 80
+		}
+		modifier = {
+			factor = 0.25
+			prestige = 90
+		}
+		modifier = {
+			factor = 0.5
+			stability = 1
+		}
+		modifier = {
+			factor = 0.5
+			stability = 2
+		}
+		modifier = {
+			factor = 0.5
+			stability = 3
+		}
+	}
+
+	option = {			# OK
+		name = "flavor_rh.10048.RHans1"
+		every_province = {
+			limit = {
+				area = east_adriatic_coast_area
+				NOT = {
+					OR = {
+						culture = lombard
+						culture = tuscan
+						culture = sardinian
+						culture = romagnan
+						culture = ligurian
+						culture = venetian
+						culture = neapolitan
+						culture = piedmontese
+						culture = umbrian
+						culture = sicilian
+						culture = maltese
+						culture = piedmontese
+					}
+				}
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+			change_culture = venetian
+		}
+	}
+}
+# Italian Albania
+country_event = {
+	id = flavor_rh.10049
+	title = "flavor_rh.10049.RHtit"
+	desc = "flavor_rh.10049.RHdesc"
+	picture = EUROPEAN_REFUGEES_eventPicture
+
+	is_triggered_only = yes
+
+	option = {			# OK
+		name = "flavor_rh.10049.RHans1"
+	}
+}
+
+# Italian Albania
+country_event = {
+	id = flavor_rh.10050
+	title = "flavor_rh.10050.RHtit"
+	desc = "flavor_rh.10050.RHdesc"
+	picture = EUROPEAN_REFUGEES_eventPicture
+	
+	fire_only_once = yes
+	
+	trigger = {
+		has_country_flag = italian_albania
+	}
+		
+	mean_time_to_happen = {
+		months = 36000
+		modifier = {
+			factor = 1
+			manpower = 1
+		}
+		modifier = {
+			factor = 2
+			is_at_war = no
+		}
+		modifier = {
+			factor = 0.25
+			prestige = 50
+		}
+		modifier = {
+			factor = 0.25
+			prestige = 80
+		}
+		modifier = {
+			factor = 0.25
+			prestige = 90
+		}
+		modifier = {
+			factor = 0.5
+			stability = 1
+		}
+		modifier = {
+			factor = 0.5
+			stability = 2
+		}
+		modifier = {
+			factor = 0.5
+			stability = 3
+		}
+	}
+
+	option = {			# OK
+		name = "flavor_rh.10050.RHans1"
+		every_province = {
+			limit = {
+				area = albania_area
+				NOT = {
+					OR = {
+						culture = lombard
+						culture = tuscan
+						culture = sardinian
+						culture = romagnan
+						culture = ligurian
+						culture = venetian
+						culture = neapolitan
+						culture = piedmontese
+						culture = umbrian
+						culture = sicilian
+						culture = maltese
+						culture = piedmontese
+					}
+				}
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+			change_culture = neapolitan
+		}
+	}
+}
+# German Bohmen
+country_event = {
+	id = flavor_rh.10051
+	title = "flavor_rh.10051.RHtit"
+	desc = "flavor_rh.10051.RHdesc"
+	picture = EUROPEAN_REFUGEES_eventPicture
+
+	is_triggered_only = yes
+
+	option = {			# OK
+		name = "flavor_rh.10051.RHans1"
+	}
+}
+
+# German Bohmen
+country_event = {
+	id = flavor_rh.10052
+	title = "flavor_rh.10052.RHtit"
+	desc = "flavor_rh.10052.RHdesc"
+	picture = EUROPEAN_REFUGEES_eventPicture
+	
+	fire_only_once = yes
+	
+	trigger = {
+		has_country_flag = german_sudeten
+	}
+		
+	mean_time_to_happen = {
+		months = 540‬
+		modifier = {
+			factor = 1
+			manpower = 1
+		}
+		modifier = {
+			factor = 2
+			is_at_war = no
+		}
+		modifier = {
+			factor = 0.25
+			prestige = 50
+		}
+		modifier = {
+			factor = 0.25
+			prestige = 80
+		}
+		modifier = {
+			factor = 0.25
+			prestige = 90
+		}
+		modifier = {
+			factor = 0.5
+			stability = 1
+		}
+		modifier = {
+			factor = 0.5
+			stability = 2
+		}
+		modifier = {
+			factor = 0.5
+			stability = 3
+		}
+	}
+
+	option = {			# OK
+		name = "flavor_rh.10052.RHans1"
+		every_province = {
+			limit = {
+				OR = {
+					area = erzgebirge_area
+					area = bohemia_area
+				}
+				NOT = {
+					OR = {
+						culture = pommeranian
+						culture = prussian
+						culture = hannoverian
+						culture = hessian
+						culture = saxon
+						culture = franconian
+						culture = swabian
+						culture = swiss
+						culture = bavarian
+						culture = austrian
+						culture = german_schlesian
+					}
+				}
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+			#if = {
+			#	limit = { tag = HAB }
+			#	change_culture = austrian
+			#} else = {
+			#	change_culture = prussian
+			#}
+			change_culture = german_sudeten
+		}
+		set_country_flag = german_sudeten_finished
+	}
+}
+# German South Prussia
+country_event = {
+	id = flavor_rh.10053
+	title = "flavor_rh.10053.RHtit"
+	desc = "flavor_rh.10053.RHdesc"
+	picture = EUROPEAN_REFUGEES_eventPicture
+
+	is_triggered_only = yes
+
+	option = {			# OK
+		name = "flavor_rh.10053.RHans1"
+	}
+}
+
+# German South Prussia
+country_event = {
+	id = flavor_rh.10054
+	title = "flavor_rh.10054.RHtit"
+	desc = "flavor_rh.10054.RHdesc"
+	picture = EUROPEAN_REFUGEES_eventPicture
+	
+	fire_only_once = yes
+	
+	trigger = {
+		has_country_flag = german_poland_1
+	}
+		
+	mean_time_to_happen = {
+		months = 720
+		modifier = {
+			factor = 1
+			manpower = 1
+		}
+		modifier = {
+			factor = 2
+			is_at_war = no
+		}
+		modifier = {
+			factor = 0.25
+			prestige = 50
+		}
+		modifier = {
+			factor = 0.25
+			prestige = 80
+		}
+		modifier = {
+			factor = 0.25
+			prestige = 90
+		}
+		modifier = {
+			factor = 0.5
+			stability = 1
+		}
+		modifier = {
+			factor = 0.5
+			stability = 2
+		}
+		modifier = {
+			factor = 0.5
+			stability = 3
+		}
+	}
+
+	option = {			# OK
+		name = "flavor_rh.10054.RHans1"
+		every_province = {
+			limit = {
+				OR = {
+					area = wielkopolska_area
+					area = kuyavia_area
+					area = central_poland_area
+				}
+				NOT = {
+					OR = {
+						culture = pommeranian
+						culture = prussian
+						culture = hannoverian
+						culture = hessian
+						culture = saxon
+						culture = franconian
+						culture = swabian
+						culture = swiss
+						culture = bavarian
+						culture = austrian
+						culture = german_schlesian
+					}
+				}
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+			#if = {
+			#	limit = { tag = HAB }
+			#	change_culture = austrian
+			#} else = {
+			#	change_culture = prussian
+			#}
+			change_culture = prussian
+		}
+		set_country_flag = german_poland_1_finished
+	}
+}
+# German New East Prussia
+country_event = {
+	id = flavor_rh.10055
+	title = "flavor_rh.10055.RHtit"
+	desc = "flavor_rh.10055.RHdesc"
+	picture = EUROPEAN_REFUGEES_eventPicture
+
+	is_triggered_only = yes
+
+	option = {			# OK
+		name = "flavor_rh.10055.RHans1"
+	}
+}
+
+# German New East Prussia
+country_event = {
+	id = flavor_rh.10056
+	title = "flavor_rh.10056.RHtit"
+	desc = "flavor_rh.10056.RHdesc"
+	picture = EUROPEAN_REFUGEES_eventPicture
+	
+	fire_only_once = yes
+	
+	trigger = {
+		has_country_flag = german_poland_2
+	}
+		
+	mean_time_to_happen = {
+		months = 720
+		modifier = {
+			factor = 1
+			manpower = 1
+		}
+		modifier = {
+			factor = 2
+			is_at_war = no
+		}
+		modifier = {
+			factor = 0.25
+			prestige = 50
+		}
+		modifier = {
+			factor = 0.25
+			prestige = 80
+		}
+		modifier = {
+			factor = 0.25
+			prestige = 90
+		}
+		modifier = {
+			factor = 0.5
+			stability = 1
+		}
+		modifier = {
+			factor = 0.5
+			stability = 2
+		}
+		modifier = {
+			factor = 0.5
+			stability = 3
+		}
+	}
+
+	option = {			# OK
+		name = "flavor_rh.10056.RHans1"
+		every_province = {
+			limit = {
+				OR = {
+					area = mazovia_area
+					area = podlasie_area
+					province_id = 1936
+					province_id = 270
+				}
+				NOT = {
+					OR = {
+						culture = pommeranian
+						culture = prussian
+						culture = hannoverian
+						culture = hessian
+						culture = saxon
+						culture = franconian
+						culture = swabian
+						culture = swiss
+						culture = bavarian
+						culture = austrian
+						culture = german_schlesian
+					}
+				}
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+			#if = {
+			#	limit = { tag = HAB }
+			#	change_culture = austrian
+			#} else = {
+			#	change_culture = prussian
+			#}
+			change_culture = prussian
+		}
+		set_country_flag = german_poland_2_finished
+	}
+}
+
+# Fall of the Ottomans
+country_event = {
+	id = flavor_rh.10057
+	title = "flavor_rh.10057.RHtit"
+	desc = "flavor_rh.10057.RHdesc"
+	picture = EUROPEAN_REFUGEES_eventPicture
+	
+	fire_only_once = yes
+	hidden = yes
+	
+	trigger = {
+		current_age = age_of_revolutions
+		is_year = 1800
+		tag = TUR
+		ai = yes
+		OR = {
+			balkan_region = {
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+			italy_region = {
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+			#north_german_region = {
+			#	country_or_non_sovereign_subject_holds = ROOT
+			#}
+			#south_german_region = {
+			#	country_or_non_sovereign_subject_holds = ROOT
+			#}
+			#poland_region = {
+			#	country_or_non_sovereign_subject_holds = ROOT
+			#}
+		}
+	}
+	
+	mean_time_to_happen = {
+		months = 5000
+		modifier = {
+			factor = 0.1
+			is_year	= 1850
+			ai = yes
+		}
+		modifier = {
+			factor = 0.1
+			NOT = {
+				capital_scope = {
+					controlled_by = ROOT
+				}
+			}
+		}
+		modifier = {
+			factor = 0.5
+			manpower = 0
+		}
+		modifier = {
+			factor = 0.9
+			war_exhaustion = 2.5
+		}
+		modifier = {
+			factor = 0.8
+			war_exhaustion = 5
+		}
+		modifier = {
+			factor = 0.7
+			war_exhaustion = 7.5
+		}
+		modifier = {
+			factor = 0.5
+			war_exhaustion = 10
+		}
+		modifier = {
+			factor = 0.5
+			war_exhaustion = 15
+		}
+		modifier = {
+			factor = 0.6
+			NOT = { prestige = 0 }
+		}
+		modifier = {
+			factor = 0.6
+			NOT = { stability = 0 }
+		}
+		modifier = {
+			factor = 0.6
+			NOT = { stability = 1 }
+		}
+		modifier = {
+			factor = 1.2
+			prestige = 50
+		}
+		modifier = {
+			factor = 1.2
+			stability = 1
+		}
+		modifier = {
+			factor = 1.2
+			is_bankrupt = no
+		}
+		modifier = {
+			factor = 0.9
+			is_at_war = yes
+		}
+		modifier = {
+			factor = 0.01
+			is_bankrupt = yes
+		}
+		modifier = {
+			factor = 0.5
+			is_in_deficit = yes
+		}
+	}
+	
+	option = {			# OK
+		name = "flavor_rh.10057.RHans1"
+		#Release countries
+		#Add Croatia claims
+		every_owned_province = {
+			limit = {
+				OR = {
+					area = east_adriatic_coast_area
+					area = croatia_area
+				}
+			}
+			add_core = CRO
+		}
+		#Add Bosnia claims
+		every_owned_province = {
+			limit = {
+				OR = {
+					area = bosnia_area
+					province_id = 1828
+				}
+			}
+			add_core = BOS
+		}
+		#Add Hungarian claims
+		every_owned_province = {
+			limit = {
+				OR = {
+					area = alfold_area
+					area = transylvania_area
+					area = southern_transylvania_area
+				}
+			}
+			add_core = HUN
+		}
+		#Add Greek claims
+		every_owned_province = {
+			limit = {
+				OR = {
+					province_id = 164
+					province_id = 3003
+				}
+			}
+			add_core = GRE
+		}
+		#Add Moldovian claims
+		every_owned_province = {
+			limit = {
+				OR = {
+					area = moldavia_area
+				}
+			}
+			add_core = MOL
+		}
+		#Add Italian claims
+		#every_owned_province = {
+		#	limit = {
+		#		OR = {
+		#			#South Tirol
+		#			province_id = 110
+					#Istria
+		#			province_id = 130
+		#		}
+		#	}
+		#	add_claim = ITA
+		#}
+		#Add Austrian claims
+		every_owned_province = {
+			limit = {
+				OR = {
+					area = austria_proper_area
+					area = inner_austria_area
+					#Tirol
+					province_id = 1768
+					province_id = 73
+					#Slovenia
+					province_id = 129
+					province_id = 1769
+				}
+			}
+			add_core = HAB
+		}
+		
+		release = GRE
+		release = BUL
+		release = ALB
+		release = WAL
+		release = SLO
+		release = SER
+		release = BOS
+		release = CRO
+		release = RAG
+		release = MOL
+		release = HUN
+		release = HAB
+		
+		#Optional
+		release = TRA
+	}
+}
+# TTC revolters call on the rivals of their enemy
+country_event = {
+	id = flavor_rh.10059
+	title = "flavor_rh.10059.RHtit"
+	desc = "flavor_rh.10059.RHdesc"
+	picture = BATTLE_eventPicture
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = "flavor_rh.10059.RHans1"
+		create_alliance = TTC
+		set_ai_attitude = {
+			who = TTC
+			attitude = attitude_friendly
+		}
+		TTC = {
+			add_opinion = {
+				who = ROOT
+				modifier = supported_independence
+			}
+		}
+	}
+	option = {
+		name = "flavor_riso.EVTOPTB20"
+		add_prestige = -10
+	}
+}
+# Dutch Southern Provinces
+country_event = {
+	id = flavor_rh.10060
+	title = "flavor_rh.10060.RHtit"
+	desc = "flavor_rh.10060.RHdesc"
+	picture = EUROPEAN_REFUGEES_eventPicture
+
+	is_triggered_only = yes
+
+	option = {			# OK
+		name = "flavor_rh.10060.RHans1"
+	}
+}
+
+# Dutch Southern Provinces
+country_event = {
+	id = flavor_rh.10061
+	title = "flavor_rh.10061.RHtit"
+	desc = "flavor_rh.10061.RHdesc"
+	picture = EUROPEAN_REFUGEES_eventPicture
+	
+	fire_only_once = yes
+	
+	trigger = {
+		has_country_flag = dutch_southern_provinces
+	}
+		
+	mean_time_to_happen = {
+		months = 36000
+		modifier = {
+			factor = 1
+			manpower = 1
+		}
+		modifier = {
+			factor = 2
+			is_at_war = no
+		}
+		modifier = {
+			factor = 0.25
+			prestige = 50
+		}
+		modifier = {
+			factor = 0.25
+			prestige = 80
+		}
+		modifier = {
+			factor = 0.25
+			prestige = 90
+		}
+		modifier = {
+			factor = 0.5
+			stability = 1
+		}
+		modifier = {
+			factor = 0.5
+			stability = 2
+		}
+		modifier = {
+			factor = 0.5
+			stability = 3
+		}
+	}
+
+	option = {			# OK
+		name = "flavor_rh.10061.RHans1"
+		every_province = {
+			limit = {
+				OR = {
+					region = low_countries_region
+					area = picardy_area
+					province_id = 181
+				}
+				NOT = {
+					OR = {
+						culture = dutch
+						culture = flemish
+						culture = brabantian
+						culture = frisian
+					}
+				}
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+			change_culture = flemish
+		}
+	}
+}

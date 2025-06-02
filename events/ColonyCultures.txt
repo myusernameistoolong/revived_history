@@ -1,0 +1,162 @@
+namespace = colony_cultures
+
+country_event = {
+	id = colony_cultures.1
+	title = "colony_cultures.RHtit1"
+	desc = "colony_cultures.RHdesc1"
+	picture = CONSTITUTION_eventPicture
+	
+	trigger = {
+		NOT = {
+			OR = {
+				current_age = age_of_discovery
+				current_age = age_of_reformation
+			}
+		}
+		OR = {
+			tag = TTC
+			tag = USA
+		}
+		culture_group = british
+		NOT = { primary_culture = american }
+	}
+	
+	mean_time_to_happen = {
+		months = 6
+	}
+	
+	option = {
+		name = "colony_cultures.RHans1"
+		change_primary_culture = american
+		capital_scope = {
+			change_culture = american
+		}
+	}
+}
+
+country_event = {
+	id = colony_cultures.2
+	title = "colony_cultures.RHtit2"
+	desc = "colony_cultures.RHdesc2"
+	picture = CONSTITUTION_eventPicture
+	
+	trigger = {
+		NOT = {
+			OR = {
+				current_age = age_of_discovery
+				current_age = age_of_reformation
+			}
+		}
+		OR = {
+			OR = {
+				tag = MEX
+				tag = USC
+			}
+			AND = {
+				capital_scope = {
+					OR = {
+						colonial_region = colonial_mexico
+						colonial_region = colonial_honduras
+					}
+				}
+				is_colonial_nation = yes
+			}
+		}
+		OR = {
+			culture_group = iberian
+			#culture_group = maya
+			#culture_group = otomanguean
+			#culture_group = central_american
+			#culture_group = aridoamerican
+			#culture_group = sonoran
+			#culture_group = apachean
+		}
+		NOT = { primary_culture = mexican }
+	}
+	
+	mean_time_to_happen = {
+		months = 6
+	}
+	
+	option = {
+		name = "colony_cultures.RHans1"
+		change_primary_culture = mexican
+		capital_scope = {
+			change_culture = mexican
+		}
+	}
+}
+
+country_event = {
+	id = colony_cultures.3
+	title = "colony_cultures.RHtit3"
+	desc = "colony_cultures.RHdesc3"
+	picture = CONSTITUTION_eventPicture
+	
+	trigger = {
+		NOT = {
+			OR = {
+				current_age = age_of_discovery
+				current_age = age_of_reformation
+			}
+		}
+		OR = {
+			tag = BRZ
+			AND = {
+				capital_scope = {
+					colonial_region = colonial_brazil
+				}
+				is_colonial_nation = yes
+			}
+		}
+		OR = {
+			culture = portugese
+		}
+		NOT = { primary_culture = brazilian }
+	}
+	
+	mean_time_to_happen = {
+		months = 6
+	}
+	
+	option = {
+		name = "colony_cultures.RHans1"
+		change_primary_culture = brazilian
+		capital_scope = {
+			change_culture = brazilian
+		}
+	}
+}
+
+country_event = {
+	id = colony_cultures.4
+	title = "colony_cultures.RHtit4"
+	desc = "colony_cultures.RHdesc4"
+	picture = CONSTITUTION_eventPicture
+	
+	trigger = {
+		NOT = {
+			OR = {
+				current_age = age_of_discovery
+				current_age = age_of_reformation
+			}
+		}
+		OR = {
+			tag = CAN
+		}
+		culture_group = british
+		NOT = { primary_culture = canadian }
+	}
+	
+	mean_time_to_happen = {
+		months = 6
+	}
+	
+	option = {
+		name = "colony_cultures.RHans1"
+		change_primary_culture = canadian
+		capital_scope = {
+			change_culture = canadian
+		}
+	}
+}

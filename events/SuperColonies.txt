@@ -1,0 +1,2101 @@
+namespace = super_colonies
+
+#Super Colonies
+country_event = {
+	id = super_colonies.1
+	title = "super_colonies.RHtit1"
+	desc = "super_colonies.RHdesc1"
+	picture = CONSTITUTION_eventPicture
+	
+	trigger = {
+		is_colonial_nation = no
+		OR = {
+			#La Plata super colony
+			AND = {
+				any_subject_country = {
+					#ai = yes
+					is_colonial_nation = yes
+					is_colonial_nation_of = ROOT
+					capital_scope = {
+						colonial_region = colonial_la_plata
+					}
+					NOT = { has_country_flag = formed_super_colony }
+					#NOT = { has_country_flag = changed_from_colonial_nation }
+					#NOT = { liberty_desire = 90 }
+					is_at_war = no
+				}
+				colonial_la_upper_plata = {
+					type = all
+					country_or_non_sovereign_subject_holds = ROOT
+					is_city = yes
+				}
+				colonial_la_plata = {
+					type = all
+					country_or_non_sovereign_subject_holds = ROOT
+					is_city = yes
+				}
+			}
+		}
+	}
+	
+	mean_time_to_happen = {
+		months = 2
+	}
+	
+	option = {
+		name = "super_colonies.RHans1"
+		#Super colonies
+		#La Plata super colony
+		every_country = {
+			limit = {
+				is_colonial_nation = yes
+				capital_scope = {
+					colonial_region = colonial_la_plata
+				}
+				is_colonial_nation_of = ROOT
+			}
+			set_country_flag = formed_super_colony
+			#change_tag = LAP
+			#remove_non_electors_emperors_from_empire_effect = yes
+			#if = {
+			#	limit = {
+			#		NOT = { government_rank = 2 }
+			#	}
+			#	set_government_rank = 2
+			#}
+			if = {
+				limit = {
+					primary_culture = portugese
+				}
+				change_primary_culture = brazilian
+			}
+			colonial_la_plata = {
+				#add_permanent_claim = LAP
+				add_permanent_claim = PREV
+			}
+			colonial_la_upper_plata = {
+				#add_permanent_claim = LAP
+				add_permanent_claim = PREV
+			}
+			add_country_modifier = {
+				name = "centralization_modifier"
+				duration = 7300
+			}
+			add_prestige = 25
+			#set_country_flag = changed_from_colonial_nation
+			every_province = {
+				limit = {
+					AND = {
+						OR = {
+							colonial_region = colonial_la_upper_plata
+							colonial_region = colonial_la_plata
+						}
+						country_or_non_sovereign_subject_holds = ROOT
+					}
+				}
+				remove_core = ROOT
+				cede_province = PREV
+				add_core = PREV
+			}
+		}
+	}
+}
+
+country_event = {
+	id = super_colonies.7
+	title = "super_colonies.RHtit1"
+	desc = "super_colonies.RHdesc1"
+	picture = CONSTITUTION_eventPicture
+	
+	trigger = {
+		is_colonial_nation = no
+		#Canada super colony
+		AND = {
+			any_subject_country = {
+				#ai = yes
+				is_colonial_nation = yes
+				is_colonial_nation_of = ROOT
+				capital_scope = {
+					colonial_region = colonial_quebec
+				}
+				NOT = { has_country_flag = formed_super_colony }
+				#NOT = { liberty_desire = 90 }
+				is_at_war = no
+			}
+			colonial_quebec = {
+				type = all
+				country_or_non_sovereign_subject_holds = ROOT
+				is_city = yes
+			}
+			colonial_hudson_bay = {
+				type = all
+				country_or_non_sovereign_subject_holds = ROOT
+				is_city = yes
+			}
+			colonial_alberta = {
+				type = all
+				country_or_non_sovereign_subject_holds = ROOT
+				is_city = yes
+			}
+		}
+	}
+	
+	mean_time_to_happen = {
+		months = 2
+	}
+	
+	option = {
+		name = "super_colonies.RHans1"	
+		#Canada super colony
+		every_country = {
+			limit = {
+				is_colonial_nation = yes
+				capital_scope = {
+					colonial_region = colonial_quebec
+				}
+				is_colonial_nation_of = ROOT
+			}
+			set_country_flag = formed_super_colony
+			if = {
+				limit = {
+					OR = {
+						culture_group = british
+						culture_group = french
+					}
+					NOT = { primary_culture = canadian }
+				}
+				change_primary_culture = canadian
+			}
+			colonial_quebec = {
+				add_permanent_claim = PREV
+			}
+			upper_acadia_area = {
+				add_permanent_claim = PREV
+			}
+			lower_acadia_area = {
+				add_permanent_claim = PREV
+			}
+			colonial_hudson_bay = {
+				add_permanent_claim = PREV
+			}
+			colonial_alberta = {
+				add_permanent_claim = PREV
+			}
+			colonial_columbia = {
+				add_permanent_claim = PREV
+			}
+			colonial_alaska = {
+				add_permanent_claim = PREV
+			}
+			2005 = {
+				add_permanent_claim = PREV
+			}
+			2598 = {
+				add_permanent_claim = PREV
+			}
+			
+			add_country_modifier = {
+				name = "centralization_modifier"
+				duration = 7300
+			}
+			add_prestige = 25
+			every_province = {
+				limit = {
+					AND = {
+						OR = {
+							colonial_region = colonial_quebec
+							colonial_region = colonial_hudson_bay
+							colonial_region = colonial_alberta
+							colonial_region = colonial_columbia
+						}
+						country_or_non_sovereign_subject_holds = ROOT
+					}
+				}
+				remove_core = THIS
+				remove_core = ROOT
+				cede_province = PREV
+				add_core = PREV
+			}
+		}
+	}
+}
+
+country_event = {
+	id = super_colonies.4
+	title = "super_colonies.RHtit1"
+	desc = "super_colonies.RHdesc1"
+	picture = CONSTITUTION_eventPicture
+	
+	trigger = {
+		is_colonial_nation = no
+		#Mexico super colony
+		AND = {
+			any_subject_country = {
+				#ai = yes
+				is_colonial_nation = yes
+				is_colonial_nation_of = ROOT
+				capital_scope = {
+					colonial_region = colonial_mexico
+				}
+				NOT = { has_country_flag = formed_super_colony }
+				#NOT = { liberty_desire = 90 }
+				is_at_war = no
+			}
+			colonial_mexico = {
+				type = all
+				country_or_non_sovereign_subject_holds = ROOT
+				is_city = yes
+			}
+			colonial_honduras = {
+				type = all
+				country_or_non_sovereign_subject_holds = ROOT
+				is_city = yes
+			}
+		}
+	}
+	
+	mean_time_to_happen = {
+		months = 2
+	}
+	
+	option = {
+		name = "super_colonies.RHans1"	
+		#Mexico super colony
+		every_country = {
+			limit = {
+				is_colonial_nation = yes
+				capital_scope = {
+					colonial_region = colonial_mexico
+				}
+				is_colonial_nation_of = ROOT
+			}
+			set_country_flag = formed_super_colony
+			if = {
+				limit = {
+					OR = {
+						culture_group = iberian
+					}
+					NOT = { primary_culture = mexican }
+				}
+				change_primary_culture = mexican
+			}
+			colonial_mexico = {
+				add_permanent_claim = PREV
+			}
+			colonial_honduras = {
+				add_permanent_claim = PREV
+			}
+			add_country_modifier = {
+				name = "centralization_modifier"
+				duration = 7300
+			}
+			add_prestige = 25
+			every_province = {
+				limit = {
+					AND = {
+						OR = {
+							colonial_region = colonial_mexico
+							colonial_region = colonial_honduras
+						}
+						country_or_non_sovereign_subject_holds = ROOT
+					}
+				}
+				remove_core = THIS
+				remove_core = ROOT
+				cede_province = PREV
+				add_core = PREV
+			}
+		}
+	}
+}
+
+country_event = {
+	id = super_colonies.5
+	title = "super_colonies.RHtit1"
+	desc = "super_colonies.RHdesc1"
+	picture = CONSTITUTION_eventPicture
+	
+	trigger = {
+		is_colonial_nation = no
+		#California super colony
+		AND = {
+			any_subject_country = {
+				#ai = yes
+				is_colonial_nation = yes
+				is_colonial_nation_of = ROOT
+				capital_scope = {
+					colonial_region = colonial_california
+				}
+				NOT = { has_country_flag = formed_super_colony }
+				#NOT = { liberty_desire = 90 }
+				is_at_war = no
+			}
+			colonial_california = {
+				type = all
+				country_or_non_sovereign_subject_holds = ROOT
+				is_city = yes
+			}
+			colonial_arizona = {
+				type = all
+				country_or_non_sovereign_subject_holds = ROOT
+				is_city = yes
+			}
+		}
+	}
+	
+	mean_time_to_happen = {
+		months = 2
+	}
+	
+	option = {
+		name = "super_colonies.RHans1"	
+		#California super colony
+		every_country = {
+			limit = {
+				is_colonial_nation = yes
+				capital_scope = {
+					colonial_region = colonial_california
+				}
+				is_colonial_nation_of = ROOT
+			}
+			set_country_flag = formed_super_colony
+			if = {
+				limit = {
+					OR = {
+						culture_group = iberian
+					}
+					NOT = { primary_culture = mexican }
+				}
+				change_primary_culture = mexican
+			}
+			colonial_california = {
+				add_permanent_claim = PREV
+			}
+			colonial_arizona = {
+				add_permanent_claim = PREV
+			}
+			add_country_modifier = {
+				name = "centralization_modifier"
+				duration = 7300
+			}
+			add_prestige = 25
+			every_province = {
+				limit = {
+					AND = {
+						OR = {
+							colonial_region = colonial_california
+							colonial_region = colonial_arizona
+						}
+						country_or_non_sovereign_subject_holds = ROOT
+					}
+				}
+				remove_core = THIS
+				remove_core = ROOT
+				cede_province = PREV
+				add_core = PREV
+			}
+		}
+	}
+}
+
+country_event = {
+	id = super_colonies.6
+	title = "super_colonies.RHtit1"
+	desc = "super_colonies.RHdesc1"
+	picture = CONSTITUTION_eventPicture
+	
+	trigger = {
+		NOT = { has_country_flag = dutch_amerika_enabled }
+		is_colonial_nation = no
+		#The Thirteen Colonies super colony
+		AND = {
+			#NOT = { exists = TTC }
+			any_subject_country = {
+				#ai = yes
+				is_colonial_nation = yes
+				is_colonial_nation_of = ROOT
+				capital_scope = {
+					colonial_region = colonial_new_amsterdam
+				}
+				NOT = { has_country_flag = formed_super_colony }
+				#NOT = { liberty_desire = 90 }
+				is_at_war = no
+			}
+			OR = {
+				NOT = {
+					OR = {
+						current_age = age_of_discovery
+						current_age = age_of_reformation
+						current_age = age_of_absolutism
+					}
+				}
+				AND = {
+					colonial_new_england = {
+						type = all
+						country_or_non_sovereign_subject_holds = ROOT
+						is_city = yes
+					}
+					colonial_georgia = {
+						type = all
+						country_or_non_sovereign_subject_holds = ROOT
+						is_city = yes
+					}
+				}
+			}
+			colonial_new_amsterdam = {
+				type = all
+				country_or_non_sovereign_subject_holds = ROOT
+				is_city = yes
+			}
+			colonial_pennsylvania = {
+				type = all
+				country_or_non_sovereign_subject_holds = ROOT
+				is_city = yes
+			}
+			colonial_virginia = {
+				type = all
+				country_or_non_sovereign_subject_holds = ROOT
+				is_city = yes
+			}
+			colonial_carolina = {
+				type = all
+				country_or_non_sovereign_subject_holds = ROOT
+				is_city = yes
+			}
+		}
+	}
+	
+	mean_time_to_happen = {
+		months = 2
+	}
+	
+	option = {
+		name = "super_colonies.RHans1"	
+		#The Thirteen Colonies super colony
+		every_country = {
+			limit = {
+				is_colonial_nation = yes
+				capital_scope = {
+					colonial_region = colonial_new_amsterdam
+				}
+				is_colonial_nation_of = ROOT
+			}
+			if = {
+				limit = { 
+					ROOT = {
+						OR = {
+							tag = ENG
+							tag = GBR
+						}
+					}
+				}
+				change_tag = TTC
+			}
+			set_country_flag = formed_super_colony
+			
+			colonial_new_amsterdam = {
+				add_permanent_claim = PREV
+			}
+			colonial_new_england = {
+				add_permanent_claim = PREV
+			}
+			colonial_pennsylvania = {
+				add_permanent_claim = PREV
+			}
+			colonial_virginia = {
+				add_permanent_claim = PREV
+			}
+			colonial_carolina = {
+				add_permanent_claim = PREV
+			}
+			colonial_georgia = {
+				add_permanent_claim = PREV
+			}
+			add_country_modifier = {
+				name = "centralization_modifier"
+				duration = 7300
+			}
+			swap_non_generic_missions = yes
+			add_prestige = 25
+			every_province = {
+				limit = {
+					AND = {
+						OR = {
+							colonial_region = colonial_new_amsterdam
+							colonial_region = colonial_new_england
+							colonial_region = colonial_pennsylvania
+							colonial_region = colonial_virginia
+							colonial_region = colonial_carolina
+							colonial_region = colonial_georgia
+						}
+						country_or_non_sovereign_subject_holds = ROOT
+					}
+				}
+				remove_core = THIS
+				remove_core = ROOT
+				cede_province = PREV
+				add_core = PREV
+			}
+			capital_scope = {
+				build_to_forcelimit = {
+					infantry = 0.8
+					cavalry = 0.3
+					artillery = 0.3
+				}
+			}
+			random_owned_province = {
+				limit = {
+					has_port = yes
+				}
+				build_to_forcelimit = {
+					heavy_ship = 0.3
+					light_ship = 0.3
+					transport = 0.2
+				}
+			}
+		}
+	}
+}
+
+country_event = {
+	id = super_colonies.12
+	title = "super_colonies.RHtit1"
+	desc = "super_colonies.RHdesc1"
+	picture = CONSTITUTION_eventPicture
+	
+	trigger = {
+		has_country_flag = dutch_amerika_enabled
+		is_colonial_nation = no
+		#Amerika super colony
+		AND = {
+			any_subject_country = {
+				#ai = yes
+				is_colonial_nation = yes
+				is_colonial_nation_of = ROOT
+				capital_scope = {
+					colonial_region = colonial_new_amsterdam
+				}
+				NOT = { has_country_flag = formed_super_colony }
+				#NOT = { liberty_desire = 90 }
+				is_at_war = no
+			}
+			colonial_new_amsterdam = {
+				type = all
+				country_or_non_sovereign_subject_holds = ROOT
+				is_city = yes
+			}
+			colonial_pennsylvania = {
+				type = all
+				country_or_non_sovereign_subject_holds = ROOT
+				is_city = yes
+			}
+			colonial_new_england = {
+				type = all
+				country_or_non_sovereign_subject_holds = ROOT
+				is_city = yes
+			}
+		}
+	}
+	
+	mean_time_to_happen = {
+		months = 2
+	}
+	
+	option = {
+		name = "super_colonies.RHans1"	
+		#Amerika super colony
+		every_country = {
+			limit = {
+				is_colonial_nation = yes
+				capital_scope = {
+					colonial_region = colonial_new_amsterdam
+				}
+				is_colonial_nation_of = ROOT
+			}
+			set_country_flag = formed_super_colony
+			set_capital = 965 #Set capital New York City
+			if = {
+				limit = {
+					OR = {
+						culture_group = germanic
+					}
+					NOT = { primary_culture = dutch }
+				}
+				change_primary_culture = dutch
+			}
+			colonial_new_amsterdam = {
+				add_permanent_claim = PREV
+			}
+			colonial_pennsylvania = {
+				add_permanent_claim = PREV
+			}
+			colonial_new_england = {
+				add_permanent_claim = PREV
+			}
+			add_country_modifier = {
+				name = "centralization_modifier"
+				duration = 7300
+			}
+			add_prestige = 25
+			every_province = {
+				limit = {
+					AND = {
+						OR = {
+							colonial_region = colonial_new_amsterdam
+							colonial_region = colonial_pennsylvania
+							colonial_region = colonial_new_england
+						}
+						country_or_non_sovereign_subject_holds = ROOT
+					}
+				}
+				remove_core = THIS
+				remove_core = ROOT
+				cede_province = PREV
+				add_core = PREV
+			}
+		}
+	}
+}
+
+#Merge additional colonies
+country_event = {
+	id = super_colonies.2
+	title = "super_colonies.RHtit2"
+	desc = "super_colonies.RHdesc2"
+	picture = CONSTITUTION_eventPicture
+	
+	trigger = {
+		NOT = { has_country_flag = dutch_amerika_enabled }
+		is_colonial_nation = no
+		#exists = TTC
+		#The Thirteen Colonies super colony
+		AND = {
+			any_subject_country = {
+				#ai = yes
+				has_country_flag = formed_super_colony
+				is_colonial_nation = yes
+				is_colonial_nation_of = ROOT
+				capital_scope = {
+					colonial_region = colonial_new_amsterdam
+				}
+				#NOT = { liberty_desire = 90 }
+				is_at_war = no
+				OR = {
+					AND = {
+						colonial_mississippi = {
+							type = all
+							country_or_non_sovereign_subject_holds = ROOT
+							is_city = yes
+						}
+						NOT = {
+							colonial_mississippi = {
+								type = all
+								owned_by = PREV
+								is_city = yes
+							}
+						}
+					}
+					AND = {
+						colonial_kentucky = {
+							type = all
+							country_or_non_sovereign_subject_holds = ROOT
+							is_city = yes
+						}
+						NOT = {
+							colonial_kentucky = {
+								type = all
+								owned_by = PREV
+								is_city = yes
+							}
+						}
+					}
+					AND = {
+						colonial_ohio = {
+							type = all
+							country_or_non_sovereign_subject_holds = ROOT
+							is_city = yes
+						}
+						NOT = {
+							colonial_ohio = {
+								type = all
+								owned_by = PREV
+								is_city = yes
+							}
+						}
+					}
+					AND = {
+						maine_area = {
+							type = all
+							country_or_non_sovereign_subject_holds = ROOT
+							is_city = yes
+						}
+						NOT = {
+							maine_area = {
+								type = all
+								owned_by = PREV
+								is_city = yes
+							}
+						}
+					}
+					AND = {
+						colonial_new_england = {
+							type = all
+							country_or_non_sovereign_subject_holds = ROOT
+							is_city = yes
+						}
+						NOT = {
+							colonial_new_england = {
+								type = all
+								owned_by = PREV
+								is_city = yes
+							}
+						}
+					}
+					AND = {
+						colonial_new_amsterdam = {
+							type = all
+							country_or_non_sovereign_subject_holds = ROOT
+							is_city = yes
+						}
+						NOT = {
+							colonial_new_amsterdam = {
+								type = all
+								owned_by = PREV
+								is_city = yes
+							}
+						}
+					}
+					AND = {
+						colonial_pennsylvania = {
+							type = all
+							country_or_non_sovereign_subject_holds = ROOT
+							is_city = yes
+						}
+						NOT = {
+							colonial_pennsylvania = {
+								type = all
+								owned_by = PREV
+								is_city = yes
+							}
+						}
+					}
+					AND = {
+						colonial_virginia = {
+							type = all
+							country_or_non_sovereign_subject_holds = ROOT
+							is_city = yes
+						}
+						NOT = {
+							colonial_virginia = {
+								type = all
+								owned_by = PREV
+								is_city = yes
+							}
+						}
+					}
+					AND = {
+						colonial_carolina = {
+							type = all
+							country_or_non_sovereign_subject_holds = ROOT
+							is_city = yes
+						}
+						NOT = {
+							colonial_carolina = {
+								type = all
+								owned_by = PREV
+								is_city = yes
+							}
+						}
+					}
+					AND = {
+						colonial_georgia = {
+							type = all
+							country_or_non_sovereign_subject_holds = ROOT
+							is_city = yes
+						}
+						NOT = {
+							colonial_georgia = {
+								type = all
+								owned_by = PREV
+								is_city = yes
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+	
+	option = {
+		name = "super_colonies.RHans2"
+		#Super colonies
+		#The Thirteen Colonies super colony
+		every_country = {
+			limit = {
+				is_colonial_nation = yes
+				capital_scope = {
+					colonial_region = colonial_new_amsterdam
+				}
+				is_colonial_nation_of = ROOT
+			}
+			
+			colonial_new_england = {
+				add_permanent_claim = PREV
+			}
+			colonial_new_amsterdam = {
+				add_permanent_claim = PREV
+			}
+			colonial_pennsylvania = {
+				add_permanent_claim = PREV
+			}
+			colonial_virginia = {
+				add_permanent_claim = PREV
+			}
+			colonial_carolina = {
+				add_permanent_claim = PREV
+			}
+			colonial_mississippi = {
+				add_permanent_claim = PREV
+			}
+			colonial_georgia = {
+				add_permanent_claim = PREV
+			}
+			colonial_kentucky = {
+				add_permanent_claim = PREV
+			}
+			colonial_ohio = {
+				add_permanent_claim = PREV
+			}
+			colonial_florida = {
+				add_permanent_claim = PREV
+			}
+			maine_area = {
+				add_permanent_claim = PREV
+			}
+			
+			if = {
+				limit = {
+					colonial_new_england = {
+						type = all
+						country_or_non_sovereign_subject_holds = ROOT
+					}
+				}
+				colonial_new_england = {
+					remove_core = THIS
+					remove_core = ROOT
+					cede_province = PREV
+					add_core = PREV
+				}
+			}
+			if = {
+				limit = {
+					colonial_new_amsterdam = {
+						type = all
+						country_or_non_sovereign_subject_holds = ROOT
+					}
+				}
+				colonial_new_amsterdam = {
+					remove_core = THIS
+					remove_core = ROOT
+					cede_province = PREV
+					add_core = PREV
+				}
+			}
+			if = {
+				limit = {
+					colonial_pennsylvania = {
+						type = all
+						country_or_non_sovereign_subject_holds = ROOT
+					}
+				}
+				colonial_pennsylvania = {
+					remove_core = THIS
+					remove_core = ROOT
+					cede_province = PREV
+					add_core = PREV
+				}
+			}
+			if = {
+				limit = {
+					colonial_virginia = {
+						type = all
+						country_or_non_sovereign_subject_holds = ROOT
+					}
+				}
+				colonial_virginia = {
+					remove_core = THIS
+					remove_core = ROOT
+					cede_province = PREV
+					add_core = PREV
+				}
+			}
+			if = {
+				limit = {
+					colonial_carolina = {
+						type = all
+						country_or_non_sovereign_subject_holds = ROOT
+					}
+				}
+				colonial_carolina = {
+					remove_core = THIS
+					remove_core = ROOT
+					cede_province = PREV
+					add_core = PREV
+				}
+			}
+			if = {
+				limit = {
+					colonial_mississippi = {
+						type = all
+						country_or_non_sovereign_subject_holds = ROOT
+					}
+				}
+				colonial_mississippi = {
+					remove_core = THIS
+					remove_core = ROOT
+					cede_province = PREV
+					add_core = PREV
+				}
+			}
+			if = {
+				limit = {
+					colonial_georgia = {
+						type = all
+						country_or_non_sovereign_subject_holds = ROOT
+					}
+				}
+				colonial_georgia = {
+					remove_core = THIS
+					remove_core = ROOT
+					cede_province = PREV
+					add_core = PREV
+				}
+			}
+			if = {
+				limit = {
+					colonial_kentucky = {
+						type = all
+						country_or_non_sovereign_subject_holds = ROOT
+					}
+				}
+				colonial_kentucky = {
+					remove_core = THIS
+					remove_core = ROOT
+					cede_province = PREV
+					add_core = PREV
+				}
+			}
+			if = {
+				limit = {
+					colonial_ohio = {
+						type = all
+						country_or_non_sovereign_subject_holds = ROOT
+					}
+				}
+				colonial_ohio = {
+					remove_core = THIS
+					remove_core = ROOT
+					cede_province = PREV
+					add_core = PREV
+				}
+			}
+			if = {
+				limit = {
+					maine_area = {
+						type = all
+						country_or_non_sovereign_subject_holds = ROOT
+					}
+				}
+				maine_area = {
+					remove_core = THIS
+					remove_core = ROOT
+					cede_province = PREV
+					add_core = PREV
+				}
+			}
+		}
+	}
+}
+
+country_event = {
+	id = super_colonies.3
+	title = "super_colonies.RHtit2"
+	desc = "super_colonies.RHdesc2"
+	picture = CONSTITUTION_eventPicture
+	
+	trigger = {
+		is_colonial_nation = no
+		OR = {
+			#Canada super colony
+			AND = {
+				any_subject_country = {
+					#ai = yes
+					has_country_flag = formed_super_colony
+					is_colonial_nation = yes
+					is_colonial_nation_of = ROOT
+					capital_scope = {
+						colonial_region = colonial_quebec
+					}
+					#NOT = { liberty_desire = 90 }
+					is_at_war = no
+					OR = {
+						AND = {
+							colonial_quebec = {
+								type = all
+								country_or_non_sovereign_subject_holds = ROOT
+								is_city = yes
+							}
+							NOT = {
+								colonial_quebec = {
+									type = all
+									owned_by = PREV
+									is_city = yes
+								}
+							}
+						}
+						AND = {
+							upper_acadia_area = {
+								type = all
+								country_or_non_sovereign_subject_holds = ROOT
+								is_city = yes
+							}
+							NOT = {
+								upper_acadia_area = {
+									type = all
+									owned_by = PREV
+									is_city = yes
+								}
+							}
+						}
+						AND = {
+							lower_acadia_area = {
+								type = all
+								country_or_non_sovereign_subject_holds = ROOT
+								is_city = yes
+							}
+							NOT = {
+								lower_acadia_area = {
+									type = all
+									owned_by = PREV
+									is_city = yes
+								}
+							}
+						}
+						AND = {
+							colonial_hudson_bay = {
+								type = all
+								country_or_non_sovereign_subject_holds = ROOT
+								is_city = yes
+							}
+							NOT = {
+								colonial_hudson_bay = {
+									type = all
+									owned_by = PREV
+									is_city = yes
+								}
+							}
+						}
+						AND = {
+							colonial_alberta = {
+								type = all
+								country_or_non_sovereign_subject_holds = ROOT
+								is_city = yes
+							}
+							NOT = {
+								colonial_alberta = {
+									type = all
+									owned_by = PREV
+									is_city = yes
+								}
+							}
+						}
+						AND = {
+							colonial_columbia = {
+								type = all
+								country_or_non_sovereign_subject_holds = ROOT
+								is_city = yes
+							}
+							NOT = {
+								colonial_columbia = {
+									type = all
+									owned_by = PREV
+									is_city = yes
+								}
+							}
+						}
+						AND = {
+							colonial_alaska = {
+								type = all
+								country_or_non_sovereign_subject_holds = ROOT
+								is_city = yes
+							}
+							NOT = {
+								colonial_alaska = {
+									type = all
+									owned_by = PREV
+									is_city = yes
+								}
+							}
+						}
+						2005 = {
+							country_or_non_sovereign_subject_holds = ROOT
+							NOT = { owned_by = PREV }
+							is_city = yes
+						}
+						2598 = {
+							country_or_non_sovereign_subject_holds = ROOT
+							NOT = { owned_by = PREV }
+							is_city = yes
+						}
+					}
+				}
+			}
+		}
+	}
+	
+	option = {
+		name = "super_colonies.RHans3"
+		#Super colonies
+		#Canada super colony
+		every_country = {
+			limit = {
+				is_colonial_nation = yes
+				capital_scope = {
+					colonial_region = colonial_quebec
+				}
+				is_colonial_nation_of = ROOT
+			}
+			colonial_quebec = {
+				add_permanent_claim = PREV
+			}
+			upper_acadia_area = {
+				add_permanent_claim = PREV
+			}
+			lower_acadia_area = {
+				add_permanent_claim = PREV
+			}
+			colonial_hudson_bay = {
+				add_permanent_claim = PREV
+			}
+			colonial_alberta = {
+				add_permanent_claim = PREV
+			}
+			colonial_columbia = {
+				add_permanent_claim = PREV
+			}
+			colonial_alaska = {
+				add_permanent_claim = PREV
+			}
+			2005 = {
+				add_permanent_claim = PREV
+			}
+			2598 = {
+				add_permanent_claim = PREV
+			}
+			
+			if = {
+				limit = {
+					colonial_quebec = {
+						type = all
+						country_or_non_sovereign_subject_holds = ROOT
+					}
+				}
+				colonial_quebec = {
+					remove_core = THIS
+					remove_core = ROOT
+					cede_province = PREV
+					add_core = PREV
+				}
+			}
+			if = {
+				limit = {
+					upper_acadia_area = {
+						type = all
+						country_or_non_sovereign_subject_holds = ROOT
+					}
+				}
+				upper_acadia_area = {
+					remove_core = THIS
+					remove_core = ROOT
+					cede_province = PREV
+					add_core = PREV
+				}
+			}
+			if = {
+				limit = {
+					lower_acadia_area = {
+						type = all
+						country_or_non_sovereign_subject_holds = ROOT
+					}
+				}
+				lower_acadia_area = {
+					remove_core = THIS
+					remove_core = ROOT
+					cede_province = PREV
+					add_core = PREV
+				}
+			}
+			if = {
+				limit = {
+					colonial_hudson_bay = {
+						type = all
+						country_or_non_sovereign_subject_holds = ROOT
+					}
+				}
+				colonial_hudson_bay = {
+					remove_core = THIS
+					remove_core = ROOT
+					cede_province = PREV
+					add_core = PREV
+				}
+			}
+			if = {
+				limit = {
+					colonial_alberta = {
+						type = all
+						country_or_non_sovereign_subject_holds = ROOT
+					}
+				}
+				colonial_alberta = {
+					remove_core = THIS
+					remove_core = ROOT
+					cede_province = PREV
+					add_core = PREV
+				}
+			}
+			if = {
+				limit = {
+					colonial_columbia = {
+						type = all
+						country_or_non_sovereign_subject_holds = ROOT
+					}
+				}
+				colonial_columbia = {
+					remove_core = THIS
+					remove_core = ROOT
+					cede_province = PREV
+					add_core = PREV
+				}
+			}
+			if = {
+				limit = {
+					colonial_alaska = {
+						type = all
+						country_or_non_sovereign_subject_holds = ROOT
+					}
+				}
+				colonial_alaska = {
+					remove_core = THIS
+					remove_core = ROOT
+					cede_province = PREV
+					add_core = PREV
+				}
+			}
+			if = {
+				limit = {
+					2005 = {
+						country_or_non_sovereign_subject_holds = ROOT
+					}
+				}
+				2005 = {
+					remove_core = THIS
+					remove_core = ROOT
+					cede_province = PREV
+					add_core = PREV
+				}
+			}
+			if = {
+				limit = {
+					2598 = {
+						country_or_non_sovereign_subject_holds = ROOT
+					}
+				}
+				2598 = {
+					remove_core = THIS
+					remove_core = ROOT
+					cede_province = PREV
+					add_core = PREV
+				}
+			}
+		}
+	}
+}
+
+country_event = {
+	id = super_colonies.8
+	title = "super_colonies.RHtit2"
+	desc = "super_colonies.RHdesc2"
+	picture = CONSTITUTION_eventPicture
+	
+	trigger = {
+		is_colonial_nation = no
+		OR = {
+			#La Plata super colony
+			AND = {
+				any_subject_country = {
+					#ai = yes
+					has_country_flag = formed_super_colony
+					is_colonial_nation = yes
+					is_colonial_nation_of = ROOT
+					capital_scope = {
+						colonial_region = colonial_la_plata
+					}
+					#NOT = { liberty_desire = 90 }
+					is_at_war = no
+					OR = {
+						AND = {
+							colonial_la_plata = {
+								type = all
+								country_or_non_sovereign_subject_holds = ROOT
+								is_city = yes
+							}
+							NOT = {
+								colonial_la_plata = {
+									type = all
+									owned_by = PREV
+									is_city = yes
+								}
+							}
+						}
+						AND = {
+							colonial_la_upper_plata = {
+								type = all
+								country_or_non_sovereign_subject_holds = ROOT
+								is_city = yes
+							}
+							NOT = {
+								colonial_la_upper_plata = {
+									type = all
+									owned_by = PREV
+									is_city = yes
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+	
+	option = {
+		name = "super_colonies.RHans3"
+		#Super colonies
+		#La Plata super colony
+		every_country = {
+			limit = {
+				is_colonial_nation = yes
+				capital_scope = {
+					colonial_region = colonial_la_plata
+				}
+				is_colonial_nation_of = ROOT
+			}
+			colonial_la_plata = {
+				add_permanent_claim = PREV
+			}
+			colonial_la_upper_plata = {
+				add_permanent_claim = PREV
+			}
+			
+			if = {
+				limit = {
+					colonial_la_plata = {
+						type = all
+						country_or_non_sovereign_subject_holds = ROOT
+					}
+				}
+				colonial_la_plata = {
+					remove_core = THIS
+					remove_core = ROOT
+					cede_province = PREV
+					add_core = PREV
+				}
+			}
+			if = {
+				limit = {
+					colonial_la_upper_plata = {
+						type = all
+						country_or_non_sovereign_subject_holds = ROOT
+					}
+				}
+				colonial_la_upper_plata = {
+					remove_core = THIS
+					remove_core = ROOT
+					cede_province = PREV
+					add_core = PREV
+				}
+			}
+		}
+	}
+}
+
+country_event = {
+	id = super_colonies.9
+	title = "super_colonies.RHtit2"
+	desc = "super_colonies.RHdesc2"
+	picture = CONSTITUTION_eventPicture
+	
+	trigger = {
+		is_colonial_nation = no
+		OR = {
+			#Mexico super colony
+			AND = {
+				any_subject_country = {
+					#ai = yes
+					has_country_flag = formed_super_colony
+					is_colonial_nation = yes
+					is_colonial_nation_of = ROOT
+					capital_scope = {
+						colonial_region = colonial_mexico
+					}
+					#NOT = { liberty_desire = 90 }
+					is_at_war = no
+					OR = {
+						AND = {
+							colonial_mexico = {
+								type = all
+								country_or_non_sovereign_subject_holds = ROOT
+								is_city = yes
+							}
+							NOT = {
+								colonial_mexico = {
+									type = all
+									owned_by = PREV
+									is_city = yes
+								}
+							}
+						}
+						AND = {
+							colonial_honduras = {
+								type = all
+								country_or_non_sovereign_subject_holds = ROOT
+								is_city = yes
+							}
+							NOT = {
+								colonial_honduras = {
+									type = all
+									owned_by = PREV
+									is_city = yes
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+	
+	option = {
+		name = "super_colonies.RHans3"
+		#Super colonies
+		#Mexico super colony
+		every_country = {
+			limit = {
+				is_colonial_nation = yes
+				capital_scope = {
+					colonial_region = colonial_mexico
+				}
+				is_colonial_nation_of = ROOT
+			}
+			colonial_mexico = {
+				add_permanent_claim = PREV
+			}
+			colonial_honduras = {
+				add_permanent_claim = PREV
+			}
+			
+			if = {
+				limit = {
+					colonial_mexico = {
+						type = all
+						country_or_non_sovereign_subject_holds = ROOT
+					}
+				}
+				colonial_mexico = {
+					remove_core = THIS
+					remove_core = ROOT
+					cede_province = PREV
+					add_core = PREV
+				}
+			}
+			if = {
+				limit = {
+					colonial_honduras = {
+						type = all
+						country_or_non_sovereign_subject_holds = ROOT
+					}
+				}
+				colonial_honduras = {
+					remove_core = THIS
+					remove_core = ROOT
+					cede_province = PREV
+					add_core = PREV
+				}
+			}
+		}
+	}
+}
+
+country_event = {
+	id = super_colonies.10
+	title = "super_colonies.RHtit2"
+	desc = "super_colonies.RHdesc2"
+	picture = CONSTITUTION_eventPicture
+	
+	trigger = {
+		is_colonial_nation = no
+		OR = {
+			#California super colony
+			AND = {
+				any_subject_country = {
+					#ai = yes
+					has_country_flag = formed_super_colony
+					is_colonial_nation = yes
+					is_colonial_nation_of = ROOT
+					capital_scope = {
+						colonial_region = colonial_california
+					}
+					#NOT = { liberty_desire = 90 }
+					is_at_war = no
+					OR = {
+						AND = {
+							colonial_california = {
+								type = all
+								country_or_non_sovereign_subject_holds = ROOT
+								is_city = yes
+							}
+							NOT = {
+								colonial_california = {
+									type = all
+									owned_by = PREV
+									is_city = yes
+								}
+							}
+						}
+						AND = {
+							colonial_arizona = {
+								type = all
+								country_or_non_sovereign_subject_holds = ROOT
+								is_city = yes
+							}
+							NOT = {
+								colonial_arizona = {
+									type = all
+									owned_by = PREV
+									is_city = yes
+								}
+							}
+						}
+						AND = {
+							colonial_oregon = {
+								type = all
+								country_or_non_sovereign_subject_holds = ROOT
+								is_city = yes
+							}
+							NOT = {
+								colonial_oregon = {
+									type = all
+									owned_by = PREV
+									is_city = yes
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+	
+	option = {
+		name = "super_colonies.RHans3"
+		#Super colonies
+		#California super colony
+		every_country = {
+			limit = {
+				is_colonial_nation = yes
+				capital_scope = {
+					colonial_region = colonial_california
+				}
+				is_colonial_nation_of = ROOT
+			}
+			colonial_california = {
+				add_permanent_claim = PREV
+			}
+			colonial_arizona = {
+				add_permanent_claim = PREV
+			}
+			colonial_oregon = {
+				add_permanent_claim = PREV
+			}
+			
+			if = {
+				limit = {
+					colonial_california = {
+						type = all
+						country_or_non_sovereign_subject_holds = ROOT
+					}
+				}
+				colonial_california = {
+					remove_core = THIS
+					remove_core = ROOT
+					cede_province = PREV
+					add_core = PREV
+				}
+			}
+			if = {
+				limit = {
+					colonial_arizona = {
+						type = all
+						country_or_non_sovereign_subject_holds = ROOT
+					}
+				}
+				colonial_arizona = {
+					remove_core = THIS
+					remove_core = ROOT
+					cede_province = PREV
+					add_core = PREV
+				}
+			}
+			if = {
+				limit = {
+					colonial_oregon = {
+						type = all
+						country_or_non_sovereign_subject_holds = ROOT
+					}
+				}
+				colonial_oregon = {
+					remove_core = THIS
+					remove_core = ROOT
+					cede_province = PREV
+					add_core = PREV
+				}
+			}
+		}
+	}
+}
+country_event = {
+	id = super_colonies.13
+	title = "super_colonies.RHtit2"
+	desc = "super_colonies.RHdesc2"
+	picture = CONSTITUTION_eventPicture
+	
+	trigger = {
+		has_country_flag = dutch_amerika_enabled
+		is_colonial_nation = no
+		OR = {
+			#Amerika super colony
+			AND = {
+				any_subject_country = {
+					#ai = yes
+					has_country_flag = formed_super_colony
+					is_colonial_nation = yes
+					is_colonial_nation_of = ROOT
+					capital_scope = {
+						colonial_region = colonial_new_amsterdam
+					}
+					#NOT = { liberty_desire = 90 }
+					is_at_war = no
+					OR = {
+						AND = {
+							colonial_new_amsterdam = {
+								type = all
+								country_or_non_sovereign_subject_holds = ROOT
+								is_city = yes
+							}
+							NOT = {
+								colonial_new_amsterdam = {
+									type = all
+									owned_by = PREV
+									is_city = yes
+								}
+							}
+						}
+						AND = {
+							colonial_pennsylvania = {
+								type = all
+								country_or_non_sovereign_subject_holds = ROOT
+								is_city = yes
+							}
+							NOT = {
+								colonial_pennsylvania = {
+									type = all
+									owned_by = PREV
+									is_city = yes
+								}
+							}
+						}
+						AND = {
+							colonial_new_england = {
+								type = all
+								country_or_non_sovereign_subject_holds = ROOT
+								is_city = yes
+							}
+							NOT = {
+								colonial_new_england = {
+									type = all
+									owned_by = PREV
+									is_city = yes
+								}
+							}
+						}
+						AND = {
+							colonial_virginia = {
+								type = all
+								country_or_non_sovereign_subject_holds = ROOT
+								is_city = yes
+							}
+							NOT = {
+								colonial_virginia = {
+									type = all
+									owned_by = PREV
+									is_city = yes
+								}
+							}
+						}
+						AND = {
+							colonial_carolina = {
+								type = all
+								country_or_non_sovereign_subject_holds = ROOT
+								is_city = yes
+							}
+							NOT = {
+								colonial_carolina = {
+									type = all
+									owned_by = PREV
+									is_city = yes
+								}
+							}
+						}
+						AND = {
+							colonial_georgia = {
+								type = all
+								country_or_non_sovereign_subject_holds = ROOT
+								is_city = yes
+							}
+							NOT = {
+								colonial_georgia = {
+									type = all
+									owned_by = PREV
+									is_city = yes
+								}
+							}
+						}
+						AND = {
+							colonial_kentucky = {
+								type = all
+								country_or_non_sovereign_subject_holds = ROOT
+								is_city = yes
+							}
+							NOT = {
+								colonial_kentucky = {
+									type = all
+									owned_by = PREV
+									is_city = yes
+								}
+							}
+						}
+						AND = {
+							colonial_mississippi = {
+								type = all
+								country_or_non_sovereign_subject_holds = ROOT
+								is_city = yes
+							}
+							NOT = {
+								colonial_mississippi = {
+									type = all
+									owned_by = PREV
+									is_city = yes
+								}
+							}
+						}
+						AND = {
+							colonial_florida = {
+								type = all
+								country_or_non_sovereign_subject_holds = ROOT
+								is_city = yes
+							}
+							NOT = {
+								colonial_florida = {
+									type = all
+									owned_by = PREV
+									is_city = yes
+								}
+							}
+						}
+						AND = {
+							maine_area = {
+								type = all
+								country_or_non_sovereign_subject_holds = ROOT
+								is_city = yes
+							}
+							NOT = {
+								maine_area = {
+									type = all
+									owned_by = PREV
+									is_city = yes
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+	
+	option = {
+		name = "super_colonies.RHans3"
+		#Super colonies
+		#Amerika super colony
+		every_country = {
+			limit = {
+				is_colonial_nation = yes
+				capital_scope = {
+					colonial_region = colonial_new_amsterdam
+				}
+				is_colonial_nation_of = ROOT
+			}
+			colonial_new_amsterdam = {
+				add_permanent_claim = PREV
+			}
+			colonial_pennsylvania = {
+				add_permanent_claim = PREV
+			}
+			colonial_new_england = {
+				add_permanent_claim = PREV
+			}
+			colonial_virginia = {
+				add_permanent_claim = PREV
+			}
+			colonial_carolina = {
+				add_permanent_claim = PREV
+			}
+			colonial_georgia = {
+				add_permanent_claim = PREV
+			}
+			colonial_kentucky = {
+				add_permanent_claim = PREV
+			}
+			colonial_mississippi = {
+				add_permanent_claim = PREV
+			}
+			colonial_florida = {
+				add_permanent_claim = PREV
+			}
+			maine_area = {
+				add_permanent_claim = PREV
+			}
+			
+			if = {
+				limit = {
+					colonial_new_amsterdam = {
+						type = all
+						country_or_non_sovereign_subject_holds = ROOT
+					}
+				}
+				colonial_new_amsterdam = {
+					remove_core = THIS
+					remove_core = ROOT
+					cede_province = PREV
+					add_core = PREV
+				}
+			}
+			if = {
+				limit = {
+					colonial_pennsylvania = {
+						type = all
+						country_or_non_sovereign_subject_holds = ROOT
+					}
+				}
+				colonial_pennsylvania = {
+					remove_core = THIS
+					remove_core = ROOT
+					cede_province = PREV
+					add_core = PREV
+				}
+			}
+			if = {
+				limit = {
+					colonial_new_england = {
+						type = all
+						country_or_non_sovereign_subject_holds = ROOT
+					}
+				}
+				colonial_new_england = {
+					remove_core = THIS
+					remove_core = ROOT
+					cede_province = PREV
+					add_core = PREV
+				}
+			}
+			if = {
+				limit = {
+					colonial_virginia = {
+						type = all
+						country_or_non_sovereign_subject_holds = ROOT
+					}
+				}
+				colonial_virginia = {
+					remove_core = THIS
+					remove_core = ROOT
+					cede_province = PREV
+					add_core = PREV
+				}
+			}
+			if = {
+				limit = {
+					colonial_carolina = {
+						type = all
+						country_or_non_sovereign_subject_holds = ROOT
+					}
+				}
+				colonial_carolina = {
+					remove_core = THIS
+					remove_core = ROOT
+					cede_province = PREV
+					add_core = PREV
+				}
+			}
+			if = {
+				limit = {
+					colonial_georgia = {
+						type = all
+						country_or_non_sovereign_subject_holds = ROOT
+					}
+				}
+				colonial_georgia = {
+					remove_core = THIS
+					remove_core = ROOT
+					cede_province = PREV
+					add_core = PREV
+				}
+			}
+			if = {
+				limit = {
+					colonial_kentucky = {
+						type = all
+						country_or_non_sovereign_subject_holds = ROOT
+					}
+				}
+				colonial_kentucky = {
+					remove_core = THIS
+					remove_core = ROOT
+					cede_province = PREV
+					add_core = PREV
+				}
+			}
+			if = {
+				limit = {
+					colonial_mississippi = {
+						type = all
+						country_or_non_sovereign_subject_holds = ROOT
+					}
+				}
+				colonial_mississippi = {
+					remove_core = THIS
+					remove_core = ROOT
+					cede_province = PREV
+					add_core = PREV
+				}
+			}
+			if = {
+				limit = {
+					colonial_florida = {
+						type = all
+						country_or_non_sovereign_subject_holds = ROOT
+					}
+				}
+				colonial_florida = {
+					remove_core = THIS
+					remove_core = ROOT
+					cede_province = PREV
+					add_core = PREV
+				}
+			}
+			if = {
+				limit = {
+					maine_area = {
+						type = all
+						country_or_non_sovereign_subject_holds = ROOT
+					}
+				}
+				maine_area = {
+					remove_core = THIS
+					remove_core = ROOT
+					cede_province = PREV
+					add_core = PREV
+				}
+			}
+		}
+	}
+}
+country_event = {
+	id = super_colonies.11
+	title = "super_colonies.RHtit2"
+	desc = "super_colonies.RHdesc2"
+	picture = CONSTITUTION_eventPicture
+	
+	hidden = yes
+	
+	trigger = {
+		exists = RAJ
+		is_colonial_nation = no
+		RAJ = {
+			is_colonial_nation_of = ROOT
+			capital_scope = {
+				superregion = india_superregion
+			}
+			#NOT = { liberty_desire = 90 }
+			#is_at_war = no
+		}
+		#British Raj super colony
+		OR = {
+			india_superregion = {
+				owned_by = ROOT
+			}
+			burma_region = {
+				owned_by = ROOT
+			}
+			makran_area = {
+				owned_by = ROOT
+			}
+			kalat_area = {
+				owned_by = ROOT
+			}
+			bhutan_area = {
+				owned_by = ROOT
+			}
+			578 = {
+				owned_by = ROOT
+			}
+			1248 = {
+				owned_by = ROOT
+			}
+			574 = {
+				owned_by = ROOT
+			}
+		}
+	}
+	
+	option = {
+		name = "super_colonies.RHans3"
+		#Super colonies
+		#British Raj super colony
+		every_owned_province = {
+			limit = {
+				OR = {
+					superregion = india_superregion
+					region = burma_region
+					area = makran_area
+					area = kalat_area
+					area = bhutan_area
+					province_id = 578
+					province_id = 1248
+					province_id = 574
+				}
+			}
+			remove_core = ROOT
+			add_core = RAJ
+			add_territorial_core = RAJ
+			cede_province = RAJ
+		}
+	}
+}

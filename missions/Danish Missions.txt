@@ -1,0 +1,506 @@
+danish_missions_kalmar = {
+	slot = 1
+	generic = no
+	ai = yes
+	potential = {
+		tag = DAN
+		NOT = { map_setup = map_setup_random }
+		NOT = { has_country_flag = rh_missions_off }
+	}
+	has_country_shield = yes
+
+	denmark_norway_integration = {
+		icon = mission_have_two_subjects
+		required_missions = { }
+		completed_by = 1536.1.1
+		provinces_to_highlight = {
+			OR = {
+				area = northern_norway
+				area = eastern_norway
+				area = western_norway
+				area = subarctic_islands_area
+				area = iceland_area
+			}
+			NOT = {
+				owned_by = ROOT
+			}
+		}
+		trigger = {
+			northern_norway = {
+				type = all
+				owned_by = ROOT
+			}
+			eastern_norway = {
+				type = all
+				owned_by = ROOT
+			}
+			western_norway = {
+				type = all
+				owned_by = ROOT
+			}
+			subarctic_islands_area = {
+				type = all
+				owned_by = ROOT
+			}
+			iceland_area = {
+				type = all
+				owned_by = ROOT
+			}
+		}
+		effect = {
+			add_country_modifier = {
+				name = "denmark_norway_united"
+				duration = 5475
+			}
+			if = {
+				limit = {
+					NOT = {
+						SWE = {
+							junior_union_with = ROOT
+						}
+					}
+				}
+				svealand_area = {
+					limit = {
+						NOT = { is_core = ROOT }
+						NOT = { is_permanent_claim = ROOT }
+					}
+					add_claim = ROOT
+				}
+				norrland_area = {
+					limit = {
+						NOT = { is_core = ROOT }
+						NOT = { is_permanent_claim = ROOT }
+					}
+					add_claim = ROOT
+				}
+				gotaland_area = {
+					limit = {
+						NOT = { is_core = ROOT }
+						NOT = { is_permanent_claim = ROOT }
+					}
+					add_claim = ROOT
+				}
+				vastra_gotaland_area = {
+					limit = {
+						NOT = { is_core = ROOT }
+						NOT = { is_permanent_claim = ROOT }
+					}
+					add_claim = ROOT
+				}
+				ostra_svealand_area = {
+					limit = {
+						NOT = { is_core = ROOT }
+						NOT = { is_permanent_claim = ROOT }
+					}
+					add_claim = ROOT
+				}
+			}
+			else = {
+				add_adm_power = 50
+			}
+		}
+	}
+	denmark_sweden_integration = {
+		icon = mission_monarch_in_throne_room
+		required_missions = { denmark_norway_integration }
+		provinces_to_highlight = {
+			OR = {
+				area = svealand_area
+				area = norrland_area
+				area = gotaland_area
+				area = vastra_gotaland_area
+				area = ostra_svealand_area
+			}
+			NOT = {
+				owned_by = ROOT
+			}
+		}
+		trigger = {
+			svealand_area = {
+				type = all
+				owned_by = ROOT
+			}
+			norrland_area = {
+				type = all
+				owned_by = ROOT
+			}
+			gotaland_area = {
+				type = all
+				owned_by = ROOT
+			}
+			vastra_gotaland_area = {
+				type = all
+				owned_by = ROOT
+			}
+			ostra_svealand_area = {
+				type = all
+				owned_by = ROOT
+			}
+		}
+		effect = {
+			add_country_modifier = {
+				name = "united_scandinavia"
+				duration = 5475
+			}
+			scandinavia_region = {
+				limit = {
+					NOT = { is_core = ROOT }
+					NOT = { is_permanent_claim = ROOT }
+				}
+				add_permanent_claim = ROOT
+			}
+		}
+	}
+	
+	danish_missions_discover_virgin = {
+		icon = mission_establish_high_seas_navy
+
+		provinces_to_highlight = {
+			province_id = 493
+		}
+
+		trigger = {
+			has_idea_group = exploration_ideas
+			has_idea = quest_for_the_new_world
+			if = {
+				limit = {
+					is_random_new_world = yes
+				}
+				any_owned_province = {
+					continent = new_world
+				}
+			}
+			else = {
+				493 = { has_discovered = ROOT }
+			}
+		}
+
+		effect = {
+			add_treasury = 25
+			hidden_effect = {
+				if = {
+					limit = {
+						493 = { owner = { NOT = { OR = { technology_group = western technology_group = eastern technology_group = ottoman } } is_colonial_nation = no } }
+					}
+					493 = {
+						owner = { save_global_event_target_as = native_move country_event = { id = orion_seize.1 days = 0 } }
+						
+						random_empty_neighbor_province = { 
+							change_religion = event_target:native_move
+							change_culture = event_target:native_move
+							add_core = event_target:native_move			
+							cede_province = event_target:native_move
+						}
+						clear_global_event_target = native_move
+					
+						cede_province = 0
+					}
+				}
+			}
+			
+			493 = {
+				if = {
+					limit = { is_empty = yes }
+					change_religion = ROOT	
+					change_culture = ROOT
+					add_territorial_core = ROOT
+					cede_province = ROOT
+				}
+			}
+		}
+	}
+	
+	danish_missions_discover_green_land = {
+		icon = mission_establish_high_seas_navy
+		required_missions = { danish_missions_discover_virgin }
+
+		provinces_to_highlight = {
+			area = greenland_area
+			NOT = { country_or_non_sovereign_subject_holds = ROOT }
+			has_discovered = yes
+		}
+
+		trigger = {
+			if = {
+				limit = {
+					is_random_new_world = yes
+				}
+				any_owned_province = {
+					continent = new_world
+				}
+			}
+			else = {
+				greenland_area = { has_discovered = ROOT }
+			}
+		}
+
+		effect = {		
+			add_prestige = 15
+			add_country_modifier = {
+				name = "the_unknown_frontier"
+				duration = 5475
+			}
+			
+			greenland_area = {
+				add_permanent_claim = ROOT
+			}
+		}
+	}
+	
+	danish_missions_green_land = {
+		icon = mission_rb_settle_the_north
+		required_missions = { danish_missions_discover_green_land }
+
+		provinces_to_highlight = {
+			area = greenland_area
+		}
+
+		trigger = {
+			greenland_area = {
+				type = all
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+		}
+
+		effect = {		
+			add_treasury = 50
+			
+			1104 = {
+				add_base_production = 3
+				add_base_manpower = 3
+			}
+			
+			1105 = {
+				add_base_production = 2
+				add_base_manpower = 2
+			}
+		}
+	}
+}
+
+danish_missions_baltic = {
+	slot = 5
+	generic = no
+	ai = yes
+	potential = {
+		tag = DAN
+		NOT = { map_setup = map_setup_random }
+		NOT = { has_country_flag = rh_missions_off }
+	}
+	has_country_shield = yes
+
+	denmark_baltic_fleet = {
+		icon = mission_galleys_in_port
+		required_missions = { }
+		trigger = {
+			naval_forcelimit = 25
+			navy_size_percentage = 0.9
+		}
+		effect = {
+			35 = { # osel
+				if = {
+					limit = {
+						NOT = {
+							is_permanent_claim = ROOT
+							is_core = ROOT
+						}
+					}
+					add_permanent_claim = ROOT
+				}
+			}
+			estonia_ingria_area = {
+				limit = {
+					NOT = { is_core = ROOT }
+					NOT = { is_permanent_claim = ROOT }
+				}
+				add_permanent_claim = ROOT
+			}
+		}
+	}
+	control_osel = {
+		icon = mission_sea_battles
+		required_missions = { denmark_baltic_fleet }
+		provinces_to_highlight = {
+			OR = {
+				province_id = 35
+				area = estonia_ingria_area
+			}
+			NOT = {
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+		}
+		trigger = {
+			35 = {
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+			estonia_ingria_area = {
+				type = all
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+		}
+		effect = {
+			45 = {
+				if = {
+					limit = {
+						NOT = {
+							is_permanent_claim = ROOT
+							is_core = ROOT
+						}
+					}
+					add_permanent_claim = ROOT
+				}
+			}
+			43 = {
+				if = {
+					limit = {
+						NOT = {
+							is_permanent_claim = ROOT
+							is_core = ROOT
+						}
+					}
+					add_permanent_claim = ROOT
+				}
+			}
+			33 = {
+				if = {
+					limit = {
+						NOT = {
+							is_permanent_claim = ROOT
+							is_core = ROOT
+						}
+					}
+					add_permanent_claim = ROOT
+				}
+			}
+		}
+	}
+	danish_controlled_cot = {
+		icon = mission_hanseatic_city
+		required_missions = { control_osel }
+		provinces_to_highlight = {
+			OR = {
+				province_id = 43
+				province_id = 45
+				province_id = 33
+			}
+			NOT = {
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+		}
+		trigger = {
+			45 = {
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+			43 = {
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+			33 = {
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+		}
+		effect = {
+			add_country_modifier = {
+				name = "baltic_ambition_new"
+				duration = 5475
+			}
+		}
+	}
+	denmark_holstein_integration = {
+		icon = mission_have_two_subjects
+		required_missions = { }
+		provinces_to_highlight = {
+			OR = {
+				province_id = 13
+				province_id = 1775
+			}
+			NOT = { owned_by = ROOT }
+			NOT = { is_core = ROOT }
+		}
+		trigger = {
+			13 = {
+				owned_by = ROOT
+				is_core = ROOT
+			}
+			1775 = {
+				owned_by = ROOT
+				is_core = ROOT
+			}
+		}
+		effect = {
+			4141 = {
+				if = {
+					limit = {
+						NOT = { is_core = ROOT }
+					}
+					add_permanent_claim = ROOT
+				}
+			}
+			1857 = {
+				if = {
+					limit = {
+						NOT = { is_core = ROOT }
+					}
+					add_permanent_claim = ROOT
+				}
+			}
+			44 = {
+				if = {
+					limit = {
+						NOT = { is_core = ROOT }
+					}
+					add_permanent_claim = ROOT
+				}
+			}
+			45 = {
+				if = {
+					limit = {
+						NOT = { is_core = ROOT }
+						NOT = { is_permanent_claim = ROOT }
+					}
+					add_permanent_claim = ROOT
+				}
+			}
+		}
+	}
+	denmark_unite_jutland = {
+		icon = mission_unite_home_region
+		required_missions = { denmark_holstein_integration }
+		provinces_to_highlight = {
+			OR = {
+				province_id = 4141
+				province_id = 1857
+				province_id = 44
+				province_id = 45
+			}
+			NOT = { owned_by = ROOT }
+			NOT = { is_core = ROOT }
+		}
+		trigger = {
+			4141 = {
+				owned_by = ROOT
+				is_core = ROOT
+			}
+			1857 = {
+				owned_by = ROOT
+				is_core = ROOT
+			}
+			44 = {
+				owned_by = ROOT
+				is_core = ROOT
+			}
+			45 = {
+				owned_by = ROOT
+				is_core = ROOT
+			}
+		}
+		effect = {
+			add_stability = 1
+			add_dip_power = 100
+			add_country_modifier = {
+				name = "baltic_ambition_new"
+				duration = 5475
+			}
+		}
+	}
+}

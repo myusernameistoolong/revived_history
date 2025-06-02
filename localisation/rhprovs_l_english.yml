@@ -1,0 +1,23 @@
+﻿l_english:
+  #New Provinces
+  PROV4694:0 "Xianggang"
+  PROV4695:0 "Cayman Islands"
+  PROV4696:0 "Grenada"
+  PROV4697:0 "Madang"
+  PROV4698:0 "Oregon"
+  PROV4699:0 "Piegan"
+  PROV4700:0 "Nevada"
+  PROV4701:0 "Great Salt Lake"
+  PROV4702:0 "Utah"
+  PROV4703:0 "Colorado"
+  PROV4704:0 "Katlodeeche"
+  PROV4705:0 "Yukon"
+  PROV4706:0 "Rif"
+  PROV4707:0 "Rio Madeira"
+  PROV4708:0 "Acre"
+  PROV4709:0 "Upper Rocky Mountains"
+  PROV4710:0 "Leticia"
+ 
+  #New Areas
+  guangzhou_area:0 "Guangzhou"
+  great_basin_area:0 "Great Basin"

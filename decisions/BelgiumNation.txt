@@ -1,0 +1,204 @@
+country_decisions = {
+	belgium_nation = {
+		major = yes
+		potential = {
+			normal_or_historical_nations = yes
+			was_never_end_game_tag_trigger = yes
+			NOT = { has_country_flag = formed_belgium_flag }
+			OR = {
+				ai = no
+				is_playing_custom_nation = no
+			}
+			OR = {
+				NOT = { exists = BEL }
+				ai = no
+			}
+			OR = {
+				NOT = { exists = BNL }
+				ai = no
+			}
+			NOT = { tag = PAP }
+			NOT = { tag = NED }
+			NOT = { tag = BEL }
+			NOT = { tag = BUR }
+			NOT = { tag = BNL }
+			NOT = { tag = HLR }
+			OR = {
+				primary_culture = flemish
+				primary_culture = wallonian
+			}
+			OR = {
+				ai = no
+				AND = {
+					ai = yes
+					num_of_cities = 3
+				}
+			}
+		}
+		provinces_to_highlight = {
+			OR = {
+				province_id = 92 # Brussel
+				province_id = 90 # Vlaanderen
+				province_id = 1744 # Antwerpen
+				province_id = 1865 # Gent
+				province_id = 1866 # Namen
+				province_id = 91 # ok
+				province_id = 93 # Luik
+			}
+			OR = {
+				NOT = { owned_by = ROOT }
+				NOT = { is_core = ROOT }
+			}
+		}
+		allow = {
+			NOT = {
+				OR = {
+					current_age = age_of_discovery
+				}
+			}
+			is_free_or_tributary_trigger = yes
+			is_nomad = no
+			is_at_war = no
+			NOT = { exists = BEL }
+			NOT = { exists = BNL }
+			owns_core_province = 92 # Brussel
+			owns_core_province = 90 # Vlaanderen
+			owns_core_province = 1744 # Antwerpen
+			owns_core_province = 1865 # Gent
+			owns_core_province = 1866 # Namen
+			owns_core_province = 91 # ok
+			owns_core_province = 93 # Luik
+		}
+	 	effect = {
+			if = {
+				limit = {
+					any_owned_province = {
+						is_part_of_hre = yes
+					}
+					is_elector = no
+					is_emperor = no
+				}
+				every_owned_province = {
+					limit = {
+						is_part_of_hre = yes
+					}
+					set_in_empire = no
+				}
+			}
+			if = {
+				limit = {
+					government = theocracy
+					religion = catholic
+				}
+				change_government = monarchy
+				set_legacy_government = administrative_monarchy
+				PAP = {
+					add_opinion = {
+						who = ROOT
+						modifier = opinion_displeased
+					}
+				}
+			}
+			if = {
+				limit = {
+					government = theocracy
+					NOT = { religion = catholic }
+				}
+				change_government = monarchy
+				set_legacy_government = administrative_monarchy
+			}
+			change_tag = BEL
+			add_accepted_culture = flemish
+			add_accepted_culture = wallonian
+			swap_non_generic_missions = no
+			low_countries_region = {
+				limit = {
+					NOT = { owned_by = ROOT }
+					NOT = { province_id = 87 }
+					NOT = { province_id = 181 }
+				}
+				add_permanent_claim = BEL
+			}
+			wallonia_area = {
+				limit = {
+					NOT = { owned_by = ROOT }
+				}
+				add_permanent_claim = ROOT
+			}
+			picardy_area = {
+				limit = {
+					NOT = { owned_by = ROOT }
+					NOT = {
+						province_id = 89
+					}
+				}
+				add_permanent_claim = BEL
+			}
+			2974 = {
+				if = {
+					limit = {
+						NOT = { owned_by = ROOT }
+					}
+					add_permanent_claim = BEL
+				}
+			}
+			1744 = {
+				if = {
+					limit = {
+						NOT = { owned_by = ROOT }
+					}
+					add_permanent_claim = BEL
+				}
+			}
+			1742 = {
+				if = {
+					limit = {
+						NOT = { owned_by = ROOT }
+					}
+					add_permanent_claim = BEL
+				}
+			}
+			95 = {
+				if = {
+					limit = {
+						NOT = { owned_by = ROOT }
+					}
+					add_permanent_claim = BEL
+				}
+			}
+			181 = {
+				if = {
+					limit = {
+						NOT = { owned_by = ROOT }
+					}
+					add_claim = BEL
+				}
+			}
+			picardy_area = {
+				limit = {
+					NOT = { owned_by = ROOT }
+				}
+				add_claim = BEL
+			}
+			if = {
+				limit = {
+					NOT = {
+						government_rank = 2
+					}
+				}
+				set_government_rank = 2
+			}
+			set_country_flag = formed_belgium_flag
+			add_prestige = 25
+			if = {
+				limit = {
+					has_custom_ideas = no
+					NOT = { has_idea_group = NED_ideas }
+				}
+				country_event = { id = ideagroups.1 } #Swap Ideas
+			}
+		}
+		ai_importance = 400
+	}
+	
+}

@@ -1,0 +1,898 @@
+# Hard-coded functions made fully or partly scripted
+#
+# Note that most functions use unique mechanics
+
+# ROOT = country
+can_join_hre_league = {
+	condition = {
+		tooltip = "CANNOT_JOIN_LEAGUE_AT_WAR"
+		potential = {
+		}
+		allow = {
+			is_at_war = no
+		}
+	}
+}
+
+can_leave_hre_league = {
+}
+
+can_harsh_treatment = {
+}
+
+can_reduce_war_exhaustion = {
+}
+
+can_reduce_inflation = {
+}
+
+can_declare_bankruptcy = {
+}
+
+can_release_colonial_nation = {
+	condition = {
+		tooltip = "CAN_RELEASE_CN_WE_ARE_AT_WAR"
+		potential = {
+		}
+		allow = {
+			is_at_war = no
+		}
+	}
+}
+
+can_claim_defender_of_faith = {
+}
+
+can_change_national_focus = {
+}
+
+can_increase_stability = {
+}
+
+# ROOT = province, FROM = country
+can_add_province_to_hre = {
+	
+}
+
+can_remove_province_from_hre = {
+	
+
+}
+
+can_increase_autonomy = {
+}
+
+can_decrease_autonomy = {
+}
+
+can_make_core = {
+}
+
+can_make_state = {
+}
+
+can_abandon_state = {
+}
+
+can_improve_tax = {
+}
+
+can_improve_production = {
+}
+
+can_improve_manpower = {
+}
+
+can_exploit_tax = {
+}
+
+can_exploit_production = {
+}
+
+can_exploit_manpower = {
+}
+
+can_change_culture = {
+}
+
+can_move_capital = {
+	condition = {
+		tooltip = "NO_CAPITAL_MOVE_SHOGUN"
+		potential = {
+			FROM = {
+				has_reform = shogunate
+			}
+		}
+		allow = {
+			always = no
+		}
+	}
+}
+
+can_move_trade_port = {
+}
+
+can_order_assault = {
+}
+
+can_order_force_march = {
+}
+
+can_scorch_earth = {
+}
+
+can_garrison_sorties = {
+}
+
+can_seize_colony = {
+}
+
+can_burn_colony = {
+}
+
+can_colonize_province = {
+	#National restrictions
+	condition = {
+		tooltip = "COL_DECLINE_NED"
+		potential = {
+			OR = {
+				ned_colonies = yes
+				ned_por_shared_colonies = yes
+				eng_ned_shared_colonies = yes
+				ned_jap_chi_shared_colonies = yes
+				ned_fra_shared_colonies = yes
+			}
+			FROM = { NOT = { OR = { has_country_flag = colonial_restrictions_off } colonial_parent = {has_country_flag = colonial_restrictions_off } } }
+			NOT = {
+				AND = {
+					is_year = 1650
+					
+					NOT = {
+						OR = {
+							exists = NED
+							exists = BNL
+						}
+					}
+				}
+			}
+			FROM = {
+				NOT = {
+					OR = {
+						tag = NED
+						tag = BNL
+						is_colonial_nation_of = NED
+						is_colonial_nation_of = BNL
+					}
+				} 
+			}
+			NOT = {
+				AND = {
+					ned_por_shared_colonies = yes
+					FROM = {
+						OR = {
+							tag = POR
+							is_colonial_nation_of = POR
+						}
+					}
+				}
+			}
+			NOT = {
+				AND = {
+					eng_ned_shared_colonies = yes
+					FROM = {
+						OR = {
+							tag = ENG
+							tag = GBR
+							is_colonial_nation_of = ENG
+							is_colonial_nation_of = GBR
+						}
+					}
+				}
+			}
+			NOT = {
+				AND = {
+					ned_jap_chi_shared_colonies = yes
+					FROM = {
+						OR = {
+							tag = JAP
+							is_colonial_nation_of = JAP
+							tag = MNG
+							is_colonial_nation_of = MNG
+						}
+					}
+				}
+			}
+			NOT = {
+				AND = {
+					ned_fra_shared_colonies = yes
+					FROM = {
+						OR = {
+							tag = FRA
+							is_colonial_nation_of = FRA
+						}
+					}
+				}
+			}
+		}
+		allow = {
+			always = no
+		}
+	}
+	
+	condition = {
+		tooltip = "COL_DECLINE_ENG"
+		potential = {
+			OR = {
+				eng_colonies = yes
+				eng_ned_shared_colonies = yes
+				dan_eng_shared_colonies = yes
+				spa_eng_shared_colonies = yes
+				eng_fra_shared_colonies = yes
+				spa_eng_ita_shared_colonies = yes
+			}
+			FROM = { NOT = { OR = { has_country_flag = colonial_restrictions_off } colonial_parent = {has_country_flag = colonial_restrictions_off } } }
+			OR = {
+				exists = ENG
+				exists = GBR
+			}
+			FROM = {
+				NOT = { 
+					OR = { 
+						tag = ENG
+						tag = GBR
+						is_colonial_nation_of = ENG
+						is_colonial_nation_of = GBR
+					} 
+				}
+			}
+			NOT = {
+				AND = {
+					eng_ned_shared_colonies = yes
+					FROM = {
+						OR = {
+							tag = NED
+							tag = BNL
+							is_colonial_nation_of = NED
+							is_colonial_nation_of = BNL
+						}
+					}
+				}
+			}
+			NOT = {
+				AND = {
+					dan_eng_shared_colonies = yes
+					FROM = {
+						OR = {
+							tag = DAN
+							tag = SCA
+							is_colonial_nation_of = DAN
+							is_colonial_nation_of = SCA
+						}
+					}
+				}
+			}
+			NOT = {
+				AND = {
+					spa_eng_shared_colonies = yes
+					FROM = {
+						OR = {
+							tag = CAS
+							tag = SPA
+							tag = IBA
+							is_colonial_nation_of = CAS
+							is_colonial_nation_of = SPA
+							is_colonial_nation_of = IBA
+						}
+					}
+				}
+			}
+			NOT = {
+				AND = {
+					eng_fra_shared_colonies = yes
+					FROM = {
+						OR = {
+							tag = FRA
+							is_colonial_nation_of = FRA
+						}
+					}
+				}
+			}
+			NOT = {
+				AND = {
+					spa_eng_ita_shared_colonies = yes
+					FROM = {
+						OR = {
+							tag = CAS
+							tag = SPA
+							tag = ITA
+							tag = ROM
+							is_colonial_nation_of = CAS
+							is_colonial_nation_of = SPA
+							is_colonial_nation_of = ITA
+							is_colonial_nation_of = ROM
+						}
+					}
+				}
+			}
+		}
+		allow = {
+			always = no
+		}
+	}
+	
+	condition = {
+		tooltip = "COL_DECLINE_FRA"
+		potential = {
+			OR = {
+				fra_colonies = yes
+				ned_fra_shared_colonies = yes
+				eng_fra_shared_colonies = yes
+			}
+			OR = {
+				exists = FRA
+			}
+			FROM = { NOT = { OR = { has_country_flag = colonial_restrictions_off } colonial_parent = {has_country_flag = colonial_restrictions_off } } }
+			FROM = {
+				NOT = { 
+					OR = { 
+						tag = FRA
+						is_colonial_nation_of = FRA
+					} 
+				} 
+			}
+			NOT = {
+				AND = {
+					ned_fra_shared_colonies = yes
+					FROM = {
+						OR = {
+							tag = NED
+							tag = BNL
+							is_colonial_nation_of = NED
+							is_colonial_nation_of = BNL
+						}
+					}
+				}
+			}
+			NOT = {
+				AND = {
+					fra_spa_shared_colonies = yes
+					FROM = {
+						OR = {
+							tag = CAS
+							tag = SPA
+							tag = IBA
+							is_colonial_nation_of = CAS
+							is_colonial_nation_of = SPA
+							is_colonial_nation_of = IBA
+						}
+					}
+				}
+			}
+			NOT = {
+				AND = {
+					eng_fra_shared_colonies = yes
+					FROM = {
+						OR = {
+							tag = ENG
+							tag = GBR
+							is_colonial_nation_of = ENG
+							is_colonial_nation_of = GBR
+						}
+					}
+				}
+			}
+		}
+		allow = {
+			always = no
+		}
+	}
+	
+	condition = {
+		tooltip = "COL_DECLINE_SPA"
+		potential = {
+			OR = {
+				spa_colonies = yes
+				brz_spa_shared_colonies = yes
+				spa_eng_shared_colonies = yes
+				spa_jap_shared_colonies = yes
+				spa_ita_shared_colonies = yes
+				spa_eng_ita_shared_colonies = yes
+			}
+			FROM = { NOT = { OR = { has_country_flag = colonial_restrictions_off } colonial_parent = {has_country_flag = colonial_restrictions_off } } }
+			OR = {
+				exists = CAS
+				exists = SPA
+			}
+			FROM = {
+				NOT = { 
+					OR = { 
+						tag = CAS
+						tag = SPA
+						is_colonial_nation_of = CAS
+						is_colonial_nation_of = SPA
+					} 
+				}
+			}
+			NOT = {
+				AND = {
+					brz_spa_shared_colonies = yes
+					FROM = {
+						OR = {
+							tag = BRZ
+						}
+					}
+				}
+			}
+			NOT = {
+				AND = {
+					fra_spa_shared_colonies = yes
+					FROM = {
+						OR = {
+							tag = FRA
+							is_colonial_nation_of = FRA
+						}
+					}
+				}
+			}
+			NOT = {
+				AND = {
+					spa_eng_shared_colonies = yes
+					FROM = {
+						OR = {
+							tag = ENG
+							tag = GBR
+							is_colonial_nation_of = ENG
+							is_colonial_nation_of = GBR
+						}
+					}
+				}
+			}
+			NOT = {
+				AND = {
+					spa_ita_shared_colonies = yes
+					FROM = {
+						OR = {
+							tag = ITA
+							tag = ROM
+							is_colonial_nation_of = ITA
+							is_colonial_nation_of = ROM
+						}
+					}
+				}
+			}
+			NOT = {
+				AND = {
+					spa_jap_shared_colonies = yes
+					FROM = {
+						OR = {
+							tag = JAP
+							is_colonial_nation_of = JAP
+						}
+					}
+				}
+			}
+			NOT = {
+				AND = {
+					spa_eng_ita_shared_colonies = yes
+					FROM = {
+						OR = {
+							tag = ENG
+							tag = GBR
+							tag = ITA
+							tag = ROM
+							is_colonial_nation_of = ENG
+							is_colonial_nation_of = GBR
+							is_colonial_nation_of = ITA
+							is_colonial_nation_of = ROM
+						}
+					}
+				}
+			}
+		}
+		allow = {
+			always = no
+		}
+	}
+	
+	condition = {
+		tooltip = "COL_DECLINE_POR"
+		potential = {
+			OR = {
+				por_colonies = yes
+				ned_por_shared_colonies = yes
+			}
+			FROM = { NOT = { OR = { has_country_flag = colonial_restrictions_off } colonial_parent = {has_country_flag = colonial_restrictions_off } } }
+			OR = {
+				exists = POR
+			}
+			FROM = {
+				NOT = { 
+					OR = {
+						tag = POR
+						is_colonial_nation_of = POR
+					} 
+				} 
+			}
+			NOT = {
+				AND = {
+					ned_por_shared_colonies = yes
+					FROM = {
+						OR = {
+							tag = NED
+							tag = BNL
+							is_colonial_nation_of = NED
+							is_colonial_nation_of = BNL
+						}
+					}
+				}
+			}
+		}
+		allow = {
+			always = no
+		}
+	}
+	
+	condition = {
+		tooltip = "COL_DECLINE_DAN"
+		potential = {
+			OR = {
+				dan_colonies = yes
+				dan_eng_shared_colonies = yes
+			}
+			FROM = { NOT = { OR = { has_country_flag = colonial_restrictions_off } colonial_parent = {has_country_flag = colonial_restrictions_off } } }
+			OR = {
+				exists = DAN
+				exists = SCA
+			}
+			FROM = {
+				NOT = { 
+					OR = { 
+						tag = DAN
+						tag = SCA
+						is_colonial_nation_of = DAN
+						is_colonial_nation_of = SCA
+					} 
+				} 
+			}
+			NOT = {
+				AND = {
+					dan_eng_shared_colonies = yes
+					FROM = {
+						OR = {
+							tag = ENG
+							tag = GBR
+							is_colonial_nation_of = ENG
+							is_colonial_nation_of = GBR
+						}
+					}
+				}
+			}
+		}
+		allow = {
+			always = no
+		}
+	}
+	
+	condition = {
+		tooltip = "COL_DECLINE_RUS"
+		potential = {
+			rus_colonies = yes
+			OR = {
+				exists = MOS
+				exists = RUS
+			}
+			FROM = { NOT = { OR = { has_country_flag = colonial_restrictions_off } colonial_parent = {has_country_flag = colonial_restrictions_off } } }
+			FROM = {
+				NOT = { 
+					OR = { 
+						tag = MOS
+						tag = RUS
+						is_colonial_nation_of = MOS
+						is_colonial_nation_of = RUS
+					} 
+				}
+			}
+		}
+		allow = {
+			always = no
+		}
+	}
+	condition = {
+		tooltip = "COL_DECLINE_USA"
+		potential = {
+			OR = {
+				usa_jap_shared_colonies = yes
+			}
+			FROM = { NOT = { OR = { has_country_flag = colonial_restrictions_off } colonial_parent = {has_country_flag = colonial_restrictions_off } } }
+			NOT = {
+				AND = {
+					is_year = 1750
+					
+					NOT = {
+						exists = USA
+					}
+				}
+			}
+			FROM = {
+				NOT = { 
+					OR = { 
+						tag = USA
+						is_colonial_nation_of = USA
+					} 
+				}
+			}
+			NOT = {
+				AND = {
+					usa_jap_shared_colonies = yes
+					FROM = {
+						OR = {
+							tag = JAP
+							is_colonial_nation_of = JAP
+						}
+					}
+				}
+			}
+		}
+		allow = {
+			always = no
+		}
+	}
+	condition = {
+		tooltip = "COL_DECLINE_JAP"
+		potential = {
+			OR = {
+				jap_colonies = yes
+				spa_jap_shared_colonies = yes
+				ned_jap_chi_shared_colonies = yes
+			}
+			FROM = { NOT = { OR = { has_country_flag = colonial_restrictions_off } colonial_parent = {has_country_flag = colonial_restrictions_off } } }
+			NOT = {
+				AND = {
+					is_year = 1750
+					
+					NOT = {
+						exists = JAP
+					}
+				}
+			}
+			FROM = {
+				NOT = { 
+					OR = { 
+						tag = JAP
+						is_colonial_nation_of = JAP
+					} 
+				}
+			}
+			NOT = {
+				AND = {
+					spa_jap_shared_colonies = yes
+					FROM = {
+						OR = {
+							tag = CAS
+							tag = SPA
+							tag = IBA
+							is_colonial_nation_of = CAS
+							is_colonial_nation_of = SPA
+							is_colonial_nation_of = IBA
+						}
+					}
+				}
+			}
+			NOT = {
+				AND = {
+					ger_jap_shared_colonies = yes
+					FROM = {
+						OR = {
+							tag = PRU
+							tag = NGC
+							tag = GER
+							is_colonial_nation_of = PRU
+							is_colonial_nation_of = NGC
+							is_colonial_nation_of = GER
+						}
+					}
+				}
+			}
+			NOT = {
+				AND = {
+					ned_jap_chi_shared_colonies = yes
+					FROM = {
+						OR = {
+							tag = NED
+							tag = BNL
+							is_colonial_nation_of = NED
+							is_colonial_nation_of = BNL
+							tag = MNG
+							is_colonial_nation_of = MNG
+						}
+					}
+				}
+			}
+			NOT = {
+				AND = {
+					usa_jap_shared_colonies = yes
+					FROM = {
+						OR = {
+							tag = USA
+							is_colonial_nation_of = USA
+						}
+					}
+				}
+			}
+		}
+		allow = {
+			always = no
+		}
+	}
+	condition = {
+		tooltip = "COL_DECLINE_CHI"
+		potential = {
+			ned_jap_chi_shared_colonies = yes
+			FROM = { NOT = { OR = { has_country_flag = colonial_restrictions_off } colonial_parent = {has_country_flag = colonial_restrictions_off } } }
+			exists = MNG
+			FROM = {
+				NOT = { 
+					OR = { 
+						tag = MNG
+						is_colonial_nation_of = MNG
+					} 
+				}
+			}
+			NOT = {
+				AND = {
+					ned_jap_chi_shared_colonies = yes
+					FROM = {
+						OR = {
+							tag = NED
+							tag = BNL
+							is_colonial_nation_of = NED
+							is_colonial_nation_of = BNL
+							tag = JAP
+							is_colonial_nation_of = JAP
+						}
+					}
+				}
+			}
+		}
+		allow = {
+			always = no
+		}
+	}
+	condition = {
+		tooltip = "COL_DECLINE_GER"
+		potential = {
+			OR = {
+				ger_colonies = yes
+			}
+			FROM = { NOT = { OR = { has_country_flag = colonial_restrictions_off } colonial_parent = {has_country_flag = colonial_restrictions_off } } }
+			NOT = {
+				AND = {
+					is_year = 1750
+					
+					NOT = {
+						OR = {
+							exists = PRU
+							exists = NGC
+							exists = GER
+						}
+					}
+				}
+			}
+			FROM = {
+				NOT = { 
+					OR = {
+						exists = PRU
+						exists = NGC
+						exists = GER
+						is_colonial_nation_of = PRU
+						is_colonial_nation_of = NGC
+						is_colonial_nation_of = GER
+					} 
+				} 
+			}
+			NOT = {
+				AND = {
+					ger_jap_shared_colonies = yes
+					FROM = {
+						OR = {
+							tag = JAP
+							is_colonial_nation_of = JAP
+						}
+					}
+				}
+			}
+		}
+		allow = {
+			always = no
+		}
+	}
+	#Age Restrictions
+	condition = {
+		tooltip = "COL_AGE_1"
+		potential = {
+			col_age_1 = yes
+			current_age = age_of_discovery
+			NOT = { 
+				OR = {
+					ned_colonies = yes
+					eng_colonies = yes
+					fra_colonies = yes
+					spa_colonies = yes
+					por_colonies = yes
+					dan_colonies = yes
+				} 
+			}
+		}
+		allow = {
+			always = no
+		}
+	}
+	condition = {
+		tooltip = "COL_AGE_2"
+		potential = {
+			col_age_2 = yes
+			OR = {
+				current_age = age_of_discovery
+				current_age = age_of_reformation
+			}
+		}
+		allow = {
+			always = no
+		}
+	}
+	condition = {
+		tooltip = "COL_AGE_3"
+		potential = {
+			col_age_3 = yes
+			OR = {
+				current_age = age_of_discovery
+				current_age = age_of_reformation
+				current_age = age_of_absolutism
+			}
+		}
+		allow = {
+			always = no
+		}
+	}
+}
+
+can_colonize_province_siberian_frontier = {
+}
+
+can_add_seat_in_parliament = {
+}
+
+can_add_estate = {
+}
+
+can_expel_minority_from = {
+	condition = {
+		potential = {
+			OR = {
+				is_religious_center_province = yes
+				is_reformation_center = yes
+				AND = {
+					owner = { ai = yes }
+					NOT = { OR = { has_global_flag = expel_restrictions_off colonial_parent = { has_global_flag = expel_restrictions_off } } }
+				}
+			}
+		}
+		allow = {
+			always = no
+		}
+	}
+}
+
+### Special functions
+
+# Called by can_add_province_to_hre
+is_possible_hre_province = {
+	condition = {
+		tooltip = "APH_ONLY_EUROPE"
+		potential = {
+		}
+		allow = {
+			continent = europe
+		}
+	}
+}

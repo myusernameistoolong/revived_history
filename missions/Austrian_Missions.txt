@@ -1,0 +1,1024 @@
+hab_holy_roman_ambitions = {
+	slot = 1 #upper left column
+	generic = no #if a mission without generic = yes wants this slot then it overrides this.
+	ai = yes
+	potential = {
+		NOT = { map_setup = map_setup_random }
+		tag = HAB
+	}
+	has_country_shield = yes
+	
+	secure_the_imperial_crown = {
+		icon = mission_alliances
+		required_missions = {  } #None
+		
+		completed_by = 1526.8.30
+		
+		trigger = {
+			is_emperor = yes
+			custom_trigger_tooltip = {
+				tooltip = secure_the_imperial_crown.tooltip
+				calc_true_if = {
+					all_elector = {
+						preferred_emperor = ROOT
+						has_opinion = { who = ROOT value = 100 }
+					}
+					amount = 5
+				}
+			}
+		}
+		effect = {
+			if = {
+				limit = {
+					exists = BOH
+					is_subject = no
+					government = monarchy
+					religion_group = christian
+					BOH = {
+						is_subject = no
+						government = monarchy
+					}
+				}
+				add_casus_belli = {
+					type = cb_restore_personal_union
+					months = 300
+					target = BOH
+				}
+			}
+			else = {
+				bohemia_area = {
+					limit = {
+						NOT = { is_permanent_claim = ROOT }
+						NOT = { is_core = ROOT	}
+					}
+					add_permanent_claim = ROOT
+				}
+				erzgebirge_area = {
+					limit = {
+						NOT = { is_permanent_claim = ROOT }
+						NOT = { is_core = ROOT	}
+					}
+					add_permanent_claim = ROOT
+				}
+			}
+			add_country_modifier = {
+				name = "succesful_bid_for_imperial_crown"
+				duration = 5475 #15 years
+			}
+		}
+	}
+	subjugate_bohemia = {
+		icon = mission_empire
+		required_missions = { secure_the_imperial_crown }
+		position = 3
+		
+		completed_by = 1526.8.30
+		
+		ai_weight = {
+			factor = 3
+			modifier = {
+				factor = 0
+				bohemia_area = {
+					owner = {
+						alliance_with = ROOT
+					}
+				}
+			}
+		}
+		ai_priority = {
+			factor = 500
+		}
+		
+		provinces_to_highlight = {
+			OR = {
+				area = bohemia_area
+				area = erzgebirge_area
+			}
+			NOT = { country_or_non_sovereign_subject_holds = ROOT }
+		}
+		
+		trigger = {
+			bohemia_area = {
+				type = all
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+			erzgebirge_area = {
+				type = all
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+		}
+		effect = {
+			add_country_modifier = {
+				name = "habsburg_bohemia"
+				duration = 5475 #15 years
+			}
+			silesia_area = {
+				add_permanent_claim = ROOT
+			}
+			hidden_effect = {
+				remove_casus_belli = {
+					type = cb_restore_personal_union
+					target = BOH
+				}
+			}
+		}
+	}
+	recover_silesia = {
+		icon = mission_assemble_an_army
+		required_missions = { subjugate_bohemia }
+		position = 5
+		completed_by = 1620.11.8
+		ai_weight = {
+			factor = 2
+		}
+		ai_priority = {
+			factor = 1.5
+		}
+		trigger = {
+			silesia_area = {
+				type = all
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+		}
+		provinces_to_highlight = {
+			area = silesia_area
+			NOT = { country_or_non_sovereign_subject_holds = ROOT }
+		}
+		effect = {
+			silesia_area = {
+				add_province_modifier = {
+					name = "austrian_silesia"
+					duration = 7300
+				}
+				add_nationalism = -5
+			}
+			slovakia_area = {
+				limit = {
+					NOT = { is_permanent_claim = ROOT }
+					NOT = { is_core = ROOT	}
+				}
+				add_permanent_claim = ROOT
+			}
+			malopolska_area = {
+				limit = {
+					NOT = { is_permanent_claim = ROOT }
+					NOT = { is_core = ROOT	}
+				}
+				add_permanent_claim = ROOT
+				
+			}
+			red_ruthenia_area = {
+				limit = {
+					NOT = { is_permanent_claim = ROOT }
+					NOT = { is_core = ROOT	}
+				}
+				add_permanent_claim = ROOT
+			}
+			sandomierz_area = {
+				limit = {
+					NOT = { is_permanent_claim = ROOT }
+					NOT = { is_core = ROOT	}
+				}
+				add_permanent_claim = ROOT
+			}
+			
+			76 = {
+				if = {
+					limit = {
+						NOT = { is_permanent_claim = ROOT }
+						NOT = { is_core = ROOT	}
+					}
+					add_permanent_claim = ROOT
+				}
+			}
+		}
+	}
+	partition_poland = { #Conquer Galicia
+		icon = mission_noble_council
+		completed_by = 1772.8.5
+		required_missions = { recover_silesia }
+		ai_weight = {
+			factor = 0.5
+			modifier = {
+				factor = 0
+				malopolska_area = {
+					owner = {
+						alliance_with = ROOT
+					}
+				}
+			}
+			modifier = {
+				factor = 2
+				slovakia_area = {
+					country_or_non_sovereign_subject_holds = ROOT
+				}
+			}
+			modifier = {
+				factor = 2
+				malopolska_area = {
+					country_or_non_sovereign_subject_holds = ROOT
+				}
+			}
+			modifier = {
+				factor = 2
+				red_ruthenia_area = {
+					country_or_non_sovereign_subject_holds = ROOT
+				}
+			}
+		}
+		provinces_to_highlight = {
+			OR = {
+				area = slovakia_area
+				area = malopolska_area
+				area = red_ruthenia_area
+				area = sandomierz_area
+			}
+			NOT = { country_or_non_sovereign_subject_holds = ROOT }
+		}
+		trigger = {
+			slovakia_area = {
+				type = all
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+			malopolska_area = {
+				type = all
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+			red_ruthenia_area = {
+				type = all
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+			sandomierz_area = {
+				type = all
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+		}
+		effect = {
+			add_country_modifier = {
+				name = "austrian_empire"
+				duration = 7300
+			}
+		}
+	}
+}
+hab_italian_ambitions = {
+	slot = 4 #upper left column
+	generic = no
+	ai = yes
+	
+	potential = {
+		tag = HAB
+		NOT = { map_setup = map_setup_random }
+	}
+	
+	has_country_shield = yes
+	
+	austrian_italian_ambition = {
+		icon = mission_italian_condottiere
+		position = 6
+		completed_by = 1797.10.17
+		
+		ai_weight = {
+			factor = 3
+			modifier = {
+				factor = 0.5
+				venetia_area = {
+					is_part_of_hre = yes
+					NOT = { country_or_non_sovereign_subject_holds = ROOT }
+				}
+			}
+			modifier = {
+				factor = 2
+				venetia_area = {
+					country_or_non_sovereign_subject_holds = ROOT
+				}
+			}
+		}
+		ai_priority = {
+			factor = 5
+		}
+		
+		required_missions = { austrian_croatia }
+		provinces_to_highlight = {
+			area = venetia_area
+			NOT = { country_or_non_sovereign_subject_holds = ROOT }
+		}
+		trigger = {
+			venetia_area = {
+				type = all
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+		}
+		effect = {
+			add_mercantilism = 5
+			venetia_area = {
+				add_province_modifier = {
+					name = "protected_italian_interests"
+					duration = 3650
+				}
+			}
+		}
+	}
+}
+hab_conquest_1 = {
+	slot = 2
+	generic = no
+	ai = yes
+	
+	potential = {
+		tag = HAB
+		NOT = { map_setup = map_setup_random }
+	}
+	
+	has_country_shield = yes
+	
+	hab_salzburg = {
+		icon = mission_cannons_firing
+		required_missions = { recover_silesia }
+		position = 6
+		
+		provinces_to_highlight = {
+			province_id = 76
+			NOT = { country_or_non_sovereign_subject_holds = ROOT }
+		}
+		
+		trigger = { 
+			76 = {
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+		}
+	
+		effect = {
+			add_prestige = 10
+			add_dip_power = 100
+		}
+	}
+}
+hab_colonies = {
+	slot = 3 #upper left column
+	generic = no
+	ai = yes
+	
+	potential = {
+		tag = HAB
+		NOT = { map_setup = map_setup_random }
+	}
+	
+	has_country_shield = yes
+	
+	hab_discover_china = {
+		icon = mission_asian_city
+		required_missions = { austrian_croatia }
+		position = 6
+		
+		trigger = { 
+			japan_region = { has_discovered = ROOT }
+			north_china_region = { has_discovered = ROOT }
+			NOT = {
+				OR = {
+					current_age = age_of_discovery
+					current_age = age_of_reformation
+					current_age = age_of_absolutism
+				}
+			}
+		}
+	
+		effect = {
+			add_dip_power = 50
+			add_prestige = 30
+			capital_scope = {
+				add_province_modifier = {
+					name = "por_erudite_explorers"
+					duration = -1
+				}
+			}
+			hidden_effect = {
+			695 = {
+					if = {
+						limit = { owned_by = MNG }				
+						#change_religion = ROOT	
+						#change_culture = ROOT
+						add_territorial_core = ROOT
+					}
+				}
+			}
+				
+			695 = {
+				if = {
+					limit = {
+						owned_by = MNG
+						MNG = { ai = yes }
+					}
+					cede_province = ROOT
+					add_core = ROOT
+				}
+			}
+		}
+	}
+}
+hab_protect_the_balkans = {
+	slot = 5 #upper right column
+	generic = no #if a mission without generic = yes wants this slot then it overrides this.
+	ai = yes
+	potential = {
+		NOT = { map_setup = map_setup_random }
+		tag = HAB
+	}
+	has_country_shield = yes
+	
+	subjugate_hungary = { #Decline of Hungary
+		icon = mission_eastern_european_city
+		required_missions = {  } #None
+		completed_by = 1490.1.1
+		trigger = {
+			if = {
+				limit = {
+					exists = HUN
+				}
+				total_development = HUN
+				total_development = 200
+			}
+			else = {
+				total_development = 200
+			}
+		}
+		effect = {
+			if = {
+				limit = {
+					exists = HUN
+					is_subject = no
+					government = monarchy
+					religion_group = christian
+					HUN = {
+						is_subject = no
+						government = monarchy
+					}
+				}
+				add_casus_belli = {
+					type = cb_restore_personal_union
+					months = 300
+					target = HUN
+				}
+			}
+			else = {
+				slovakia_area = {
+					limit = {
+						NOT = { is_core = ROOT }
+						NOT = { is_permanent_claim = ROOT }
+					}
+					add_permanent_claim = ROOT
+				}
+				transdanubia_area = {
+					limit = {
+						NOT = { is_core = ROOT }
+						NOT = { is_permanent_claim = ROOT }
+					}
+					add_permanent_claim = ROOT
+				}
+				alfold_area = {
+					limit = {
+						NOT = { is_core = ROOT }
+						NOT = { is_permanent_claim = ROOT }
+					}
+					add_permanent_claim = ROOT
+				}
+			}
+		}
+	}
+	austrian_hungary = {
+		icon = mission_monarch_in_throne_room
+		required_missions = { subjugate_hungary }
+		position = 3
+		completed_by = 1490.1.1
+		ai_weight = {
+			factor = 3
+			modifier = {
+				factor = 2
+				slovakia_area = {
+					country_or_non_sovereign_subject_holds = ROOT
+				}
+			}
+			modifier = {
+				factor = 2
+				transdanubia_area = {
+					country_or_non_sovereign_subject_holds = ROOT
+				}
+			}
+		}
+		ai_priority = {
+			factor = 2
+		}
+		
+		provinces_to_highlight = {
+			OR = {
+				area = slovakia_area
+				area = transdanubia_area
+				area = alfold_area
+			}
+			NOT = { country_or_non_sovereign_subject_holds = ROOT }
+		}
+		trigger = {
+			slovakia_area = {
+				type = all
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+			transdanubia_area = {
+				type = all
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+			alfold_area = {
+				type = all
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+		}
+		effect = {
+			east_adriatic_coast_area = {
+				limit = {
+					NOT = { is_core = ROOT }
+					NOT = { is_permanent_claim = ROOT }
+				}
+				add_permanent_claim = ROOT
+			}
+			croatia_area = {
+				limit = {
+					NOT = { is_core = ROOT }
+					NOT = { is_permanent_claim = ROOT }
+				}
+				add_permanent_claim = ROOT
+			}
+			add_country_modifier = {
+				name = "royal_hungary"
+				duration = 5475
+			}
+		}
+	}
+	austrian_croatia = {
+		icon = mission_galleys_in_port
+		required_missions = { austrian_hungary }
+		position = 5
+		completed_by = 1526.8.30
+		
+		ai_weight = {
+			factor = 1
+			modifier = {
+				factor = 2
+				east_adriatic_coast_area = {
+					country_or_non_sovereign_subject_holds = ROOT
+				}
+			}
+			modifier = {
+				factor = 2
+				croatia_area = {
+					country_or_non_sovereign_subject_holds = ROOT
+				}
+			}
+		}
+		provinces_to_highlight = {
+			OR = {
+				area = east_adriatic_coast_area
+				area = croatia_area
+			}
+			NOT = { country_or_non_sovereign_subject_holds = ROOT }
+		}
+		trigger = {
+			east_adriatic_coast_area = {
+				type = all
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+			croatia_area = {
+				type = all
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+		}
+		effect = {
+			east_adriatic_coast_area = {
+				add_province_modifier = {
+					name = "hun_moldavia_mod"
+					duration = 10950
+				}
+			}
+			croatia_area = {
+				add_province_modifier = {
+					name = "hun_moldavia_mod"
+					duration = 10950
+				}
+			}
+			transylvania_area = {
+				limit = {
+					NOT = { is_core = ROOT }
+					NOT = { is_permanent_claim = ROOT }
+				}
+				add_permanent_claim = ROOT
+			}
+			southern_transylvania_area = {
+				limit = {
+					NOT = { is_core = ROOT }
+					NOT = { is_permanent_claim = ROOT }
+				}
+				add_permanent_claim = ROOT
+			}
+			venetia_area = {
+				limit = {
+					NOT = { is_core = ROOT }
+					NOT = { is_permanent_claim = ROOT }
+				}
+				add_permanent_claim = ROOT
+			}
+			bosnia_area = {
+				limit = {
+					NOT = { is_core = ROOT }
+					NOT = { is_permanent_claim = ROOT }
+				}
+				add_permanent_claim = ROOT
+			}
+		}
+	}
+	conquer_transylvania = {
+		icon = mission_eastern_european_city
+		required_missions = { austrian_croatia }
+		completed_by = 1699.1.26
+		ai_weight = {
+			factor = 2
+			modifier = {
+				factor = 2
+				southern_transylvania_area = {
+					country_or_non_sovereign_subject_holds = ROOT
+				}
+			}
+			modifier = {
+				factor = 2
+				transylvania_area = {
+					country_or_non_sovereign_subject_holds = ROOT
+				}
+			}
+		}
+		ai_priority = {
+			factor = 2
+		}
+		provinces_to_highlight = {
+			OR = {
+				area = southern_transylvania_area
+				area = transylvania_area
+			}
+			NOT = { country_or_non_sovereign_subject_holds = ROOT }
+		}
+		trigger = {
+			southern_transylvania_area = {
+				type = all
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+			transylvania_area = {
+				type = all
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+		}
+		effect = {
+			southern_transylvania_area = {
+				add_province_modifier = {
+					name = "hun_moldavia_mod"
+					duration = 10950
+				}
+			}
+			transylvania_area = {
+				add_province_modifier = {
+					name = "hun_moldavia_mod"
+					duration = 10950
+				}
+			}
+			serbia_area = {
+				limit = {
+					NOT = { is_core = ROOT }
+					NOT = { is_permanent_claim = ROOT }
+				}
+				add_permanent_claim = ROOT
+			}
+			wallachia_area = {
+				limit = {
+					NOT = { is_core = ROOT }
+					NOT = { is_permanent_claim = ROOT }
+				}
+				add_permanent_claim = ROOT
+			}
+		}
+	}
+	hab_secure_wallachia = {
+		icon = mission_impaled_soldies
+		required_missions = { conquer_transylvania }
+		ai_weight = {
+			factor = 2
+			modifier = {
+				factor = 2
+				wallachia_area = {
+					country_or_non_sovereign_subject_holds = ROOT
+				}
+			}
+		}
+		ai_priority = {
+			factor = 2
+		}
+		provinces_to_highlight = {
+			area = wallachia_area
+			NOT = { country_or_non_sovereign_subject_holds = ROOT }
+		}
+		trigger = {
+			wallachia_area = {
+				type = all
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+		}
+		effect = {
+			wallachia_area = {
+				add_province_modifier = {
+					name = "hun_moldavia_mod"
+					duration = 10950
+				}
+			}
+			moldavia_area = {
+				limit = {
+					NOT = { is_core = ROOT }
+					NOT = { is_permanent_claim = ROOT }
+				}
+				add_permanent_claim = ROOT
+			}
+			bulgaria_area = {
+				limit = {
+					NOT = { is_core = ROOT }
+					NOT = { is_permanent_claim = ROOT }
+				}
+				add_permanent_claim = ROOT
+			}
+		}
+	}
+	hab_secure_bulgaria = {
+		icon = mission_eastern_european_city
+		required_missions = { hab_secure_wallachia }
+		ai_weight = {
+			factor = 2
+			modifier = {
+				factor = 2
+				bulgaria_area = {
+					country_or_non_sovereign_subject_holds = ROOT
+				}
+			}
+		}
+		ai_priority = {
+			factor = 2
+		}
+		provinces_to_highlight = {
+			area = bulgaria_area
+			NOT = { country_or_non_sovereign_subject_holds = ROOT }
+		}
+		trigger = {
+			bulgaria_area = {
+				type = all
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+		}
+		effect = {
+			add_dip_power = 100
+			bulgaria_area = {
+				add_province_modifier = {
+					name = "hun_moldavia_mod"
+					duration = 10950
+				}
+			}
+			thrace_area = {
+				limit = {
+					NOT = { is_core = ROOT }
+					NOT = { is_permanent_claim = ROOT }
+				}
+				add_permanent_claim = ROOT
+			}
+		}
+	}
+	hab_secure_constantinople = {
+		icon = mission_the_third_rome
+		required_missions = { hab_secure_bulgaria hab_secure_albania }
+		ai_priority = {
+			factor = 2
+		}
+		provinces_to_highlight = {
+			OR = {
+				area = thrace_area
+				area = northern_greece_area
+				area = morea_area
+				area = aegean_archipelago_area
+			}
+			NOT = { country_or_non_sovereign_subject_holds = ROOT }
+		}
+		trigger = {
+			carpathia_region = {
+				type = all
+				NOT = { country_or_non_sovereign_subject_holds = TUR }
+			}
+			balkan_region = {
+				type = all
+				NOT = { country_or_non_sovereign_subject_holds = TUR }
+			}
+			thrace_area = {
+				type = all
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+			northern_greece_area = {
+				type = all
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+			morea_area = {
+				type = all
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+			aegean_archipelago_area = {
+				type = all
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+		}
+		effect = {
+			add_country_modifier = {
+				name = "austrian_pride"
+				duration = -1
+			}
+			add_stability = 1
+			add_prestige = 50
+			thrace_area = {
+				add_province_modifier = {
+					name = "hun_moldavia_mod"
+					duration = 10950
+				}
+			}
+			northern_greece_area = {
+				add_province_modifier = {
+					name = "hun_moldavia_mod"
+					duration = 10950
+				}
+			}
+			morea_area = {
+				add_province_modifier = {
+					name = "hun_moldavia_mod"
+					duration = 10950
+				}
+			}
+			aegean_archipelago_area = {
+				add_province_modifier = {
+					name = "hun_moldavia_mod"
+					duration = 10950
+				}
+			}
+		}
+	}
+}
+hab_bosnia = {
+	slot = 6
+	generic = no #if a mission without generic = yes wants this slot then it overrides this.
+	ai = yes
+	potential = {
+		NOT = { map_setup = map_setup_random }
+		tag = HAB
+	}
+	has_country_shield = yes
+	
+	hab_secure_bosnia = {
+		icon = mission_cannons_firing
+		required_missions = { austrian_croatia }
+		position = 6
+		
+		provinces_to_highlight = {
+			area = bosnia_area
+			NOT = { country_or_non_sovereign_subject_holds = ROOT }
+		}
+		
+		trigger = { 
+			bosnia_area = {
+				type = all
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+		}
+	
+		effect = {
+			bosnia_area = {
+				add_province_modifier = {
+					name = "hun_moldavia_mod"
+					duration = 10950
+				}
+			}
+			rascia_area = {
+				limit = {
+					NOT = { is_core = ROOT }
+					NOT = { is_permanent_claim = ROOT }
+				}
+				add_permanent_claim = ROOT
+			}
+		}
+	}
+	hab_secure_serbia = {
+		icon = mission_eastern_european_city
+		required_missions = { conquer_transylvania hab_secure_bosnia }
+		
+		provinces_to_highlight = {
+			OR = {
+				area = serbia_area
+				area = rascia_area
+			}
+			NOT = { country_or_non_sovereign_subject_holds = ROOT }
+		}
+		
+		trigger = {
+			serbia_area = {
+				type = all
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+			rascia_area = {
+				type = all
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+		}
+		
+		effect = {
+			serbia_area = {
+				add_province_modifier = {
+					name = "hun_moldavia_mod"
+					duration = 10950
+				}
+			}
+			rascia_area = {
+				add_province_modifier = {
+					name = "hun_moldavia_mod"
+					duration = 10950
+				}
+			}
+			albania_area = {
+				limit = {
+					NOT = { is_core = ROOT }
+					NOT = { is_permanent_claim = ROOT }
+				}
+				add_permanent_claim = ROOT
+			}
+			macedonia_area = {
+				limit = {
+					NOT = { is_core = ROOT }
+					NOT = { is_permanent_claim = ROOT }
+				}
+				add_permanent_claim = ROOT
+			}
+		}
+	}
+	hab_secure_albania = {
+		icon = mission_galleys_in_port
+		required_missions = { hab_secure_serbia }
+		
+		provinces_to_highlight = {
+			OR = {
+				area = albania_area
+				area = macedonia_area
+			}
+			NOT = { country_or_non_sovereign_subject_holds = ROOT }
+		}
+		
+		trigger = {
+			albania_area = {
+				type = all
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+			macedonia_area = {
+				type = all
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+		}
+		
+		effect = {
+			add_dip_power = 100
+			albania_area = {
+				add_province_modifier = {
+					name = "hun_moldavia_mod"
+					duration = 10950
+				}
+			}
+			macedonia_area = {
+				add_province_modifier = {
+					name = "hun_moldavia_mod"
+					duration = 10950
+				}
+			}
+			northern_greece_area = {
+				limit = {
+					NOT = { is_core = ROOT }
+					NOT = { is_permanent_claim = ROOT }
+				}
+				add_permanent_claim = ROOT
+			}
+			morea_area = {
+				limit = {
+					NOT = { is_core = ROOT }
+					NOT = { is_permanent_claim = ROOT }
+				}
+				add_permanent_claim = ROOT
+			}
+			aegean_archipelago_area = {
+				limit = {
+					NOT = { is_core = ROOT }
+					NOT = { is_permanent_claim = ROOT }
+				}
+				add_permanent_claim = ROOT
+			}
+		}
+	}
+}

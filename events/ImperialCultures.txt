@@ -1,0 +1,926 @@
+namespace = imperial_cultures
+
+country_event = {
+	id = imperial_cultures.1
+	title = "imperial_cultures.RHtit1"
+	desc = "imperial_cultures.RHdesc1"
+	picture = CONSTITUTION_eventPicture
+	
+	trigger = {
+		130 = { NOT = { culture_group = latin } }
+		NOT = { tag = VEN }
+		culture_group = latin
+		owns_core_province = 130
+		130 = {
+			any_neighbor_province = {
+				country_or_non_sovereign_subject_holds = ROOT
+				culture_group = latin
+			}
+		}
+	}
+	
+	mean_time_to_happen = {
+		months = 800
+	}
+	
+	option = {
+		name = "imperial_cultures.RHans1"
+		if = {
+			limit = {
+				OR = {
+					tag = SPI
+					tag = ITA
+				}
+				OR = {
+					1769 = {
+						AND = {
+							owner = {
+								culture_group = latin
+							}
+							NOT = { culture = venetian }
+						}
+					}
+					129 = {
+						AND = {
+							owner = {
+								culture_group = latin
+							}
+							NOT = { culture = venetian }
+						}
+					}
+					1826 = {
+						AND = {
+							owner = {
+								culture_group = latin
+							}
+							NOT = { culture = venetian }
+						}
+					}
+				}
+			}
+			130 = {
+				change_culture = owner
+			}
+		}
+		else = {
+			130 = {
+				change_culture = venetian
+			}
+		}
+	}
+}
+country_event = {
+	id = imperial_cultures.2
+	title = "imperial_cultures.RHtit1"
+	desc = "imperial_cultures.RHdesc1"
+	picture = CONSTITUTION_eventPicture
+	
+	trigger = {
+		136 = { NOT = { culture_group = latin } }
+		NOT = { tag = VEN }
+		culture_group = latin
+		owns_core_province = 136
+		136 = {
+			any_neighbor_province = {
+				country_or_non_sovereign_subject_holds = ROOT
+				culture_group = latin
+			}
+		}
+	}
+	
+	mean_time_to_happen = {
+		months = 800
+	}
+	
+	option = {
+		name = "imperial_cultures.RHans1"
+		if = {
+			limit = {
+				OR = {
+					tag = SPI
+					tag = ITA
+				}
+				OR = {
+					137 = {
+						AND = {
+							owner = {
+								culture_group = latin
+							}
+							NOT = { culture = venetian }
+						}
+					}
+					139 = {
+						AND = {
+							owner = {
+								culture_group = latin
+							}
+							NOT = { culture = venetian }
+						}
+					}
+					1828 = {
+						AND = {
+							owner = {
+								culture_group = latin
+							}
+							NOT = { culture = venetian }
+						}
+					}
+					1826 = {
+						AND = {
+							owner = {
+								culture_group = latin
+							}
+							NOT = { culture = venetian }
+						}
+					}
+				}
+			}
+			136 = {
+				change_culture = owner
+			}
+		}
+		else = {
+			136 = {
+				change_culture = venetian
+			}
+		}
+	}
+}
+country_event = {
+	id = imperial_cultures.3
+	title = "imperial_cultures.RHtit1"
+	desc = "imperial_cultures.RHdesc1"
+	picture = CONSTITUTION_eventPicture
+	
+	trigger = {
+		110 = { NOT = { culture_group = latin } }
+		NOT = { tag = VEN }
+		culture_group = latin
+		owns_core_province = 110
+		110 = {
+			any_neighbor_province = {
+				country_or_non_sovereign_subject_holds = ROOT
+				culture_group = latin
+			}
+		}
+	}
+	
+	mean_time_to_happen = {
+		months = 800
+	}
+	
+	option = {
+		name = "imperial_cultures.RHans1"
+		if = {
+			limit = {
+				OR = {
+					tag = SPI
+					tag = ITA
+				}
+				OR = {
+					1774 = {
+						AND = {
+							owner = {
+								culture_group = latin
+							}
+							NOT = { culture = venetian }
+						}
+					}
+					108 = {
+						AND = {
+							owner = {
+								culture_group = latin
+							}
+							NOT = { culture = venetian }
+						}
+					}
+				}
+			}
+			110 = {
+				change_culture = owner
+			}
+		}
+		else = {
+			110 = {
+				change_culture = venetian
+			}
+		}
+	}
+}
+country_event = {
+	id = imperial_cultures.4
+	title = "imperial_cultures.RHtit2"
+	desc = "imperial_cultures.RHdesc2"
+	picture = CONSTITUTION_eventPicture
+	
+	trigger = {
+		110 = { NOT = { culture_group = germanic } }
+		culture_group = germanic
+		owns_core_province = 110
+		110 = {
+			any_neighbor_province = {
+				country_or_non_sovereign_subject_holds = ROOT
+				culture_group = germanic
+			}
+		}
+	}
+	
+	mean_time_to_happen = {
+		months = 800
+	}
+	
+	option = {
+		name = "imperial_cultures.RHans2"
+		if = {
+			limit = {
+				OR = {
+					tag = SPI
+					tag = ITA
+				}
+				OR = {
+					73 = {
+						AND = {
+							owner = {
+								culture_group = germanic
+							}
+							NOT = { culture = austrian }
+						}
+					}
+					1768 = {
+						AND = {
+							owner = {
+								culture_group = germanic
+							}
+							NOT = { culture = austrian }
+						}
+					}
+				}
+			}
+			110 = {
+				change_culture = owner
+			}
+		}
+		else = {
+			110 = {
+				change_culture = austrian
+			}
+		}
+	}
+}
+country_event = {
+	id = imperial_cultures.5
+	title = "imperial_cultures.RHtit2"
+	desc = "imperial_cultures.RHdesc2"
+	picture = CONSTITUTION_eventPicture
+	
+	trigger = {
+		40 = { NOT = { culture_group = germanic } }
+		culture_group = germanic
+		owns_core_province = 40
+		40 = {
+			any_neighbor_province = {
+				country_or_non_sovereign_subject_holds = ROOT
+				culture_group = germanic
+			}
+		}
+	}
+	
+	mean_time_to_happen = {
+		months = 800
+	}
+	
+	option = {
+		name = "imperial_cultures.RHans2"
+		if = {
+			limit = {
+				OR = {
+					tag = TEU
+					tag = BRA
+					tag = PRU
+					tag = NGC
+					tag = GER
+				}
+				OR = {
+					41 = {
+						AND = {
+							owner = {
+								culture_group = germanic
+							}
+							NOT = { culture = prussian }
+						}
+					}
+					767 = {
+						AND = {
+							owner = {
+								culture_group = germanic
+							}
+							NOT = { culture = prussian }
+						}
+					}
+				}
+			}
+			40 = {
+				change_culture = owner
+			}
+		}
+		else = {
+			40 = {
+				change_culture = prussian
+			}
+		}
+	}
+}
+country_event = {
+	id = imperial_cultures.6
+	title = "imperial_cultures.RHtit2"
+	desc = "imperial_cultures.RHdesc2"
+	picture = CONSTITUTION_eventPicture
+	
+	trigger = {
+		188 = { NOT = { culture_group = germanic } }
+		culture_group = germanic
+		owns_core_province = 188
+		
+		188 = {
+			any_neighbor_province = {
+				country_or_non_sovereign_subject_holds = ROOT
+				culture_group = germanic
+			}
+		}
+	}
+	
+	mean_time_to_happen = {
+		months = 800
+	}
+	
+	option = {
+		name = "imperial_cultures.RHans2"
+		188 = {
+			change_culture = hessian
+		}
+	}
+}
+country_event = {
+	id = imperial_cultures.7
+	title = "imperial_cultures.RHtit2"
+	desc = "imperial_cultures.RHdesc2"
+	picture = CONSTITUTION_eventPicture
+	
+	trigger = {
+		189 = { NOT = { culture_group = germanic } }
+		culture_group = germanic
+		owns_core_province = 189
+		189 = {
+			any_neighbor_province = {
+				country_or_non_sovereign_subject_holds = ROOT
+				culture_group = germanic
+			}
+		}
+	}
+	
+	mean_time_to_happen = {
+		months = 800
+	}
+	
+	option = {
+		name = "imperial_cultures.RHans2"
+		189 = {
+			change_culture = hessian
+		}
+	}
+}
+country_event = {
+	id = imperial_cultures.8
+	title = "imperial_cultures.RHtit3"
+	desc = "imperial_cultures.RHdesc3"
+	picture = CONSTITUTION_eventPicture
+	
+	trigger = {
+		188 = { NOT = { culture_group = french } }
+		NOT = { tag = BUR }
+		culture_group = french
+		owns_core_province = 188
+		188 = {
+			any_neighbor_province = {
+				country_or_non_sovereign_subject_holds = ROOT
+				culture_group = french
+			}
+		}
+	}
+	
+	mean_time_to_happen = {
+		months = 800
+	}
+	
+	option = {
+		name = "imperial_cultures.RHans3"
+		if = {
+			limit = {
+				OR = {
+					tag = FRA
+				}
+				187 = {
+					AND = {
+						owner = {
+							culture_group = french
+						}
+						NOT = { culture = burgundian }
+					}
+				}
+			}
+			188 = {
+				change_culture = owner
+			}
+		}
+		else = {
+			188 = {
+				change_culture = burgundian
+			}
+		}
+	}
+}
+country_event = {
+	id = imperial_cultures.9
+	title = "imperial_cultures.RHtit3"
+	desc = "imperial_cultures.RHdesc3"
+	picture = CONSTITUTION_eventPicture
+	
+	trigger = {
+		189 = { NOT = { culture_group = french } }
+		NOT = { tag = BUR }
+		culture_group = french
+		owns_core_province = 189
+		189 = {
+			any_neighbor_province = {
+				country_or_non_sovereign_subject_holds = ROOT
+				culture_group = french
+			}
+		}
+	}
+	
+	mean_time_to_happen = {
+		months = 800
+	}
+	
+	option = {
+		name = "imperial_cultures.RHans3"
+		if = {
+			limit = {
+				OR = {
+					tag = FRA
+				}
+				187 = {
+					AND = {
+						owner = {
+							culture_group = french
+						}
+						NOT = { culture = burgundian }
+					}
+				}
+			}
+			188 = {
+				change_culture = owner
+			}
+		}
+		else = {
+			188 = {
+				change_culture = burgundian
+			}
+		}
+	}
+}
+country_event = {
+	id = imperial_cultures.12
+	title = "imperial_cultures.RHtit2"
+	desc = "imperial_cultures.RHdesc2"
+	picture = CONSTITUTION_eventPicture
+	
+	trigger = {
+		13 = { NOT = { culture_group = germanic } }
+		culture_group = germanic
+		owns_core_province = 13
+		13 = {		
+			any_neighbor_province = {
+				country_or_non_sovereign_subject_holds = ROOT
+				culture_group = germanic
+			}
+		}
+	}
+	
+	mean_time_to_happen = {
+		months = 800
+	}
+	
+	option = {
+		name = "imperial_cultures.RHans2"
+		if = {
+			limit = {
+				OR = {
+					tag = BRA
+					tag = PRU
+					tag = NGC
+					tag = GER
+				}
+				OR = {
+					1775 = {
+						AND = {
+							owner = {
+								culture_group = germanic
+							}
+							NOT = { culture = hannoverian }
+						}
+					}
+					4141 = {
+						AND = {
+							owner = {
+								culture_group = germanic
+							}
+							NOT = { culture = hannoverian }
+						}
+					}
+				}
+			}
+			13 = {
+				change_culture = owner
+			}
+		}
+		else = {
+			13 = {
+				change_culture = hannoverian
+			}
+		}
+	}
+}
+country_event = {
+	id = imperial_cultures.15
+	title = "imperial_cultures.RHtit2"
+	desc = "imperial_cultures.RHdesc2"
+	picture = CONSTITUTION_eventPicture
+	
+	trigger = {
+		94 = { NOT = { culture_group = germanic } }
+		culture_group = germanic
+		owns_core_province = 94
+		94 = {		
+			any_neighbor_province = {
+				country_or_non_sovereign_subject_holds = ROOT
+				culture_group = germanic
+			}
+		}
+	}
+	
+	mean_time_to_happen = {
+		months = 1200
+	}
+	
+	option = {
+		name = "imperial_cultures.RHans2"
+		if = {
+			limit = {
+				OR = {
+					tag = BRA
+					tag = PRU
+					tag = NGC
+					tag = GER
+				}
+				OR = {
+					1878 = {
+						AND = {
+							owner = {
+								culture_group = germanic
+							}
+							NOT = { culture = hessian }
+						}
+					}
+					80 = {
+						AND = {
+							owner = {
+								culture_group = germanic
+							}
+							NOT = { culture = hessian }
+						}
+					}
+				}
+			}
+			94 = {
+				change_culture = owner
+			}
+		}
+		else = {
+			94 = {
+				change_culture = hessian
+			}
+		}
+	}
+}
+country_event = {
+	id = imperial_cultures.16
+	title = "imperial_cultures.RHtit3"
+	desc = "imperial_cultures.RHdesc3"
+	picture = CONSTITUTION_eventPicture
+	
+	trigger = {
+		94 = { NOT = { culture_group = french } }
+		culture_group = french
+		owns_core_province = 94
+		94 = {		
+			any_neighbor_province = {
+				country_or_non_sovereign_subject_holds = ROOT
+				culture_group = french
+			}
+		}
+	}
+	
+	mean_time_to_happen = {
+		months = 800
+	}
+	
+	option = {
+		name = "imperial_cultures.RHans3"
+		if = {
+			limit = {
+				OR = {
+					tag = BRA
+					tag = PRU
+					tag = NGC
+					tag = GER
+				}
+				OR = {
+					181 = {
+						AND = {
+							owner = {
+								culture_group = french
+							}
+							NOT = { culture = wallonian }
+						}
+					}
+					93 = {
+						AND = {
+							owner = {
+								culture_group = french
+							}
+							NOT = { culture = wallonian }
+						}
+					}
+				}
+			}
+			94 = {
+				change_culture = owner
+			}
+		}
+		else = {
+			94 = {
+				change_culture = wallonian
+			}
+		}
+	}
+}
+country_event = {
+	id = imperial_cultures.17
+	title = "imperial_cultures.RHtit2"
+	desc = "imperial_cultures.RHdesc2"
+	picture = CONSTITUTION_eventPicture
+	
+	trigger = {
+		1859 = { NOT = { culture_group = germanic } }
+		culture_group = germanic
+		owns_core_province = 1859
+		1859 = {
+			any_neighbor_province = {
+				country_or_non_sovereign_subject_holds = ROOT
+				culture_group = germanic
+			}
+		}
+	}
+	
+	mean_time_to_happen = {
+		months = 800
+	}
+	
+	option = {
+		name = "imperial_cultures.RHans2"
+		if = {
+			limit = {
+				OR = {
+					tag = TEU
+					tag = BRA
+					tag = PRU
+					tag = NGC
+					tag = GER
+				}
+				OR = {
+					2997 = {
+						AND = {
+							owner = {
+								culture_group = germanic
+							}
+							NOT = { culture = prussian }
+						}
+					}
+					1841 = {
+						AND = {
+							owner = {
+								culture_group = germanic
+							}
+							NOT = { culture = prussian }
+						}
+					}
+					2958 = {
+						AND = {
+							owner = {
+								culture_group = germanic
+							}
+							NOT = { culture = prussian }
+						}
+					}
+				}
+			}
+			1859 = {
+				change_culture = owner
+			}
+		}
+		else = {
+			1859 = {
+				change_culture = prussian
+			}
+		}
+	}
+}
+country_event = {
+	id = imperial_cultures.18
+	title = "imperial_cultures.RHtit2"
+	desc = "imperial_cultures.RHdesc2"
+	picture = CONSTITUTION_eventPicture
+	
+	trigger = {
+		4523 = { NOT = { culture_group = germanic } }
+		culture_group = germanic
+		owns_core_province = 4523
+		4523 = {
+			any_neighbor_province = {
+				country_or_non_sovereign_subject_holds = ROOT
+				culture_group = germanic
+			}
+		}
+	}
+	
+	mean_time_to_happen = {
+		months = 800
+	}
+	
+	option = {
+		name = "imperial_cultures.RHans2"
+		if = {
+			limit = {
+				OR = {
+					tag = TEU
+					tag = BRA
+					tag = PRU
+					tag = NGC
+					tag = GER
+				}
+				OR = {
+					2997 = {
+						AND = {
+							owner = {
+								culture_group = germanic
+							}
+							NOT = { culture = prussian }
+						}
+					}
+					2963 = {
+						AND = {
+							owner = {
+								culture_group = germanic
+							}
+							NOT = { culture = prussian }
+						}
+					}
+					1859 = {
+						AND = {
+							owner = {
+								culture_group = germanic
+							}
+							NOT = { culture = prussian }
+						}
+					}
+					4526 = {
+						AND = {
+							owner = {
+								culture_group = germanic
+							}
+							NOT = { culture = prussian }
+						}
+					}
+				}
+			}
+			4523 = {
+				change_culture = owner
+			}
+		}
+		else = {
+			4523 = {
+				change_culture = prussian
+			}
+		}
+	}
+}
+country_event = {
+	id = imperial_cultures.19
+	title = "imperial_cultures.RHtit1"
+	desc = "imperial_cultures.RHdesc1"
+	picture = CONSTITUTION_eventPicture
+	
+	trigger = {
+		1769 = { NOT = { culture_group = latin } }
+		NOT = { tag = VEN }
+		culture_group = latin
+		owns_core_province = 1769
+		1769 = {
+			any_neighbor_province = {
+				country_or_non_sovereign_subject_holds = ROOT
+				culture_group = latin
+			}
+		}
+	}
+	
+	mean_time_to_happen = {
+		months = 800
+	}
+	
+	option = {
+		name = "imperial_cultures.RHans1"
+		if = {
+			limit = {
+				OR = {
+					tag = SPI
+					tag = ITA
+				}
+				OR = {
+					111 = {
+						AND = {
+							owner = {
+								culture_group = latin
+							}
+							NOT = { culture = venetian }
+						}
+					}
+					130 = {
+						AND = {
+							owner = {
+								culture_group = latin
+							}
+							NOT = { culture = venetian }
+						}
+					}
+					129 = {
+						AND = {
+							owner = {
+								culture_group = latin
+							}
+							NOT = { culture = venetian }
+						}
+					}
+				}
+			}
+			1769 = {
+				change_culture = owner
+			}
+		}
+		else = {
+			1769 = {
+				change_culture = venetian
+			}
+		}
+	}
+}
+country_event = {
+	id = imperial_cultures.20
+	title = "imperial_cultures.RHtit1"
+	desc = "imperial_cultures.RHdesc1"
+	picture = CONSTITUTION_eventPicture
+	
+	trigger = {
+		142 = { NOT = { culture_group = latin } }
+		NOT = { tag = VEN }
+		culture_group = latin
+		owns_core_province = 142
+		142 = {
+			any_neighbor_province = {
+				country_or_non_sovereign_subject_holds = ROOT
+				culture_group = latin
+			}
+		}
+	}
+	
+	mean_time_to_happen = {
+		months = 800
+	}
+	
+	option = {
+		name = "imperial_cultures.RHans1"
+		142 = {
+			change_culture = venetian
+		}
+	}
+}

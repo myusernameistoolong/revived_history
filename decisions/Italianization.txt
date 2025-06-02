@@ -1,0 +1,254 @@
+country_decisions = {
+	italian_slovenia = {
+		major = yes
+		potential = {
+			current_age = age_of_revolutions
+			OR = {
+				tag = ITA
+			}
+			culture_group = latin
+			carinthia_area = {
+				type = all
+				country_or_non_sovereign_subject_holds = ROOT
+				is_core = ROOT
+			}
+			NOT = {
+				carinthia_area = {
+					type = all
+					OR = {
+						culture = lombard
+						culture = tuscan
+						culture = sardinian
+						culture = romagnan
+						culture = ligurian
+						culture = venetian
+						culture = neapolitan
+						culture = piedmontese
+						culture = umbrian
+						culture = sicilian
+						culture = maltese
+						culture = piedmontese
+					}
+				}
+			}
+			NOT = { has_country_flag = italian_slovenia }
+		}
+		provinces_to_highlight = {
+			OR = {
+				area = carinthia_area
+			}
+			NOT = { country_or_non_sovereign_subject_holds = ROOT }
+			NOT = { is_core = ROOT }
+			NOT = {
+				OR = {
+					culture = lombard
+					culture = tuscan
+					culture = sardinian
+					culture = romagnan
+					culture = ligurian
+					culture = venetian
+					culture = neapolitan
+					culture = piedmontese
+					culture = umbrian
+					culture = sicilian
+					culture = maltese
+					culture = piedmontese
+				}
+			}
+		}
+		allow = {
+			OR = {
+				tag = ITA
+			}
+			culture_group = latin
+			carinthia_area = {
+				type = all
+				country_or_non_sovereign_subject_holds = ROOT
+				is_core = ROOT
+			}
+			dip_power = 150
+			NOT = { has_country_flag = italian_slovenia }
+		}
+		effect = {
+			add_dip_power = -150
+			country_event = { id = flavor_rh.10045 days = 10 }
+			custom_tooltip = "italian_slovenia.tt"
+			set_country_flag = italian_slovenia
+		}
+		ai_will_do = {
+			factor = 100
+			modifier = {
+				factor = 0
+				NOT = { dip_power = 150 }
+			}
+		}
+	}
+	italian_adriatic = {
+		major = yes
+		potential = {
+			current_age = age_of_revolutions
+			OR = {
+				tag = ITA
+			}
+			culture_group = latin
+			east_adriatic_coast_area = {
+				type = all
+				country_or_non_sovereign_subject_holds = ROOT
+				is_core = ROOT
+			}
+			NOT = {
+				east_adriatic_coast_area = {
+					type = all
+					OR = {
+						culture = lombard
+						culture = tuscan
+						culture = sardinian
+						culture = romagnan
+						culture = ligurian
+						culture = venetian
+						culture = neapolitan
+						culture = piedmontese
+						culture = umbrian
+						culture = sicilian
+						culture = maltese
+						culture = piedmontese
+					}
+				}
+			}
+			NOT = { has_country_flag = italian_adriatic }
+		}
+		provinces_to_highlight = {
+			OR = {
+				area = east_adriatic_coast_area
+			}
+			NOT = { country_or_non_sovereign_subject_holds = ROOT }
+			NOT = { is_core = ROOT }
+			NOT = {
+				OR = {
+					culture = lombard
+					culture = tuscan
+					culture = sardinian
+					culture = romagnan
+					culture = ligurian
+					culture = venetian
+					culture = neapolitan
+					culture = piedmontese
+					culture = umbrian
+					culture = sicilian
+					culture = maltese
+					culture = piedmontese
+				}
+			}
+		}
+		allow = {
+			OR = {
+				tag = ITA
+			}
+			culture_group = latin
+			east_adriatic_coast_area = {
+				type = all
+				country_or_non_sovereign_subject_holds = ROOT
+				is_core = ROOT
+			}
+			dip_power = 150
+			NOT = { has_country_flag = italian_adriatic }
+		}
+		effect = {
+			add_dip_power = -150
+			country_event = { id = flavor_rh.10047 days = 10 }
+			custom_tooltip = "italian_adriatic.tt"
+			set_country_flag = italian_adriatic
+		}
+		ai_will_do = {
+			factor = 100
+			modifier = {
+				factor = 0
+				NOT = { dip_power = 150 }
+			}
+		}
+	}
+	italian_albania = {
+		major = yes
+		potential = {
+			current_age = age_of_revolutions
+			OR = {
+				tag = ITA
+			}
+			culture_group = latin
+			albania_area = {
+				type = all
+				country_or_non_sovereign_subject_holds = ROOT
+				is_core = ROOT
+			}
+			NOT = {
+				albania_area = {
+					type = all
+					OR = {
+						culture = lombard
+						culture = tuscan
+						culture = sardinian
+						culture = romagnan
+						culture = ligurian
+						culture = venetian
+						culture = neapolitan
+						culture = piedmontese
+						culture = umbrian
+						culture = sicilian
+						culture = maltese
+						culture = piedmontese
+					}
+				}
+			}
+			NOT = { has_country_flag = italian_albania }
+		}
+		provinces_to_highlight = {
+			OR = {
+				area = albania_area
+			}
+			NOT = { country_or_non_sovereign_subject_holds = ROOT }
+			NOT = { is_core = ROOT }
+			NOT = {
+				OR = {
+					culture = lombard
+					culture = tuscan
+					culture = sardinian
+					culture = romagnan
+					culture = ligurian
+					culture = venetian
+					culture = neapolitan
+					culture = piedmontese
+					culture = umbrian
+					culture = sicilian
+					culture = maltese
+					culture = piedmontese
+				}
+			}
+		}
+		allow = {
+			OR = {
+				tag = ITA
+			}
+			culture_group = latin
+			albania_area = {
+				type = all
+				country_or_non_sovereign_subject_holds = ROOT
+				is_core = ROOT
+			}
+			dip_power = 150
+			NOT = { has_country_flag = italian_albania }
+		}
+		effect = {
+			add_dip_power = -150
+			country_event = { id = flavor_rh.10049 days = 10 }
+			custom_tooltip = "italian_albania.tt"
+			set_country_flag = italian_albania
+		}
+		ai_will_do = {
+			factor = 100
+			modifier = {
+				factor = 0
+				NOT = { dip_power = 150 }
+			}
+		}
+	}
+}

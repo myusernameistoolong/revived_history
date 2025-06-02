@@ -1,0 +1,90 @@
+pru_german_other_states = {
+	icon = mission_expel_the_moriscos
+	required_missions = { pru_german_silesia }
+	
+	provinces_to_highlight = {
+		OR = {
+			province_id = 188
+			province_id = 189
+			province_id = 13
+			province_id = 40
+		}
+		NOT = {
+			OR = {
+				culture = pommeranian
+				culture = prussian
+				culture = hannoverian
+				culture = hessian
+				culture = saxon
+				culture = franconian
+				culture = swabian
+				culture = swiss
+				culture = bavarian
+				culture = austrian
+			}
+		}
+	}
+	
+	trigger = {
+		188 = {
+			OR = {
+				culture = pommeranian
+				culture = prussian
+				culture = hannoverian
+				culture = hessian
+				culture = saxon
+				culture = franconian
+				culture = swabian
+				culture = swiss
+				culture = bavarian
+				culture = austrian
+			}
+		}
+		189 = {
+			OR = {
+				culture = pommeranian
+				culture = prussian
+				culture = hannoverian
+				culture = hessian
+				culture = saxon
+				culture = franconian
+				culture = swabian
+				culture = swiss
+				culture = bavarian
+				culture = austrian
+			}
+		}
+		13 = {
+			OR = {
+				culture = pommeranian
+				culture = prussian
+				culture = hannoverian
+				culture = hessian
+				culture = saxon
+				culture = franconian
+				culture = swabian
+				culture = swiss
+				culture = bavarian
+				culture = austrian
+			}
+		}
+		40 = {
+			OR = {
+				culture = pommeranian
+				culture = prussian
+				culture = hannoverian
+				culture = hessian
+				culture = saxon
+				culture = franconian
+				culture = swabian
+				culture = swiss
+				culture = bavarian
+				culture = austrian
+			}
+		}
+	}
+	
+	effect = {
+		add_stability = 1
+	}
+}

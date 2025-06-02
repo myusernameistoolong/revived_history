@@ -1,0 +1,162 @@
+country_decisions = {
+
+	north_german_nation = {
+		major = yes
+		potential = {
+			normal_or_historical_nations = yes
+			#was_never_end_game_tag_trigger = yes
+			NOT = { has_country_flag = formed_north_germany_flag }
+			OR = {
+				ai = no
+				is_playing_custom_nation = no
+			}
+			OR = {
+				tag = BRA
+				tag = PRU
+			}
+			NOT = { exists = NGC }
+			NOT = { tag = PAP }
+			NOT = { tag = HLR }
+			NOT = { tag = ROM }
+			OR = {  
+				primary_culture = hannoverian #Westphalian
+				primary_culture = pommeranian
+				primary_culture = hessian
+				primary_culture = saxon
+				primary_culture = bavarian
+				primary_culture = prussian
+				primary_culture = swabian
+				primary_culture = franconian
+			}
+			is_colonial_nation = no
+			OR = {
+				is_former_colonial_nation = no
+				AND = {
+					is_former_colonial_nation = yes
+					ai = no
+				}
+			}
+		}
+		provinces_to_highlight = {
+			OR = {
+				#area = west_prussia_area
+				#area = east_prussia_area
+				#area = silesia_area
+				#area = hinter_pommern_area
+				#area = neumark_area
+				#area = mittelmark_area
+				#area = vorpommern_area
+				#area = hinter_pommern_area
+				#area = northern_saxony_area
+				#area = lower_saxony_area
+				#area = lower_rhineland_area
+				#area = westphalia_area
+				#area = braunschweig_area
+				#area = holstein_area
+				#area = north_rhine_area
+				#area = hesse_area
+				province_id = 50	# Berlin
+				province_id = 53	# Luneburg
+				#province_id = 81	# Hessen
+				province_id = 85	# Köln
+				province_id = 1876 # Frankfurt
+				province_id = 263 # Ratibor
+				#province_id = 55
+				province_id = 13
+				province_id = 2966
+				province_id = 2973
+				province_id = 54
+				province_id = 86
+				#province_id = 1874
+				AND = {
+                    province_id = 41
+                    ROOT = { NOT = { owns_core_province = 75 } }
+                }
+			}
+			OR = {
+				NOT = { owned_by = ROOT }
+				NOT = { is_core = ROOT }
+			}
+		}
+		allow = {
+			NOT = {
+				OR = {
+					current_age = age_of_discovery
+					current_age = age_of_reformation
+				}
+			}
+			is_free_or_tributary_trigger = yes
+			is_nomad = no
+			is_at_war = no
+			is_emperor = no
+			
+			owns_core_province = 50	# Berlin
+			owns_core_province = 53	# Luneburg
+			#owns_core_province = 81	# Hessen
+			owns_core_province = 85	# Köln
+			owns_core_province = 1876 # Frankfurt
+			owns_core_province = 263 # Ratibor
+			#owns_core_province = 55
+			owns_core_province = 13
+			owns_core_province = 2966
+			owns_core_province = 2973
+			owns_core_province = 54
+			owns_core_province = 86
+			OR = {
+				owns_core_province = 41	# Königsberg
+				owns_core_province = 75	# Strassburg
+			}
+		}
+		effect = {
+			change_tag = NGC
+			swap_non_generic_missions = yes
+			emperor = {
+				add_opinion = {
+					who = root
+					modifier = opinion_left_empire
+				}
+			}
+			set_in_empire = no
+			emperor = {
+				country_event = { id = hre_event.5 }
+			}
+			set_government_rank = 3
+			north_german_region = {
+				limit = {
+					NOT = { is_permanent_claim = ROOT }
+					NOT = { area = erzgebirge_area }
+					NOT = { area = bohemia_area }
+				}
+				add_permanent_claim = GER
+			}
+			south_german_region = {
+				limit = {
+					NOT = { owned_by = ROOT }
+					NOT = { area = tirol_area }
+					NOT = { area = inner_austria_area }
+					NOT = { area = austria_proper_area }
+					NOT = { area = carinthia_area }
+					NOT = { area = switzerland_area }
+					NOT = { area = romandie_area }
+				}
+				add_permanent_claim = NGC
+			}			
+			add_country_modifier = {
+				name = "centralization_modifier"
+				duration = 7300
+			}
+			50 = {
+				add_base_tax = 1
+				add_base_production = 1
+				add_base_manpower = 1
+			}
+			add_prestige = 25
+			set_country_flag = formed_north_germany_flag
+			set_country_flag = united_german_confederation
+		}
+		ai_will_do = {
+			factor = 800
+		}
+	}
+
+}

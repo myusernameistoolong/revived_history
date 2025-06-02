@@ -1,0 +1,75 @@
+ned_conquest_group = {
+	slot = 1
+	generic = no
+	ai = yes
+	potential = {
+		AND = {
+			capital_scope = {
+				region = italy_region
+			}
+			OR = {
+				primary_culture = lombard
+				primary_culture = tuscan
+				primary_culture = sardinian
+				primary_culture = romagnan
+				primary_culture = ligurian
+				primary_culture = venetian
+				primary_culture = neapolitan
+				primary_culture = piedmontese
+				primary_culture = umbrian
+				primary_culture = sicilian
+				primary_culture = maltese
+			}
+			NOT = { tag = ITA }
+		}
+	}
+	has_country_shield = yes
+	
+	ita_unite_italy = {
+		icon = mission_rule_italy
+		required_missions = {  }
+		position = 1
+		
+		provinces_to_highlight = {
+			region = italy_region
+			NOT = { province_id = 126 }
+			NOT = { country_or_non_sovereign_subject_holds = ROOT }
+		}
+		
+		trigger = {
+			italy_region = {
+				type = all
+				country_or_non_sovereign_subject_holds = ROOT
+				NOT = { province_id = 126 }
+			}
+		}
+		
+		ai_priority = {
+            factor = 400
+        }
+		
+		effect = {
+			add_country_modifier = {
+				name = "ned_lowlands_victory"
+				duration = 5475
+			}
+			
+			every_province = {
+				limit = {
+					OR = {
+						region = italy_region
+						province_id = 130
+						province_id = 136
+						province_id = 320
+					}
+					NOT = { owned_by = ROOT }
+				}
+				add_permanent_claim = ROOT
+			}
+			
+			add_adm_power = 30
+			add_dip_power = 30
+			add_mil_power = 30
+		}
+	}
+}

@@ -1,0 +1,308 @@
+bel_ned_conquest_group = {
+	slot = 1
+	generic = no
+	ai = yes
+	potential = {
+		OR = {
+			tag = BEL
+		}
+		OR = {
+			primary_culture = flemish
+			primary_culture = brabantian
+			primary_culture = wallonian
+		}
+	}
+	has_country_shield = yes
+
+	unite_bel = {
+		icon = mission_conquer_50_development
+		required_missions = { form_belgium }
+		position = 2
+		
+		provinces_to_highlight = {
+			OR = {
+				area = flanders_area
+				area = wallonia_area
+				province_id = 2974
+				province_id = 1744
+				province_id = 1742
+				province_id = 95
+				province_id = 87
+			}
+			NOT = { country_or_non_sovereign_subject_holds = ROOT }
+		}
+		
+		trigger = {
+			flanders_area = {
+				type = all
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+			wallonia_area = {
+				type = all
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+			2974 = {
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+			1744 = {
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+			1742 = {
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+			95 = {
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+			87 = {
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+		}
+		
+		ai_priority = {
+            factor = 400
+        }
+		
+		effect = {
+			every_province = {
+				limit = {
+					OR = {
+						area = holland_area
+						area = netherlands_area
+						area = frisia_area
+						area = flanders_area
+						area = wallonia_area
+						area = picardy_area
+					}
+					NOT = { owned_by = ROOT }
+				}
+				add_permanent_claim = ROOT
+			}
+			181 = {
+				if = {
+					limit = {
+						NOT = { owned_by = ROOT }
+					}
+					add_permanent_claim = ROOT
+				}
+			}
+		}
+	}
+	
+	conquer_ned = {
+		icon = mission_conquer_50_development
+		required_missions = { unite_bel }
+		position = 3
+		
+		provinces_to_highlight = {
+			OR = {
+				area = holland_area
+				province_id = 100
+				province_id = 4381
+				province_id = 98
+				province_id = 99
+				province_id = 95
+			}
+			NOT = { country_or_non_sovereign_subject_holds = ROOT }
+		}
+		
+		ai_priority = {
+            factor = 2
+        }
+		
+		trigger = {
+			holland_area = {
+				type = all
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+			100 = {
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+			4381 = {
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+			98 = {
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+			99 = {
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+			95 = {
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+		}
+		
+		ai_priority = {
+            factor = 400
+        }
+		
+		effect = {
+			add_country_modifier = {
+				name = "ned_lowlands_victory"
+				duration = 5475
+			}
+			
+			every_province = {
+				limit = {
+					OR = {
+						area = holland_area
+						area = netherlands_area
+						area = frisia_area
+						area = flanders_area
+						area = wallonia_area
+					}
+					NOT = { owned_by = ROOT }
+				}
+				add_permanent_claim = ROOT
+			}
+			
+			1743 = {
+				if = {
+					limit = {
+						NOT = { owned_by = ROOT }
+					}
+					add_permanent_claim = ROOT
+				}
+			}
+			88 = {
+				if = {
+					limit = {
+						NOT = { owned_by = ROOT }
+					}
+					add_permanent_claim = ROOT
+				}
+			}
+			87 = {
+				if = {
+					limit = {
+						NOT = { owned_by = ROOT }
+					}
+					add_permanent_claim = ROOT
+				}
+			}
+			181 = {
+				if = {
+					limit = {
+						NOT = { owned_by = ROOT }
+					}
+					add_permanent_claim = ROOT
+				}
+			}
+		}
+	}
+}
+
+bel_colonial_group = {
+	slot = 6
+	generic = no
+	ai = yes
+	potential = {
+		OR = {
+			tag = BEL
+		}
+		OR = {
+			primary_culture = flemish
+			primary_culture = brabantian
+			primary_culture = wallonian
+		}
+	}
+	has_country_shield = yes
+	
+	bel_discover_congo = {
+		icon = mission_establish_high_seas_navy
+
+		provinces_to_highlight = {
+			colonial_region = colonial_congo
+			has_discovered = ROOT
+		}
+
+		trigger = {
+			NOT = {
+				OR = {
+					current_age = age_of_discovery
+					current_age = age_of_reformation
+					current_age = age_of_absolutism
+				}
+			}
+			colonial_congo = { has_discovered = ROOT }
+		}
+
+		effect = {
+			every_province = {
+				limit = {
+					OR = {
+						colonial_region = colonial_congo
+					}
+					NOT = { owned_by = ROOT }
+				}
+				add_permanent_claim = ROOT
+			}
+			
+			4079 = {
+				if = {
+					limit = {
+						OR = {
+							is_empty = yes
+							owner = { ai = yes }
+						}
+					}
+					add_territorial_core = ROOT
+					cede_province = ROOT
+				}
+			}
+		}
+	}
+	
+	bel_colonize_congo = {
+		icon = mission_african_soldier
+		required_missions = { bel_discover_congo }
+		position = 4
+
+		provinces_to_highlight = {
+			OR = {
+				colonial_region = colonial_congo
+			}
+			NOT = { country_or_non_sovereign_subject_holds = ROOT }
+			has_discovered = ROOT
+		}
+
+		trigger = {
+			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+				value = 16
+				OR = {
+					colonial_region = colonial_congo
+				}
+				is_city = yes
+			}
+		}
+
+		effect = {
+			add_prestige = 15
+			add_adm_power = 100
+			add_dip_power = 100
+			add_mil_power = 100
+			add_treasury = 500
+			every_province = {
+				limit = {
+					OR = {
+						colonial_region = colonial_congo
+					}
+				}
+				if = { 
+					limit = { is_empty = yes }
+					add_territorial_core = ROOT	
+					cede_province = ROOT
+					change_religion = ROOT	
+					change_culture = ROOT
+				}
+				else_if = {
+					limit = { is_colony = yes country_or_non_sovereign_subject_holds = ROOT  }
+					add_colonysize = 999
+				}
+				else_if = { 
+					limit = { is_city = yes NOT = { country_or_non_sovereign_subject_holds = ROOT } }
+					add_claim = ROOT
+				}
+			}
+		}
+	}
+}

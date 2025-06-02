@@ -1,0 +1,2024 @@
+prussian_missions_main_slot = {
+	slot = 1
+	generic = no
+	ai = yes
+	potential = {
+		NOT = { map_setup = map_setup_random }
+		OR = {
+			tag = BRA
+			tag = PRU
+			tag = NGC
+			tag = GER
+		}
+	}
+	has_country_shield = yes
+
+	reclaim_neumark = {
+		icon = mission_have_two_subjects
+		required_missions = { }
+		provinces_to_highlight = {
+			province_id = 49
+			NOT = {
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+		}
+		trigger = {
+			owns_core_province = 49
+		}
+		effect = {
+			vorpommern_area = {
+				limit = {
+					NOT = { is_core = ROOT }
+					NOT = { is_permanent_claim = ROOT }
+				}
+				add_permanent_claim = ROOT
+			}
+			hinter_pommern_area = {
+				limit = {
+					NOT = { is_core = ROOT }
+					NOT = { is_permanent_claim = ROOT }
+				}
+				add_permanent_claim = ROOT
+			}
+		}
+	}
+	pru_conquer_pomerania = {
+		icon = mission_hanseatic_city
+		required_missions = { reclaim_neumark }
+		position = 3
+		provinces_to_highlight = {
+			OR = {
+				area = vorpommern_area
+				area = hinter_pommern_area
+			}
+			NOT = {
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+		}
+		
+		ai_priority = {
+			factor = 200
+		}
+		
+		trigger = {
+			vorpommern_area = {
+				type = all
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+			hinter_pommern_area = {
+				type = all
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+		}
+		effect = {
+			add_legitimacy = 10
+			west_prussia_area = {
+				limit = {
+					NOT = { is_core = ROOT }
+					NOT = { is_permanent_claim = ROOT }
+				}
+				add_permanent_claim = ROOT
+			}
+			east_prussia_area = {
+				limit = {
+					NOT = { is_core = ROOT }
+					NOT = { is_permanent_claim = ROOT }
+				}
+				add_permanent_claim = ROOT
+			}
+			mittelmark_area = {
+				limit = {
+					NOT = { is_core = ROOT }
+					NOT = { is_permanent_claim = ROOT }
+				}
+				add_permanent_claim = ROOT
+			}
+		}
+	}
+	connect_the_prussian_lands = {
+		icon = mission_teutonic_knights
+		required_missions = { pru_conquer_pomerania }
+		position = 5
+		provinces_to_highlight = {
+			OR = {
+				area = west_prussia_area
+				area = east_prussia_area
+				area = mittelmark_area
+			}
+			NOT = {
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+		}
+		
+		ai_priority = {
+			factor = 200
+		}
+		
+		trigger = {
+			west_prussia_area = {
+				type = all
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+			east_prussia_area = {
+				type = all
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+			mittelmark_area = {
+				type = all
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+		}
+		effect = {
+			add_mil_power = 100
+			silesia_area = {
+				limit = {
+					NOT = { is_core = ROOT }
+					NOT = { is_permanent_claim = ROOT }
+				}
+				add_permanent_claim = ROOT
+			}
+			wielkopolska_area = {
+				limit = {
+					NOT = { is_core = ROOT }
+					NOT = { is_permanent_claim = ROOT }
+				}
+				add_permanent_claim = ROOT
+			}
+		}
+	}
+	pru_conquer_silesia = {
+		icon = mission_eastern_european_city
+		required_missions = { connect_the_prussian_lands }
+		provinces_to_highlight = {
+			area = silesia_area
+			NOT = {
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+		}
+		
+		ai_priority = {
+			factor = 600
+		}
+		
+		trigger = {
+			custom_trigger_tooltip = {
+				tooltip = pru_conquer_silesia_tt
+				silesia_area = {
+					type = all
+					OR = {
+						country_or_non_sovereign_subject_holds = ROOT
+						AND = {
+							#ai = yes
+							OR = {
+								controlled_by = ROOT
+								controller = {
+									is_subject_of = ROOT
+								}
+							}
+							OR = {
+								owned_by = HAB
+								owner = {
+									OR = {
+										AND = {
+											is_subject_of = BOH
+											BOH = {
+												is_subject_of = HAB
+											}
+										}
+										is_subject_of = HAB
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+			custom_trigger_tooltip = {
+				tooltip = pru_conquer_silesia_tt_op
+			}
+		}
+		effect = {
+			add_country_modifier = {
+				name = "prussian_ambition"
+				duration = 7300
+			}
+			north_rhine_area = {
+				limit = {
+					NOT = { is_core = ROOT }
+					NOT = { is_permanent_claim = ROOT }
+				}
+				add_permanent_claim = ROOT
+			}
+			every_province = {
+				limit = {
+					OR = {
+						area = silesia_area
+					}
+					country_or_non_sovereign_subject_holds = ROOT
+					NOT = {
+						OR = {
+							culture = pommeranian
+							culture = prussian
+							culture = hannoverian
+							culture = hessian
+							culture = saxon
+							culture = franconian
+							culture = swabian
+							culture = swiss
+							culture = bavarian
+							culture = austrian
+						}
+					}
+				}
+				add_province_modifier = {
+					name = ger_culture_influence
+					duration = 18250
+				}
+			}
+			#hidden_effect = {
+				if = {
+					limit = {
+						#ai = yes
+						silesia_area = {
+							type = all
+							AND = {
+								OR = {
+									controlled_by = ROOT
+									controller = {
+										is_subject_of = ROOT
+									}
+								}
+								OR = {
+									owned_by = HAB
+									owner = {
+										OR = {
+											AND = {
+												is_subject_of = BOH
+												BOH = {
+													is_subject_of = HAB
+												}
+											}
+											is_subject_of = HAB
+										}
+									}
+								}
+							}
+						}
+					}
+					country_event = { id = flavor_rh.10010 days = 1 }
+					set_country_flag = german_silesia_conquered
+				}
+			#}
+		}
+	}
+
+	pru_duchy_of_cleves = {
+		icon = mission_cannons_firing
+		required_missions = { pru_conquer_silesia }
+		provinces_to_highlight = {
+			area = north_rhine_area
+			NOT = {
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+		}
+		
+		trigger = {
+			north_rhine_area = {
+				type = all
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+		}
+		effect = {
+			add_country_modifier = {
+				name = "prussian_rhine"
+				duration = 7300
+			}
+			westphalia_area = {
+				limit = {
+					NOT = { is_core = ROOT }
+					NOT = { is_permanent_claim = ROOT }
+				}
+				add_claim = ROOT
+			}
+			2973 = {
+				if = {
+					limit = {
+						NOT = { is_core = ROOT }
+						NOT = { is_claim = ROOT }
+						NOT = { is_permanent_claim = ROOT }
+					}
+					add_permanent_claim = ROOT
+				}
+			}
+			86 = {
+				if = {
+					limit = {
+						NOT = { is_core = ROOT }
+						NOT = { is_claim = ROOT }
+						NOT = { is_permanent_claim = ROOT }
+					}
+					add_permanent_claim = ROOT
+				}
+			}
+			54 = {
+				if = {
+					limit = {
+						NOT = { is_core = ROOT }
+						NOT = { is_claim = ROOT }
+						NOT = { is_permanent_claim = ROOT }
+					}
+					add_permanent_claim = ROOT
+				}
+			}
+			53 = {
+				if = {
+					limit = {
+						NOT = { is_core = ROOT }
+						NOT = { is_claim = ROOT }
+						NOT = { is_permanent_claim = ROOT }
+					}
+					add_permanent_claim = ROOT
+				}
+			}
+			1876 = {
+				if = {
+					limit = {
+						NOT = { is_core = ROOT }
+						NOT = { is_claim = ROOT }
+						NOT = { is_permanent_claim = ROOT }
+					}
+					add_permanent_claim = ROOT
+				}
+			}
+		}
+	}
+}
+prussian_ngc_missions_slot = {
+	slot = 1
+	generic = no
+	ai = yes
+	potential = {
+		NOT = { map_setup = map_setup_random }
+		OR = {
+			tag = PRU
+			tag = NGC
+			tag = GER
+		}
+	}
+	has_country_shield = yes
+	
+	pru_unite = {
+		icon = mission_unite_home_region
+		required_missions = { pru_duchy_of_cleves }
+
+		provinces_to_highlight = {
+			OR = {
+				#area = west_prussia_area
+				#area = east_prussia_area
+				#area = silesia_area
+				#area = hinter_pommern_area
+				#area = neumark_area
+				#area = mittelmark_area
+				#area = vorpommern_area
+				#area = hinter_pommern_area
+				#area = northern_saxony_area
+				#area = lower_saxony_area
+				#area = lower_rhineland_area
+				#area = westphalia_area
+				#area = braunschweig_area
+				#area = holstein_area
+				#area = north_rhine_area
+				#area = hesse_area
+				province_id = 50	# Berlin
+				province_id = 53	# Luneburg
+				#province_id = 81	# Hessen
+				province_id = 85	# Köln
+				province_id = 1876 # Frankfurt
+				province_id = 263 # Ratibor
+				#province_id = 55
+				province_id = 13
+				province_id = 2966
+				province_id = 2973
+				province_id = 54
+				province_id = 86
+				#province_id = 1874
+				AND = {
+                    province_id = 41
+                    ROOT = { NOT = { owns_core_province = 75 } }
+                }
+			}
+			OR = {
+				NOT = { owned_by = ROOT }
+				NOT = { is_core = ROOT }
+			}
+		}
+		
+		ai_priority = {
+			factor = 800
+		}
+
+		trigger = {
+			OR = {
+				tag = NGC
+				tag = GER
+			}
+			prestige = 0
+		}
+
+		effect = {
+			custom_tooltip = pru_unite_tt
+			add_adm_power = 50
+			add_dip_power = 50
+			add_mil_power = 50
+			north_german_region = {
+				limit = {
+					NOT = { is_core = ROOT }
+					NOT = { is_permanent_claim = ROOT }
+					NOT = { area = erzgebirge_area }
+					NOT = { area = bohemia_area }
+				}
+				add_permanent_claim = ROOT
+			}
+			south_german_region = {
+				limit = {
+					NOT = { is_core = ROOT }
+					NOT = { is_permanent_claim = ROOT }
+					NOT = { area = tirol_area }
+					NOT = { area = inner_austria_area }
+					NOT = { area = austria_proper_area }
+					NOT = { area = carinthia_area }
+					NOT = { area = switzerland_area }
+					NOT = { area = romandie_area }
+				}
+				add_permanent_claim = ROOT
+			}
+			188 = {
+				if = {
+					limit = {
+						NOT = { is_core = ROOT }
+						NOT = { is_claim = ROOT }
+						NOT = { is_permanent_claim = ROOT }
+					}
+					add_permanent_claim = ROOT
+				}
+			}
+			189 = {
+				if = {
+					limit = {
+						NOT = { is_core = ROOT }
+						NOT = { is_claim = ROOT }
+						NOT = { is_permanent_claim = ROOT }
+					}
+					add_permanent_claim = ROOT
+				}
+			}
+			set_country_flag = united_german_confederation
+		}
+	}
+}
+prussian_germany_unite = {
+	slot = 1
+	generic = no
+	ai = yes
+	potential = {
+		NOT = { map_setup = map_setup_random }
+		OR = {
+			tag = NGC
+			tag = GER
+		}
+	}
+	has_country_shield = yes
+	
+	prussia_lorraine = {
+		icon = mission_the_french_menace
+		required_missions = { pru_unite }
+		provinces_to_highlight = {
+			OR = {
+				AND = {
+					OR = {
+						region = north_german_region
+						region = south_german_region
+					}
+					country_or_non_sovereign_subject_holds = FRA
+				}
+				AND = {
+					OR = {
+						province_id = 188
+						province_id = 189
+					}
+					NOT = { country_or_non_sovereign_subject_holds = ROOT }
+				}
+			}
+			NOT = {
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+			NOT = {
+				AND = {
+					controlled_by = ROOT
+					controller = {
+						is_subject_of = ROOT
+					}
+				}
+			}
+		}
+		
+		ai_priority = {
+			factor = 800
+		}
+		
+		trigger = {
+			north_german_region = {
+				type = all
+				#NOT = { area = erzgebirge_area }
+				#NOT = { area = bohemia_area }
+				OR = {
+					NOT = { 
+						country_or_non_sovereign_subject_holds = FRA
+					}
+					OR = {
+						controlled_by = ROOT
+						controller = {
+							is_subject_of = ROOT
+						}
+					}
+				}
+			}
+			south_german_region = {
+				type = all
+				#NOT = { area = tirol_area }
+				#NOT = { area = inner_austria_area }
+				#NOT = { area = austria_proper_area }
+				#NOT = { area = carinthia_area }
+				#NOT = { area = switzerland_area }
+				#NOT = { area = romandie_area }
+				OR = {
+					NOT = { 
+						country_or_non_sovereign_subject_holds = FRA
+					}
+					OR = {
+						controlled_by = ROOT
+						controller = {
+							is_subject_of = ROOT
+						}
+					}
+				}
+			}
+			188 = {
+				OR = {
+					country_or_non_sovereign_subject_holds = ROOT
+					AND = {
+						country_or_non_sovereign_subject_holds = FRA
+						OR = {
+							controlled_by = ROOT
+							controller = {
+								is_subject_of = ROOT
+							}
+						}
+					}
+				}
+			}
+			189 = {
+				OR = {
+					country_or_non_sovereign_subject_holds = ROOT
+					AND = {
+						country_or_non_sovereign_subject_holds = FRA
+						OR = {
+							controlled_by = ROOT
+							controller = {
+								is_subject_of = ROOT
+							}
+						}
+					}
+				}
+			}
+		}
+		effect = {
+			custom_tooltip = prussian_germany_unite_tt
+			add_prestige = 50
+			lorraine_area = {
+				limit = {
+					NOT = { is_core = ROOT }
+					NOT = { is_permanent_claim = ROOT }
+				}
+				add_permanent_claim = ROOT
+			}
+			193 = {
+				if = {
+					limit = {
+						NOT = { is_core = ROOT }
+						NOT = { is_claim = ROOT }
+						NOT = { is_permanent_claim = ROOT }
+					}
+					add_permanent_claim = ROOT
+				}
+			}
+			94 = {
+				if = {
+					limit = {
+						NOT = { is_core = ROOT }
+						NOT = { is_claim = ROOT }
+						NOT = { is_permanent_claim = ROOT }
+					}
+					add_permanent_claim = ROOT
+				}
+			}
+			if = {
+				limit = {
+					war_with = FRA
+					north_german_region = {
+						type = all
+						OR = {
+							NOT = {
+								country_or_non_sovereign_subject_holds = FRA
+							}
+							OR = {
+								controlled_by = ROOT
+								controller = {
+									is_subject_of = ROOT
+								}
+							}
+						}
+					}
+					south_german_region = {
+						type = all
+						OR = {
+							NOT = {
+								country_or_non_sovereign_subject_holds = FRA
+							}
+							OR = {
+								controlled_by = ROOT
+								controller = {
+									is_subject_of = ROOT
+								}
+							}
+						}
+					}
+					188 = {
+						OR = {
+							NOT = {
+								country_or_non_sovereign_subject_holds = FRA
+							}
+							country_or_non_sovereign_subject_holds = ROOT
+							AND = {
+								country_or_non_sovereign_subject_holds = FRA
+								OR = {
+									controlled_by = ROOT
+									controller = {
+										is_subject_of = ROOT
+									}
+								}
+							}
+						}
+					}
+					189 = {
+						OR = {
+							NOT = {
+								country_or_non_sovereign_subject_holds = FRA
+							}
+							country_or_non_sovereign_subject_holds = ROOT
+							AND = {
+								country_or_non_sovereign_subject_holds = FRA
+								OR = {
+									controlled_by = ROOT
+									controller = {
+										is_subject_of = ROOT
+									}
+								}
+							}
+						}
+					}
+				}
+				country_event = { id = flavor_rh.10011 days = 1 }
+			}
+			set_country_flag = franco_prussian_war_victory
+		}
+	}
+	pru_unite_germany = {
+		icon = mission_empire
+		required_missions = { prussia_lorraine }
+
+		provinces_to_highlight = {
+			OR = {
+				area = mittelmark_area
+				area = vorpommern_area
+				area = northern_saxony_area
+				area = lower_saxony_area
+				area = lower_rhineland_area
+				area = mecklenburg_area
+				area = westphalia_area
+				area = braunschweig_area
+				area = north_rhine_area
+				area = weser_area
+				area = thuringia_area
+				area = hesse_area
+				area = lower_swabia_area
+				area = franconia_area
+				area = upper_swabia_area
+				area = lower_bavaria_area
+				area = palatinate_area
+				area = upper_rhineland_area
+				province_id = 2955
+				province_id = 65
+				province_id = 59
+				province_id = 61
+			}
+			OR = {
+				NOT = { owned_by = ROOT }
+				NOT = { is_core = ROOT }
+			}
+		}
+		
+		ai_priority = {
+			factor = 1200
+		}
+
+		trigger = {
+			tag = GER
+			mittelmark_area = {
+				type = all
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+			vorpommern_area = {
+				type = all
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+			northern_saxony_area = {
+				type = all
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+			lower_saxony_area = {
+				type = all
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+			lower_rhineland_area = {
+				type = all
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+			mecklenburg_area = {
+				type = all
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+			westphalia_area = {
+				type = all
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+			braunschweig_area = {
+				type = all
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+			north_rhine_area = {
+				type = all
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+			weser_area = {
+				type = all
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+			thuringia_area = {
+				type = all
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+			hesse_area = {
+				type = all
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+			lower_swabia_area = {
+				type = all
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+			franconia_area = {
+				type = all
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+			upper_swabia_area = {
+				type = all
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+			lower_bavaria_area = {
+				type = all
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+			palatinate_area = {
+				type = all
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+			upper_rhineland_area = {
+				type = all
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+			2955 = {
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+			65 = {
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+			59 = {
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+			61 = {
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+		}
+
+		effect = {
+			add_adm_power = 50
+			add_dip_power = 50
+			add_mil_power = 50
+			tirol_area = {
+				limit = {
+					NOT = { is_core = ROOT }
+					NOT = { is_permanent_claim = ROOT }
+				}
+				add_permanent_claim = ROOT
+			}
+			inner_austria_area = {
+				limit = {
+					NOT = { is_core = ROOT }
+					NOT = { is_permanent_claim = ROOT }
+				}
+				add_permanent_claim = ROOT
+			}
+			austria_proper_area = {
+				limit = {
+					NOT = { is_core = ROOT }
+					NOT = { is_permanent_claim = ROOT }
+				}
+				add_permanent_claim = ROOT
+			}
+			carinthia_area = {
+				limit = {
+					NOT = { is_core = ROOT }
+					NOT = { is_permanent_claim = ROOT }
+				}
+				add_permanent_claim = ROOT
+			}
+			switzerland_area = {
+				limit = {
+					NOT = { is_core = ROOT }
+					NOT = { is_permanent_claim = ROOT }
+				}
+				add_permanent_claim = ROOT
+			}
+			romandie_area = {
+				limit = {
+					NOT = { is_core = ROOT }
+					NOT = { is_permanent_claim = ROOT }
+				}
+				add_permanent_claim = ROOT
+			}
+			if = {
+				limit = {
+					exists = HAB
+					is_subject = no
+					government = monarchy
+					HAB = {
+						is_subject = no
+						government = monarchy
+					}
+				}
+				add_casus_belli = {
+					type = cb_restore_personal_union
+					months = 300
+					target = HAB
+				}
+			}
+			else = {
+				add_casus_belli = {
+					type = cb_vassalize_mission
+					months = 300
+					target = HAB
+				}
+			}
+		}
+	}
+}
+prussian_german_austria = {
+	slot = 1
+	generic = no
+	ai = yes
+	potential = {
+		NOT = { map_setup = map_setup_random }
+		tag = GER
+	}
+	has_country_shield = yes
+	
+	ger_integrate_austria = {
+		icon = mission_empire
+		required_missions = { pru_unite_germany }
+		
+		provinces_to_highlight = {
+			OR = {
+				area = tirol_area
+				area = inner_austria_area
+				area = austria_proper_area
+				area = carinthia_area
+				province_id = 76
+			}
+			NOT = { country_or_non_sovereign_subject_holds = ROOT }
+			NOT = { is_core = ROOT }
+		}
+		trigger = {
+			tirol_area = {
+				type = all
+				is_core = ROOT
+			}
+			inner_austria_area = {
+				type = all
+				is_core = ROOT
+			}
+			austria_proper_area = {
+				type = all
+				is_core = ROOT
+			}
+			carinthia_area = {
+				type = all
+				is_core = ROOT
+			}
+			76 = {
+				is_core = ROOT
+			}
+		}
+		effect = {
+			add_stability = 1
+			add_prestige = 50
+			add_dip_power = 100
+		}
+	}
+}
+prussian_missions_slot_2 = {
+	slot = 2
+	generic = no
+	ai = yes
+	potential = {
+		NOT = { map_setup = map_setup_random }
+		OR = {
+			tag = BRA
+			tag = PRU
+			tag = NGC
+			tag = GER
+		}
+	}
+	has_country_shield = yes
+	
+	prussia_partitions_poland = {
+		icon = mission_conquer_5_states
+		required_missions = { connect_the_prussian_lands }
+		position = 6
+		provinces_to_highlight = {
+			OR = {
+				area = west_prussia_area
+				area = wielkopolska_area
+			}
+			NOT = {
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+		}
+		trigger = {
+			west_prussia_area = {
+				type = all
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+			wielkopolska_area = {
+				type = all
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+		}
+		effect = {
+			add_country_modifier = {
+				name = "polish_partitions"
+				duration = 7300
+			}
+			kuyavia_area = {
+				limit = {
+					NOT = { is_core = ROOT }
+					NOT = { is_permanent_claim = ROOT }
+				}
+				add_permanent_claim = ROOT
+			}
+			central_poland_area = {
+				limit = {
+					NOT = { is_core = ROOT }
+					NOT = { is_permanent_claim = ROOT }
+				}
+				add_permanent_claim = ROOT
+			}
+			mazovia_area = {
+				limit = {
+					NOT = { is_core = ROOT }
+					NOT = { is_permanent_claim = ROOT }
+				}
+				add_permanent_claim = ROOT
+			}
+		}
+	}
+}
+prussian_bohemia = {
+	slot = 2
+	generic = no
+	ai = yes
+	potential = {
+		NOT = { map_setup = map_setup_random }
+		OR = {
+			tag = PRU
+			tag = NGC
+			tag = GER
+		}
+	}
+	has_country_shield = yes
+	
+	ger_conquer_bohmen = {
+		icon = mission_unite_home_region
+		required_missions = { pru_conquer_silesia prussia_partitions_poland }
+		position = 7
+		
+		provinces_to_highlight = {
+			OR = {
+				area = erzgebirge_area
+				area = bohemia_area
+			}
+			NOT = {
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+		}
+		
+		ai_priority = {
+            factor = 2
+        }
+		
+		trigger = {
+			erzgebirge_area = {
+				type = all
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+			bohemia_area = {
+				type = all
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+		}
+		effect = {
+			erzgebirge_area = {
+				limit = {
+					NOT = { is_core = ROOT }
+					NOT = { is_permanent_claim = ROOT }
+				}
+				add_permanent_claim = ROOT
+			}
+			bohemia_area = {
+				limit = {
+					NOT = { is_core = ROOT }
+					NOT = { is_permanent_claim = ROOT }
+				}
+				add_permanent_claim = ROOT
+			}
+			slovakia_area = {
+				limit = {
+					NOT = { is_core = ROOT }
+					NOT = { is_permanent_claim = ROOT }
+				}
+				add_permanent_claim = ROOT
+			}
+		}
+	}
+}
+prussian_slovakia = {
+	slot = 2
+	generic = no
+	ai = yes
+	potential = {
+		NOT = { map_setup = map_setup_random }
+		tag = GER
+	}
+	has_country_shield = yes
+	
+	ger_seize_slovakia = {
+		icon = mission_eastern_european_city
+		required_missions = { ger_conquer_bohmen }
+		
+		provinces_to_highlight = {
+			area = slovakia_area
+			NOT = {
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+		}
+		
+		ai_priority = {
+            factor = 2
+        }
+		
+		trigger = {
+			slovakia_area = {
+				type = all
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+		}
+		effect = {
+			add_prestige = 10
+			add_adm_power = 100
+		}
+	}
+	
+	ger_annex_swiss = {
+		icon = mission_italian_condottiere
+		required_missions = { pru_unite_germany }
+		position = 11
+		
+		provinces_to_highlight = {
+			OR = {
+				area = switzerland_area
+				province_id = 165
+			}
+			NOT = { country_or_non_sovereign_subject_holds = ROOT }
+			NOT = { is_core = ROOT }
+		}
+		trigger = {
+			switzerland_area = {
+				type = all
+				is_core = ROOT
+			}
+			165 = {
+				is_core = ROOT
+			}
+		}
+		effect = {
+			add_prestige = 10
+			add_dip_power = 100
+		}
+	}
+}
+prussian_wartheland = {
+	slot = 3
+	generic = no
+	ai = yes
+	potential = {
+		NOT = { map_setup = map_setup_random }
+		OR = {
+			tag = PRU
+			tag = NGC
+			tag = GER
+		}
+	}
+	has_country_shield = yes
+	
+	ger_poland = {
+		icon = mission_conquer_5_states
+		required_missions = { prussia_partitions_poland }
+		position = 7
+		
+		provinces_to_highlight = {
+			OR = {
+				area = kuyavia_area
+				area = central_poland_area
+				area = mazovia_area
+			}
+			NOT = {
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+		}
+		trigger = {
+			kuyavia_area = {
+				type = all
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+			central_poland_area = {
+				type = all
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+			mazovia_area = {
+				type = all
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+		}
+		effect = {
+			add_country_modifier = {
+				name = "polish_partitions"
+				duration = 7300
+			}
+			podlasie_area = {
+				limit = {
+					NOT = { is_core = ROOT }
+					NOT = { is_permanent_claim = ROOT }
+				}
+				add_permanent_claim = ROOT
+			}
+			1936 = {
+				if = {
+					limit = {
+						NOT = { is_core = ROOT }
+						NOT = { is_permanent_claim = ROOT }
+					}
+					add_permanent_claim = ROOT
+				}
+			}
+			270 = {
+				if = {
+					limit = {
+						NOT = { is_core = ROOT }
+						NOT = { is_permanent_claim = ROOT }
+					}
+					add_permanent_claim = ROOT
+				}
+			}
+		}
+	}
+	ger_new_prussia = {
+		icon = mission_conquer_5_states
+		required_missions = { ger_poland }
+		position = 7
+		
+		provinces_to_highlight = {
+			OR = {
+				area = podlasie_area
+				province_id = 1936
+				province_id = 270
+			}
+			NOT = {
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+		}
+		trigger = {
+			podlasie_area = {
+				type = all
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+			1936 = {
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+			270 = {
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+		}
+		effect = {
+			add_prestige = 10
+			add_dip_power = 100
+			add_country_modifier = {
+				name = "polish_partitions"
+				duration = 7300
+			}
+		}
+	}
+}
+prussian_poland = {
+	slot = 3
+	generic = no
+	ai = yes
+	potential = {
+		NOT = { map_setup = map_setup_random }
+		tag = GER
+	}
+	ger_poland_client_state = {
+		icon = mission_have_two_subjects
+		required_missions = { ger_seize_slovakia ger_new_prussia german_finish_ostland }
+		
+		provinces_to_highlight = {
+			OR = {
+				area = malopolska_area
+				area = sandomierz_area
+				area = red_ruthenia_area
+			}
+			NOT = {
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+		}
+		
+		ai_priority = {
+            factor = 2
+        }
+		
+		trigger = {
+			malopolska_area = {
+				type = all
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+			sandomierz_area = {
+				type = all
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+			red_ruthenia_area = {
+				type = all
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+		}
+		effect = {
+			add_prestige = 15
+			add_country_modifier = {
+				name = "polish_partitions"
+				duration = 7300
+			}
+			crimea_area = {
+				limit = {
+					NOT = { is_core = ROOT }
+					NOT = { is_permanent_claim = ROOT }
+				}
+				add_permanent_claim = ROOT
+			}
+		}
+	}
+	ger_seize_gotenland = {
+		icon = mission_empire
+		required_missions = { ger_poland_client_state }
+		
+		provinces_to_highlight = {
+			area = crimea_area
+			NOT = {
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+		}
+		
+		trigger = {
+			crimea_area = {
+				type = all
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+		}
+		effect = {
+			add_prestige = 25
+			add_adm_power = 50
+			add_dip_power = 50
+			add_mil_power = 50
+		}
+	}
+	ger_annex_lowlands = {
+		icon = mission_hanseatic_city
+		required_missions = { pru_unite_germany }
+		position = 11
+		
+		provinces_to_highlight = {
+			region = low_countries_region
+			NOT = { country_or_non_sovereign_subject_holds = ROOT }
+			NOT = { is_core = ROOT }
+		}
+		
+		ai_priority = {
+            factor = 2
+        }
+		
+		trigger = {
+			low_countries_region = {
+				type = all
+				country_or_non_sovereign_subject_holds = ROOT
+				NOT = { province_id = 94 }
+			}
+			
+			94 = {
+				is_core = ROOT
+			}
+			
+		}
+		effect = {
+			add_prestige = 10
+			add_dip_power = 100
+			picardy_area = {
+				limit = {
+					NOT = { is_core = ROOT }
+					NOT = { is_permanent_claim = ROOT }
+				}
+				add_permanent_claim = ROOT
+			}
+			181 = {
+				if = {
+					limit = {
+						NOT = { is_core = ROOT }
+						NOT = { is_claim = ROOT }
+						NOT = { is_permanent_claim = ROOT }
+					}
+					add_permanent_claim = ROOT
+				}
+			}
+		}
+	}
+}
+prussian_ostland = {
+	slot = 4
+	generic = no
+	ai = yes
+	potential = {
+		NOT = { map_setup = map_setup_random }
+		OR = {
+			tag = PRU
+			tag = NGC
+			tag = GER
+		}
+	}
+	has_country_shield = yes
+	
+	german_ostland = {
+		icon = mission_conquer_riga
+		required_missions = { prussia_partitions_poland }
+		position = 7
+		
+		provinces_to_highlight = {
+			OR = {
+				area = curonia_area
+				area = livonia_area
+				area = estonia_ingria_area
+			}
+			NOT = {
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+		}
+		trigger = {
+			curonia_area = {
+				type = all
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+			livonia_area = {
+				type = all
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+			estonia_ingria_area = {
+				type = all
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+		}
+		effect = {
+			curonia_area = {
+				limit = {
+					NOT = { is_core = ROOT }
+					NOT = { is_permanent_claim = ROOT }
+				}
+				add_permanent_claim = ROOT
+			}
+			livonia_area = {
+				limit = {
+					NOT = { is_core = ROOT }
+					NOT = { is_permanent_claim = ROOT }
+				}
+				add_permanent_claim = ROOT
+			}
+			estonia_ingria_area = {
+				limit = {
+					NOT = { is_core = ROOT }
+					NOT = { is_permanent_claim = ROOT }
+				}
+				add_permanent_claim = ROOT
+			}
+			lithuania_area = {
+				limit = {
+					NOT = { is_core = ROOT }
+					NOT = { is_permanent_claim = ROOT }
+				}
+				add_permanent_claim = ROOT
+			}
+			pripyat_area = {
+				limit = {
+					NOT = { is_core = ROOT }
+					NOT = { is_permanent_claim = ROOT }
+				}
+				add_permanent_claim = ROOT
+			}
+			271 = {
+				if = {
+					limit = {
+						NOT = { is_core = ROOT }
+						NOT = { is_claim = ROOT }
+						NOT = { is_permanent_claim = ROOT }
+					}
+					add_permanent_claim = ROOT
+				}
+			}
+			4534 = {
+				if = {
+					limit = {
+						NOT = { is_core = ROOT }
+						NOT = { is_claim = ROOT }
+						NOT = { is_permanent_claim = ROOT }
+					}
+					add_permanent_claim = ROOT
+				}
+			}
+			276 = {
+				if = {
+					limit = {
+						NOT = { is_core = ROOT }
+						NOT = { is_claim = ROOT }
+						NOT = { is_permanent_claim = ROOT }
+					}
+					add_permanent_claim = ROOT
+				}
+			}
+		}
+	}
+	german_finish_ostland = {
+		icon = mission_partition_poland
+		required_missions = { german_ostland }
+		provinces_to_highlight = {
+			OR = {
+				area = curonia_area
+				area = livonia_area
+				area = estonia_ingria_area
+				area = lithuania_area
+				area = pripyat_area
+				province_id = 271
+				province_id = 4534
+				province_id = 276
+			}
+			NOT = {
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+		}
+		trigger = {
+			curonia_area = {
+				type = all
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+			livonia_area = {
+				type = all
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+			estonia_ingria_area = {
+				type = all
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+			lithuania_area = {
+				type = all
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+			pripyat_area = {
+				type = all
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+			271 = {
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+			4534 = {
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+			276 = {
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+		}
+		effect = {
+			add_prestige = 10
+			add_mil_power = 100
+		}
+	}
+}
+german_settlement_slot = {
+	slot = 6
+	generic = no
+	ai = yes
+	potential = {
+		NOT = { map_setup = map_setup_random }
+		OR = {
+			tag = PRU
+			tag = NGC
+			tag = GER
+		}
+	}
+	has_country_shield = yes
+	
+	pru_german_silesia = {
+		icon = mission_expel_the_moriscos
+		
+		provinces_to_highlight = {
+			OR = {
+				area = silesia_area
+			}
+			NOT = {
+				OR = {
+					culture = pommeranian
+					culture = prussian
+					culture = hannoverian
+					culture = hessian
+					culture = saxon
+					culture = franconian
+					culture = swabian
+					culture = swiss
+					culture = bavarian
+					culture = austrian
+					culture = german_schlesian
+				}
+			}
+		}
+		
+		trigger = {
+			silesia_area = {
+				type = all
+				OR = {
+					culture = pommeranian
+					culture = prussian
+					culture = hannoverian
+					culture = hessian
+					culture = saxon
+					culture = franconian
+					culture = swabian
+					culture = swiss
+					culture = bavarian
+					culture = austrian
+					culture = german_schlesian
+				}
+			}
+		}
+		
+		effect = {
+			every_province = {
+				limit = {
+					OR = {
+						area = silesia_area
+					}
+					country_or_non_sovereign_subject_holds = ROOT
+					OR = {
+						culture = pommeranian
+						culture = prussian
+						culture = hannoverian
+						culture = hessian
+						culture = saxon
+						culture = franconian
+						culture = swabian
+						culture = swiss
+						culture = bavarian
+						culture = austrian
+						culture = german_schlesian
+						culture = german_sudeten
+					}
+				}
+				add_province_modifier = {
+					name = production_improvements
+					duration = 18250
+				}
+			}
+			every_province = {
+				limit = {
+					OR = {
+						province_id = 188
+						province_id = 189
+						province_id = 13
+						province_id = 40
+					}
+					country_or_non_sovereign_subject_holds = ROOT
+					NOT = {
+						OR = {
+							culture = pommeranian
+							culture = prussian
+							culture = hannoverian
+							culture = hessian
+							culture = saxon
+							culture = franconian
+							culture = swabian
+							culture = swiss
+							culture = bavarian
+							culture = austrian
+							culture = german_schlesian
+						}
+					}
+				}
+				add_province_modifier = {
+					name = ger_culture_influence
+					duration = 18250
+				}
+			}
+		}
+	}
+	pru_german_poland_1 = {
+		icon = mission_expel_the_moriscos
+		required_missions = { pru_german_silesia }
+		
+		provinces_to_highlight = {
+			OR = {
+				area = wielkopolska_area
+				area = kuyavia_area
+				area = central_poland_area
+			}
+			NOT = {
+				OR = {
+					culture = pommeranian
+					culture = prussian
+					culture = hannoverian
+					culture = hessian
+					culture = saxon
+					culture = franconian
+					culture = swabian
+					culture = swiss
+					culture = bavarian
+					culture = austrian
+					culture = german_schlesian
+					culture = german_sudeten
+				}
+			}
+		}
+		
+		trigger = {
+			wielkopolska_area = {
+				type = all
+				OR = {
+					culture = pommeranian
+					culture = prussian
+					culture = hannoverian
+					culture = hessian
+					culture = saxon
+					culture = franconian
+					culture = swabian
+					culture = swiss
+					culture = bavarian
+					culture = austrian
+					culture = german_schlesian
+					culture = german_sudeten
+				}
+			}
+			kuyavia_area = {
+				type = all
+				OR = {
+					culture = pommeranian
+					culture = prussian
+					culture = hannoverian
+					culture = hessian
+					culture = saxon
+					culture = franconian
+					culture = swabian
+					culture = swiss
+					culture = bavarian
+					culture = austrian
+					culture = german_schlesian
+					culture = german_sudeten
+				}
+			}
+			central_poland_area = {
+				type = all
+				OR = {
+					culture = pommeranian
+					culture = prussian
+					culture = hannoverian
+					culture = hessian
+					culture = saxon
+					culture = franconian
+					culture = swabian
+					culture = swiss
+					culture = bavarian
+					culture = austrian
+					culture = german_schlesian
+					culture = german_sudeten
+				}
+			}
+		}
+		
+		effect = {
+			every_province = {
+				limit = {
+					OR = {
+						area = wielkopolska_area
+						area = kuyavia_area
+						area = central_poland_area
+					}
+					country_or_non_sovereign_subject_holds = ROOT
+					OR = {
+						culture = pommeranian
+						culture = prussian
+						culture = hannoverian
+						culture = hessian
+						culture = saxon
+						culture = franconian
+						culture = swabian
+						culture = swiss
+						culture = bavarian
+						culture = austrian
+						culture = german_schlesian
+						culture = german_sudeten
+					}
+				}
+				add_province_modifier = {
+					name = production_improvements
+					duration = 18250
+				}
+			}
+		}
+	}
+	pru_german_poland_2 = {
+		icon = mission_expel_the_moriscos
+		required_missions = { pru_german_poland_1 }
+		
+		provinces_to_highlight = {
+			OR = {
+				area = mazovia_area
+				area = podlasie_area
+				province_id = 1936
+				province_id = 270
+			}
+			NOT = {
+				OR = {
+					culture = pommeranian
+					culture = prussian
+					culture = hannoverian
+					culture = hessian
+					culture = saxon
+					culture = franconian
+					culture = swabian
+					culture = swiss
+					culture = bavarian
+					culture = austrian
+					culture = german_schlesian
+					culture = german_sudeten
+				}
+			}
+		}
+		
+		trigger = {
+			mazovia_area = {
+				type = all
+				OR = {
+					culture = pommeranian
+					culture = prussian
+					culture = hannoverian
+					culture = hessian
+					culture = saxon
+					culture = franconian
+					culture = swabian
+					culture = swiss
+					culture = bavarian
+					culture = austrian
+					culture = german_schlesian
+					culture = german_sudeten
+				}
+			}
+			podlasie_area = {
+				type = all
+				OR = {
+					culture = pommeranian
+					culture = prussian
+					culture = hannoverian
+					culture = hessian
+					culture = saxon
+					culture = franconian
+					culture = swabian
+					culture = swiss
+					culture = bavarian
+					culture = austrian
+					culture = german_schlesian
+					culture = german_sudeten
+				}
+			}
+			1936 = {
+				OR = {
+					culture = pommeranian
+					culture = prussian
+					culture = hannoverian
+					culture = hessian
+					culture = saxon
+					culture = franconian
+					culture = swabian
+					culture = swiss
+					culture = bavarian
+					culture = austrian
+					culture = german_schlesian
+					culture = german_sudeten
+				}
+			}
+			270 = {
+				OR = {
+					culture = pommeranian
+					culture = prussian
+					culture = hannoverian
+					culture = hessian
+					culture = saxon
+					culture = franconian
+					culture = swabian
+					culture = swiss
+					culture = bavarian
+					culture = austrian
+					culture = german_schlesian
+					culture = german_sudeten
+				}
+			}
+		}
+		
+		effect = {
+			every_province = {
+				limit = {
+					OR = {
+						area = mazovia_area
+						area = podlasie_area
+						province_id = 1936
+						province_id = 270
+					}
+					country_or_non_sovereign_subject_holds = ROOT
+					OR = {
+						culture = pommeranian
+						culture = prussian
+						culture = hannoverian
+						culture = hessian
+						culture = saxon
+						culture = franconian
+						culture = swabian
+						culture = swiss
+						culture = bavarian
+						culture = austrian
+						culture = german_schlesian
+						culture = german_sudeten
+					}
+				}
+				add_province_modifier = {
+					name = production_improvements
+					duration = 18250
+				}
+			}
+		}
+	}
+}
+german_settlement_slot_2 = {
+	slot = 5
+	generic = no
+	ai = yes
+	potential = {
+		NOT = { map_setup = map_setup_random }
+		OR = {
+			tag = PRU
+			tag = NGC
+			tag = GER
+		}
+	}
+	has_country_shield = yes
+		
+	pru_german_bohmen = {
+		icon = mission_expel_the_moriscos
+		required_missions = { pru_german_silesia }
+		
+		provinces_to_highlight = {
+			OR = {
+				area = erzgebirge_area
+				area = bohemia_area
+			}
+			NOT = {
+				OR = {
+					culture = pommeranian
+					culture = prussian
+					culture = hannoverian
+					culture = hessian
+					culture = saxon
+					culture = franconian
+					culture = swabian
+					culture = swiss
+					culture = bavarian
+					culture = austrian
+					culture = german_schlesian
+					culture = german_sudeten
+				}
+			}
+		}
+		
+		trigger = {
+			bohemia_area = {
+				type = all
+				OR = {
+					culture = pommeranian
+					culture = prussian
+					culture = hannoverian
+					culture = hessian
+					culture = saxon
+					culture = franconian
+					culture = swabian
+					culture = swiss
+					culture = bavarian
+					culture = austrian
+					culture = german_schlesian
+					culture = german_sudeten
+				}
+			}
+			erzgebirge_area = {
+				type = all
+				OR = {
+					culture = pommeranian
+					culture = prussian
+					culture = hannoverian
+					culture = hessian
+					culture = saxon
+					culture = franconian
+					culture = swabian
+					culture = swiss
+					culture = bavarian
+					culture = austrian
+					culture = german_schlesian
+					culture = german_sudeten
+				}
+			}
+		}
+		
+		effect = {
+			every_province = {
+				limit = {
+					OR = {
+						area = erzgebirge_area
+						area = bohemia_area
+					}
+					country_or_non_sovereign_subject_holds = ROOT
+					OR = {
+						culture = pommeranian
+						culture = prussian
+						culture = hannoverian
+						culture = hessian
+						culture = saxon
+						culture = franconian
+						culture = swabian
+						culture = swiss
+						culture = bavarian
+						culture = austrian
+						culture = german_schlesian
+						culture = german_sudeten
+					}
+				}
+				add_province_modifier = {
+					name = production_improvements
+					duration = 18250
+				}
+			}
+		}
+	}
+}

@@ -1,0 +1,351 @@
+namespace = colonial_border_fix
+
+country_event = {
+	id = colonial_border_fix.1
+	title = "colonial_border_fix.RHtit1"
+	desc = "colonial_border_fix.RHdesc1"
+	picture = CONSTITUTION_eventPicture
+	
+	trigger = {
+		ai = yes
+		is_colonial_nation = yes
+		NOT = { liberty_desire = 50 }
+		any_owned_province = {
+			NOT = { colonial_region = capital }
+			is_colony = no
+			
+			NOT = {
+				AND = {
+					ROOT = {
+						AND = {
+							has_country_flag = formed_super_colony
+							capital_scope = {
+								colonial_region = colonial_la_plata
+							}
+						}
+					}
+					colonial_region = colonial_la_upper_plata
+				}
+			}
+			
+			NOT = {
+				AND = {
+					ROOT = {
+						AND = {
+							has_country_flag = formed_super_colony
+							capital_scope = {
+								colonial_region = colonial_quebec
+							}
+						}
+					}
+					OR = {
+						area = upper_acadia_area
+						area = lower_acadia_area
+						colonial_region = colonial_hudson_bay
+						colonial_region = colonial_alberta
+						colonial_region = colonial_columbia
+						colonial_region = colonial_alaska
+						province_id = 2005
+						province_id = 2598
+					}
+				}
+			}
+			
+			NOT = {
+				AND = {
+					ROOT = {
+						AND = {
+							capital_scope = {
+								colonial_region = colonial_california
+							}
+							has_country_flag = formed_super_colony
+						}
+					}
+					OR = {
+						colonial_region = colonial_arizona
+						colonial_region = colonial_oregon
+					}
+				}
+			}
+			
+			NOT = {
+				AND = {
+					ROOT = {
+						AND = {
+							has_country_flag = formed_super_colony
+							capital_scope = {
+								colonial_region = colonial_mexico
+							}
+						}
+					}
+					colonial_region = colonial_honduras
+				}
+			}
+			
+			NOT = {
+				AND = {
+					ROOT = {
+						AND = {
+							has_country_flag = formed_super_colony
+							capital_scope = {
+								colonial_region = colonial_new_amsterdam
+							}
+						}
+					}
+					OR = {
+						colonial_region = colonial_new_england
+						colonial_region = colonial_pennsylvania
+						colonial_region = colonial_virginia
+						colonial_region = colonial_carolina
+						colonial_region = colonial_georgia
+						colonial_region = colonial_mississippi
+						colonial_region = colonial_kentucky
+						colonial_region = colonial_ohio
+						colonial_region = colonial_florida
+						area = maine_area
+					}
+				}
+			}
+		}
+	}
+	
+	mean_time_to_happen = {
+		months = 2
+	}
+	
+	option = {
+		name = "colonial_border_fix.RHans1"
+		overlord = {
+			every_province = {
+				limit = {
+					owned_by = ROOT
+					NOT = { colonial_region = capital }
+					is_colony = no
+					
+					NOT = {
+						AND = {
+							ROOT = {
+								AND = {
+									has_country_flag = formed_super_colony
+									capital_scope = {
+										colonial_region = colonial_la_plata
+									}
+								}
+							}
+							colonial_region = colonial_la_upper_plata
+						}
+					}
+					
+					NOT = {
+						AND = {
+							ROOT = {
+								AND = {
+									has_country_flag = formed_super_colony
+									capital_scope = {
+										colonial_region = colonial_quebec
+									}
+								}
+							}
+							OR = {
+								area = upper_acadia_area
+								area = lower_acadia_area
+								colonial_region = colonial_hudson_bay
+								colonial_region = colonial_alberta
+								colonial_region = colonial_columbia
+								colonial_region = colonial_alaska
+								province_id = 2005
+								province_id = 2598
+							}
+						}
+					}
+					
+					NOT = {
+						AND = {
+							ROOT = {
+								AND = {
+									capital_scope = {
+										colonial_region = colonial_mexico
+									}
+									has_country_flag = formed_super_colony
+								}
+							}
+							colonial_region = colonial_honduras
+						}
+					}
+					
+					NOT = {
+						AND = {
+							ROOT = {
+								AND = {
+									has_country_flag = formed_super_colony
+									capital_scope = {
+										colonial_region = colonial_california
+									}
+								}
+							}
+							OR = {
+								colonial_region = colonial_arizona
+								colonial_region = colonial_oregon
+							}
+						}
+					}
+					
+					NOT = {
+						AND = {
+							ROOT = {
+								AND = {
+									has_country_flag = formed_super_colony
+									capital_scope = {
+										colonial_region = colonial_new_amsterdam
+									}
+								}
+							}
+							OR = {
+								colonial_region = colonial_new_england
+								colonial_region = colonial_pennsylvania
+								colonial_region = colonial_virginia
+								colonial_region = colonial_carolina
+								colonial_region = colonial_georgia
+								colonial_region = colonial_mississippi
+								colonial_region = colonial_kentucky
+								colonial_region = colonial_ohio
+								colonial_region = colonial_florida
+								area = maine_area
+							}
+						}
+					}
+				}
+				remove_core = ROOT
+				cede_province = PREV
+				add_core = PREV
+			}
+		}
+	}
+}
+
+country_event = {
+	id = colonial_border_fix.2
+	title = "colonial_border_fix.RHtit2"
+	desc = "colonial_border_fix.RHdesc2"
+	picture = CONSTITUTION_eventPicture
+	
+	trigger = {
+		ai = yes
+		is_colonial_nation = yes
+		NOT = { has_country_flag = formed_super_colony }
+		OR = {
+			AND = {
+				owns_core_province = 965
+				NOT = { capital = 965 }
+			}
+			AND = {
+				owns_core_province = 763
+				NOT = { capital = 763 }
+			}
+			AND = {
+				owns_core_province = 852
+				NOT = { capital = 852 }
+			}
+			AND = {
+				owns_core_province = 488
+				NOT = { capital = 488 }
+			}
+			AND = {
+				owns_core_province = 828
+				NOT = { capital = 828 }
+			}
+			AND = {
+				owns_core_province = 885
+				NOT = { capital = 885 }
+			}
+			AND = {
+				owns_core_province = 993
+				NOT = { capital = 993 }
+			}
+			AND = {
+				owns_core_province = 1177
+				NOT = { capital = 1177 }
+			}
+			AND = {
+				owns_core_province = 778
+				NOT = { capital = 778 }
+			}
+			AND = {
+				owns_core_province = 809
+				NOT = { capital = 809 }
+			}
+			AND = {
+				owns_core_province = 2021
+				NOT = { capital = 2021 }
+			}
+			AND = {
+				owns_core_province = 2536
+				NOT = { capital = 2536 }
+			}
+			AND = {
+				owns_core_province = 893
+				NOT = { capital = 893 }
+			}
+		}
+	}
+	
+	mean_time_to_happen = {
+		months = 6
+	}
+	
+	option = {
+		name = "colonial_border_fix.RHans2"
+		if = {
+			limit = { owns_core_province = 965 }
+			set_capital = 965
+		}
+		else_if = {
+			limit = { owns_core_province = 763 }
+			set_capital = 763
+		}
+		else_if = {
+			limit = { owns_core_province = 852 }
+			set_capital = 852
+		}
+		else_if = {
+			limit = { owns_core_province = 488 }
+			set_capital = 488
+		}
+		else_if = {
+			limit = { owns_core_province = 828 }
+			set_capital = 828
+		}
+		else_if = {
+			limit = { owns_core_province = 885 }
+			set_capital = 885
+		}
+		else_if = {
+			limit = { owns_core_province = 993 }
+			set_capital = 993
+		}
+		else_if = {
+			limit = { owns_core_province = 1177 }
+			set_capital = 1177
+		}
+		else_if = {
+			limit = { owns_core_province = 778 }
+			set_capital = 778
+		}
+		else_if = {
+			limit = { owns_core_province = 809 }
+			set_capital = 809
+		}
+		else_if = {
+			limit = { owns_core_province = 2021 }
+			set_capital = 2021
+		}
+		else_if = {
+			limit = { owns_core_province = 2536 }
+			set_capital = 2536
+		}
+		else_if = {
+			limit = { owns_core_province = 893 }
+			set_capital = 893
+		}
+	}
+}

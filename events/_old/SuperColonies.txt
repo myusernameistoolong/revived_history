@@ -1,0 +1,101 @@
+namespace = super_colonies
+
+#Super Colonies
+country_event = {
+	id = super_colonies.1
+	title = "super_colonies.RHtit1"
+	desc = "super_colonies.RHdesc1"
+	picture = CONSTITUTION_eventPicture
+	
+	trigger = {
+		#ai = yes
+		is_colonial_nation = yes
+		NOT = { has_country_flag = formed_super_colony }
+		NOT = { liberty_desire = 50 }
+		is_at_war = no
+
+		OR = {
+			#La Plata super colony
+			AND = {
+				capital_scope = {
+					colonial_region = colonial_la_plata
+				}
+				overlord = {
+					colonial_la_upper_plata = {
+						type = all
+						country_or_non_sovereign_subject_holds = PREV
+					}
+					colonial_la_plata = {
+						type = all
+						country_or_non_sovereign_subject_holds = PREV
+					}
+				}
+			}
+			
+			#Canada super colony
+			AND = {
+				capital_scope = {
+					colonial_region = colonial_quebec
+				}
+				overlord = {
+					colonial_quebec = {
+						type = all
+						country_or_non_sovereign_subject_holds = PREV
+					}
+					colonial_acadia = {
+						type = all
+						country_or_non_sovereign_subject_holds = PREV
+					}
+					colonial_hudson_bay = {
+						type = all
+						country_or_non_sovereign_subject_holds = PREV
+					}
+					colonial_alberta = {
+						type = all
+						country_or_non_sovereign_subject_holds = PREV
+					}
+				}
+			}
+		}
+	}
+	
+	mean_time_to_happen = {
+		months = 2
+	}
+	
+	option = {
+		name = "super_colonies.RHans1"
+		overlord = {
+			every_province = {
+				limit = {
+					OR = {
+						#La Plata super colony
+						AND = {
+							OR = {
+								colonial_region = colonial_la_upper_plata
+								colonial_region = colonial_la_plata
+							}
+							country_or_non_sovereign_subject_holds = PREV
+						}
+						
+						#Canada super colony
+						AND = {
+							OR = {
+								colonial_region = colonial_quebec
+								colonial_region = colonial_acadia
+								colonial_region = colonial_hudson_bay
+								colonial_region = colonial_alberta
+							}
+							country_or_non_sovereign_subject_holds = PREV
+						}
+					}
+				}
+				remove_core = FROM
+				remove_core = PREV
+				cede_province = ROOT
+				add_core = ROOT
+			}
+		}
+		set_country_flag = formed_super_colony
+	}
+}

@@ -1,0 +1,54 @@
+country_decisions = {
+	toggle_missions_off = {
+		potential = {
+			NOT = {
+				ai = yes
+				has_country_flag = rh_missions_off
+				is_year = 1500			
+			}
+
+			OR = {
+				tag = ENG
+				tag = GBR
+				tag = FRA
+				tag = CAS
+				tag = SPA
+				tag = IBA
+				tag = POR
+				tag = NED
+				tag = BNL
+				tag = MOS
+				tag = RUS
+				tag = HAB
+				tag = ITA
+				tag = SAV
+				tag = BRA
+				tag = PRU
+				tag = GER
+				tag = DAN
+				tag = USA
+				tag = HOL #Netherlands
+				tag = UTR
+				tag = FRI
+				tag = FLA #Belgium
+				tag = BRB
+				tag = LIE
+				tag = BEL
+			}
+		}
+		allow = {
+			NOT = {
+				ai = yes
+				has_country_flag = rh_missions_off
+				is_year = 1500
+			}
+		}
+		effect = {
+			set_country_flag = rh_missions_off
+			swap_non_generic_missions = yes
+		}
+		ai_will_do = {
+			factor = 0
+		}
+	}
+}

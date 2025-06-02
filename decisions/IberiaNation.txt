@@ -1,0 +1,115 @@
+country_decisions = {
+	iberian_nation = {
+		major = yes
+		potential = {
+			normal_or_historical_nations = yes
+			#was_never_end_game_tag_trigger = yes
+			NOT = { has_country_flag = formed_iberia_flag }
+			OR = {
+				ai = no
+				is_playing_custom_nation = no
+			}
+			tag = SPA
+			NOT = { tag = IBA }
+			NOT = { religion_group = muslim }
+			OR = {
+				culture_group = iberian
+				primary_culture = basque
+			}
+			is_colonial_nation = no
+			OR = {
+				is_former_colonial_nation = no
+				AND = {
+					is_former_colonial_nation = yes
+					ai = no
+				}
+			}
+		}
+		provinces_to_highlight = {
+			OR = {
+				province_id = 213	# Barcelona
+				province_id = 214	# Aragón
+				province_id = 215	# Castilla La Vieja
+				province_id = 216	# Salamanca
+				province_id = 224	# Andalucia
+				province_id = 219	# Toledo
+				province_id = 220	# Valencia
+				province_id = 223	# Granada
+				region = iberia_region
+			}
+			NOT = { country_or_non_sovereign_subject_holds = ROOT }
+		}
+		allow = {
+			NOT = { exists = IBA }
+			NOT = {
+				OR = {
+					current_age = age_of_discovery
+					current_age = age_of_reformation
+					current_age = age_of_absolutism
+				}
+			}
+			is_free_or_tributary_trigger = yes
+			is_nomad = no
+			is_at_war = no
+			owns_core_province = 213	# Barcelona
+			owns_core_province = 214	# Aragón
+			owns_core_province = 215	# Castilla La Vieja
+			owns_core_province = 216	# Salamanca
+			owns_core_province = 224	# Andalucia
+			owns_core_province = 219	# Toledo
+			owns_core_province = 220	# Valencia
+			owns_core_province = 223	# Granada
+			iberia_region = {
+				type = all
+				is_core = ROOT
+			}
+		}
+		effect = {
+			change_tag = IBA
+			if = {
+				limit = {
+					NOT = {
+						AND = {
+							has_dlc = "Golden Century" 
+							OR = {
+								tag = ARA
+								tag = CAT
+								tag = VAL
+							}
+						}
+					}
+				}
+				swap_non_generic_missions = yes
+			}
+			remove_non_electors_emperors_from_empire_effect = yes
+			add_accepted_culture = portugese
+			if = {
+				limit = { NOT = { government_rank = 3 } }
+				set_government_rank = 3
+			}
+			if = {
+				limit = {
+					has_custom_ideas = no
+					OR = {
+						ai = no
+						AND = {
+							ai = yes
+							has_idea_group = default_ideas
+						}
+					}
+				}
+				country_event = { id = ideagroups.1 } #Swap Ideas
+			}
+			add_country_modifier = {
+				name = "centralization_modifier"
+				duration = 7300
+			}
+			set_country_flag = formed_iberia_flag
+			add_prestige = 25
+		}
+		ai_will_do = {
+			factor = 1
+		}
+		ai_importance = 10
+	}
+}

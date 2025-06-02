@@ -1,0 +1,119 @@
+country_decisions = {
+	
+	british_raj_nation = {
+		major = yes
+		potential = {
+			NOT = { exists = RAJ }
+			OR = {
+				ai = no
+				is_playing_custom_nation = no
+			}
+			OR = {
+				tag = ENG
+				tag = GBR
+			}
+			india_superregion = {
+				AND = {
+					country_or_non_sovereign_subject_holds = ROOT
+					is_core = owner
+				}
+			}
+		}
+		provinces_to_highlight = {
+			superregion = india_superregion
+			OR = {
+				NOT = { country_or_non_sovereign_subject_holds = ROOT }
+				NOT = { is_core = ROOT }
+			}
+		}
+		allow = {
+			561 = {
+				AND = {
+					country_or_non_sovereign_subject_holds = ROOT
+					is_core = owner
+				}
+			}
+			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+				value = 10
+				superregion = india_superregion
+				is_core = owner
+			}
+		}
+		effect = {
+			every_owned_province = {
+				limit = {
+					superregion = india_superregion
+				}
+				remove_core = ROOT	
+				cede_province = RAJ
+				add_core = RAJ
+			}
+			create_subject = {
+				subject_type = raj_vassal
+				subject = RAJ
+			}
+			RAJ = {
+				add_government_reform = colonial_government
+				add_accepted_culture = assamese
+				add_accepted_culture = kochi
+				add_accepted_culture = bihari
+				add_accepted_culture = pahari
+				add_accepted_culture = nepali
+				add_accepted_culture = oriya
+				add_accepted_culture = sinhala
+				add_accepted_culture = avadhi
+				add_accepted_culture = kanauji
+				add_accepted_culture = vindhyan
+				add_accepted_culture = panjabi
+				add_accepted_culture = kashmiri
+				add_accepted_culture = gujarati
+				add_accepted_culture = saurashtri
+				add_accepted_culture = marathi
+				add_accepted_culture = malvi
+				add_accepted_culture = sindhi
+				add_accepted_culture = rajput
+				add_accepted_culture = kannada
+				add_accepted_culture = malayalam
+				add_accepted_culture = tamil
+				add_accepted_culture = telegu
+				add_accepted_culture = gondi
+				add_accepted_culture = garjati
+				add_accepted_culture = jharkhandi
+				add_accepted_culture = burmese
+				add_accepted_culture = mon
+				add_accepted_culture = chin
+				add_accepted_culture = karen
+				add_accepted_culture = kachin
+				add_accepted_culture = arakanese
+				set_capital = 561 # Kakulta
+				if = {
+					limit = {
+						NOT = { government_rank = 2 }
+					}
+					set_government_rank = 2
+				}
+				add_prestige = 25
+				capital_scope = {
+					build_to_forcelimit = {
+						infantry = 0.8
+						cavalry = 0.3
+						artillery = 0.3
+					}
+				}
+				random_owned_province = {
+					limit = {
+						has_port = yes
+					}
+					build_to_forcelimit = {
+						heavy_ship = 0.3
+						light_ship = 0.3
+						transport = 0.2
+					}
+				}
+			}
+		}
+		ai_will_do = {
+			factor = 800
+		}
+	}
+}

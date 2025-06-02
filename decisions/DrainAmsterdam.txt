@@ -1,0 +1,37 @@
+country_decisions = {
+	drain_amsterdam = {
+		major = yes
+		potential = {
+			OR = {
+				#ai = no
+				AND = {
+					treasury = 250
+					owns_or_vassal_of = 97
+				}
+			}
+			adm_tech = 20
+			NOT = { has_country_flag = drain_amsterdam }
+		}
+		provinces_to_highlight = {
+			OR = {
+				province_id = 97
+			}
+			OR = {
+				NOT = { owned_by = ROOT }
+				NOT = { owner = { vassal_of = ROOT } }
+			}
+		}
+		allow = {
+			owns_or_vassal_of = 97
+			is_subject = no			
+			adm_tech = 20
+			treasury = 250
+			NOT = { has_country_flag = drain_amsterdam }
+		}
+		effect = {
+			add_treasury = -250
+			country_event = { id = flavor_rh.10012 days = 10 }
+			set_country_flag = drain_amsterdam
+		}
+	}
+}

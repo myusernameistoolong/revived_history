@@ -1,0 +1,1218 @@
+usa_missions_e = {
+	slot = 2
+	generic = no
+	ai = yes
+	potential = {
+		OR = {
+			tag = USA
+			tag = TTC
+		}
+		NOT = { map_setup = map_setup_random }
+	}
+	has_country_shield = yes
+	
+	usa_control_carribean = {
+		icon = mission_caribbean_cn
+		required_missions = { usa_panama_channel }
+		position = 8
+		
+		provinces_to_highlight = {
+			OR = {
+				colonial_region = colonial_the_carribean
+			}
+			NOT = {
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+			has_discovered = ROOT
+		}
+		trigger = {
+			colonial_the_carribean = {
+				type = all
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+		}
+		effect = {
+			add_prestige = 10
+			carribeans_region = {
+				limit = {
+					NOT = { is_core = ROOT }
+					NOT = { is_permanent_claim = ROOT }
+				}
+				add_permanent_claim = ROOT
+			}
+		}
+	}
+}
+usa_missions_d = {
+	slot = 3
+	generic = no
+	ai = yes
+	potential = {
+		OR = {
+			tag = USA
+			tag = TTC
+		}
+		NOT = { map_setup = map_setup_random }
+	}
+	has_country_shield = yes
+	
+	usa_panama_channel = {
+		icon = mission_raid_christian_trade
+		required_missions = { usa_louisiana_purchase }
+		position = 7
+		
+		provinces_to_highlight = {
+			OR = {
+				province_id = 835
+			}
+			NOT = {
+				AND = {
+					country_or_subject_holds = ROOT
+					is_core = owner
+				}
+			}
+			has_discovered = ROOT
+		}
+		trigger = {
+			835 = {
+				country_or_subject_holds = ROOT
+				is_core = owner
+			}
+		}
+		effect = {
+			colonial_the_carribean = {
+				limit = {
+					NOT = { is_core = ROOT }
+					NOT = { is_permanent_claim = ROOT }
+				}
+				add_permanent_claim = ROOT
+			}
+			add_country_modifier = {
+				name = "american_panama"
+				duration = 600
+			}
+		}
+	}
+	usa_panama_channel_construction = {
+		icon = mission_advance_to_the_dnieper
+		required_missions = { usa_panama_channel }
+		
+		provinces_to_highlight = {
+			OR = {
+				province_id = 835
+			}
+			AND = {
+				OR = {
+					NOT = { has_great_project = panama_canal }
+					NOT = { has_construction = canal }
+				}
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+			has_discovered = ROOT
+		}
+		trigger = {
+			835 = {
+				country_or_non_sovereign_subject_holds = ROOT
+				OR = {
+					has_great_project = panama_canal
+					has_construction = canal
+				}
+			}
+		}
+		effect = {
+			add_prestige = 10
+			add_country_modifier = {
+				name = "american_panama_finished"
+				duration = 600
+			}
+			if = {
+				limit = {
+					exists = VNZ
+				}
+				add_casus_belli = {
+					target = VNZ
+					type = cb_vassalize_mission
+				}
+			} else = {
+				every_province = {
+					limit = {
+						OR = {
+							area = venezuela_area
+							area = antisuyu_area
+							area = central_llanos_area
+							area = maracaibo_area
+							area = eastern_llanos
+							province_id = 4617
+							province_id = 2811
+							province_id = 742
+							province_id = 2804
+							province_id = 2803
+						}
+						NOT = { is_core = ROOT }
+						NOT = { is_permanent_claim = ROOT }
+					}
+					add_permanent_claim = ROOT
+				}
+			}
+		}
+	}
+	usa_venezuelian_threat = {
+		icon = mission_new_kingdom_of_granada
+		required_missions = { usa_panama_channel_construction }
+		
+		provinces_to_highlight = {
+			if = {
+				limit = { exists = VNZ }
+				country_or_non_sovereign_subject_holds = VNZ
+			} else = {
+				OR = {
+					area = venezuela_area
+					area = antisuyu_area
+					area = central_llanos_area
+					area = maracaibo_area
+					area = eastern_llanos
+					province_id = 4617
+					province_id = 2811
+					province_id = 742
+					province_id = 2804
+					province_id = 2803
+				}
+			}
+			NOT = { country_or_non_sovereign_subject_holds = ROOT }
+			has_discovered = ROOT
+		}
+		trigger = {
+			OR = {
+				VNZ = { is_subject_of = ROOT }
+				AND = {
+					venezuela_area = {
+						type = all
+						country_or_non_sovereign_subject_holds = ROOT
+					}
+					antisuyu_area = {
+						type = all
+						country_or_non_sovereign_subject_holds = ROOT
+					}
+					central_llanos_area = {
+						type = all
+						country_or_non_sovereign_subject_holds = ROOT
+					}
+					maracaibo_area = {
+						type = all
+						country_or_non_sovereign_subject_holds = ROOT
+					}
+					eastern_llanos = {
+						type = all
+						country_or_non_sovereign_subject_holds = ROOT
+					}
+					4617 = {
+						country_or_non_sovereign_subject_holds = ROOT
+					}
+					2811 = {
+						country_or_non_sovereign_subject_holds = ROOT
+					}
+					742 = {
+						country_or_non_sovereign_subject_holds = ROOT
+					}
+					2804 = {
+						country_or_non_sovereign_subject_holds = ROOT
+					}
+					2803 = {
+						country_or_non_sovereign_subject_holds = ROOT
+					}
+				}
+			}
+		}
+		effect = {
+			add_prestige = 10
+			every_province = {
+				limit = {
+					country_or_non_sovereign_subject_holds = ROOT
+					OR = {
+						area = venezuela_area
+						area = antisuyu_area
+						area = central_llanos_area
+						area = maracaibo_area
+						area = eastern_llanos
+						province_id = 4617
+						province_id = 2811
+						province_id = 742
+						province_id = 2804
+						province_id = 2803
+					}
+					OR = {
+						trade_goods = coffee
+						trade_goods = cocoa
+					}
+				}
+				add_province_modifier = {
+					name = "usa_influences_venezuelian_products"
+					duration = 600
+				}
+			}
+		}
+	}
+}
+usa_missions_c = {
+	slot = 4
+	generic = no
+	ai = yes
+	potential = {
+		OR = {
+			tag = USA
+			tag = TTC
+		}
+		NOT = { map_setup = map_setup_random }
+	}
+	has_country_shield = yes
+	
+	usa_control_oregon = {
+		icon = mission_rb_monopolize_the_channel
+		required_missions = { usa_louisiana_purchase }
+		position = 7
+		
+		provinces_to_highlight = {
+			OR = {
+				colonial_region = colonial_oregon
+			}
+			NOT = {
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+			has_discovered = ROOT
+		}
+		trigger = {
+			colonial_oregon = {
+				type = all
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+		}
+		effect = {
+			custom_tooltip = colonial_alaska_claim
+			colonial_alaska = {
+				limit = {
+					NOT = { is_core = ROOT }
+					NOT = { is_permanent_claim = ROOT }
+				}
+				add_permanent_claim = ROOT
+			}
+			northern_polynesia_area = {
+				limit = {
+					NOT = { is_core = ROOT }
+					NOT = { is_permanent_claim = ROOT }
+				}
+				add_permanent_claim = ROOT
+			}
+		}
+	}
+	usa_buy_alaska = {
+		icon = mission_colonize_alaska
+		required_missions = { usa_control_oregon }
+		position = 7
+		
+		provinces_to_highlight = {
+			OR = {
+				colonial_region = colonial_alaska
+			}
+			NOT = {
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+			has_discovered = ROOT
+		}
+		trigger = {
+			colonial_alaska = {
+				type = all
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+		}
+		effect = {
+			add_prestige = 10
+			add_adm_power = 200
+		}
+	}
+}
+
+usa_missions_main = {
+	slot = 5
+	generic = no
+	ai = yes
+	potential = {
+		OR = {
+			tag = USA
+			tag = TTC
+		}
+		NOT = { map_setup = map_setup_random }
+	}
+	has_country_shield = yes
+	
+	usa_independence = {
+		icon = mission_assemble_an_army
+		required_missions = { }
+		trigger = {
+			is_subject = no
+			is_at_war = no
+		}
+		effect = {
+			northeast_america_region = {
+				limit = {
+					NOT = { is_core = ROOT }
+					NOT = { is_permanent_claim = ROOT }
+				}
+				add_permanent_claim = ROOT
+			}
+			custom_tooltip = usa_assimulates_dutch_tt
+			set_global_flag = usa_assimulates_dutch
+		}
+	}
+	defend_the_american_colonies = {
+		icon = mission_cannons_firing
+		required_missions = { usa_independence }
+		provinces_to_highlight = {
+			region = northeast_america_region
+			NOT = {
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+			has_discovered = ROOT
+		}
+		trigger = {
+			northeast_america_region = {
+				type = all
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+		}
+		effect = {
+			add_army_tradition = 50
+			add_stability = 2
+			southeast_america_region = {
+				limit = {
+					NOT = { is_core = ROOT }
+					NOT = { is_permanent_claim = ROOT }
+					NOT = { colonial_region = colonial_florida }
+				}
+				add_permanent_claim = ROOT
+			}
+		}
+	}
+	unite_the_east_coast = {
+		icon = mission_rb_the_thirteen_colonies
+		required_missions = { defend_the_american_colonies }
+		provinces_to_highlight = {
+			OR = {
+				region = southeast_america_region
+			}
+			NOT = {
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+			NOT = { colonial_region = colonial_florida }
+			has_discovered = ROOT
+		}
+		trigger = {
+			colonial_virginia = {
+				type = all
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+			colonial_carolina = {
+				type = all
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+			colonial_georgia = {
+				type = all
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+		}
+		effect = {
+			add_mil_power = 300
+			custom_tooltip = colonial_florida_claim
+			colonial_florida = {
+				limit = {
+					NOT = { is_core = ROOT }
+					NOT = { is_permanent_claim = ROOT }
+				}
+				add_permanent_claim = ROOT
+			}
+			custom_tooltip = colonial_ohio_claim
+			colonial_ohio = {
+				limit = {
+					NOT = { is_core = ROOT }
+					NOT = { is_permanent_claim = ROOT }
+				}
+				add_permanent_claim = ROOT
+			}
+		}
+	}
+	conquer_florida = {
+		icon = mission_colonize_florida
+		required_missions = { unite_the_east_coast }
+		provinces_to_highlight = {
+			OR = {
+				area = florida_area
+				area = north_florida_area
+			}
+			NOT = {
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+			has_discovered = ROOT
+		}
+		trigger = {
+			florida_area = {
+				type = all
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+			north_florida_area = {
+				type = all
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+		}
+		effect = {
+			add_country_modifier = {
+				name = "military_victory"
+				duration = 7300
+			}
+			mississippi_region = {
+				limit = {
+					NOT = { is_core = ROOT }
+					NOT = { is_permanent_claim = ROOT }
+				}
+				add_permanent_claim = ROOT
+			}
+		}
+	}
+	reach_the_mississippi = {
+		icon = mission_settlers_north_america
+		required_missions = { conquer_florida }
+		provinces_to_highlight = {
+			region = mississippi_region
+			NOT = {
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+			has_discovered = ROOT
+		}
+		trigger = {
+			custom_trigger_tooltip = {
+				tooltip = usa_old_man_river.tooltip
+				num_of_owned_provinces_with = {
+					region = mississippi_region
+					value = 10
+				}
+			}
+			OR = {
+				has_idea_group = exploration_ideas
+				has_idea_group = expansion_ideas
+				mississippi_region = {
+					type = all
+					is_empty = no
+				}
+			}
+		}
+		effect = {
+			add_country_modifier = {
+				name = "colonial_enthusiasm"
+				duration = 7300
+			}
+			custom_tooltip = colonial_louisiana_claim
+			colonial_louisiana = {
+				limit = {
+					NOT = { is_core = ROOT }
+					NOT = { is_permanent_claim = ROOT }
+				}
+				add_permanent_claim = ROOT
+			}
+		}
+	}
+	usa_louisiana_purchase = {
+		icon = mission_war_chest
+		required_missions = { reach_the_mississippi }
+		provinces_to_highlight = {
+			OR = {
+				area = lower_louisiana_area
+				area = upper_louisiana_area
+				area = mississippi_plain_area
+				area = ozarks_area
+				area = central_plains_area
+				area = dakota_area
+				area = badlands_area
+				area = upper_missouri_area
+				area = south_dakota_area
+				province_id = 896
+			}
+			NOT = {
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+			has_discovered = ROOT
+		}
+		trigger = {
+			lower_louisiana_area = {
+				type = all
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+			upper_louisiana_area = {
+				type = all
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+			mississippi_plain_area = {
+				type = all
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+			ozarks_area = {
+				type = all
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+			central_plains_area = {
+				type = all
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+			dakota_area = {
+				type = all
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+			badlands_area = {
+				type = all
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+			upper_missouri_area = {
+				type = all
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+			south_dakota_area = {
+				type = all
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+			896 = {
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+		}
+		effect = {
+			add_country_modifier = {
+				name = "manifest"
+				duration = -1
+			}
+			custom_tooltip = usa_assimulates_french_tt
+			set_global_flag = usa_assimulates_french
+			custom_tooltip = colonial_texas_claim
+			colonial_texas = {
+				limit = {
+					NOT = { is_core = ROOT }
+					NOT = { is_permanent_claim = ROOT }
+				}
+				add_permanent_claim = ROOT
+			}
+			custom_tooltip = colonial_oregon_claim
+			colonial_oregon = {
+				limit = {
+					NOT = { is_core = ROOT }
+					NOT = { is_permanent_claim = ROOT }
+				}
+				add_permanent_claim = ROOT
+			}
+		}
+	}
+	usa_integrate_texas = {
+		icon = mission_unite_home_region
+		required_missions = { usa_louisiana_purchase }
+		provinces_to_highlight = {
+			colonial_region = colonial_texas
+			NOT = {
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+			has_discovered = ROOT
+		}
+		trigger = {
+			colonial_texas = {
+				type = all
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+		}
+		effect = {
+			custom_tooltip = colonial_california_claim
+			colonial_california = {
+				limit = {
+					NOT = { is_core = ROOT }
+					NOT = { is_permanent_claim = ROOT }
+				}
+				add_permanent_claim = ROOT
+			}
+				
+			custom_tooltip = colonial_arizona_claim
+			colonial_arizona = {
+				limit = {
+					NOT = { is_core = ROOT }
+					NOT = { is_permanent_claim = ROOT }
+				}
+				add_permanent_claim = ROOT
+			}
+		}
+	}
+	usa_conquer_california = {
+		icon = mission_kingdom_of_new_spain
+		required_missions = { usa_integrate_texas }
+		provinces_to_highlight = {
+			OR = {
+				colonial_region = colonial_texas
+				colonial_region = colonial_arizona
+				area = california_area
+				area = arizona_area
+				area = colorado_plateau_area
+				area = new_mexico_area
+				area = central_valley_area
+				area = apacheria_area
+				area = northern_california_area
+				area = great_basin_area
+			}
+			OR = {
+				NOT = { country_or_non_sovereign_subject_holds = ROOT }
+				NOT = {
+					controller = {
+						OR = {
+							is_subject_of = ROOT
+						}
+					}
+				}
+				NOT = { controlled_by = ROOT }
+				NOT = { 
+					owner = {
+						capital_scope = {
+							OR = {
+								colonial_region = colonial_texas
+								colonial_region = colonial_arizona
+								area = california_area
+								area = arizona_area
+								area = colorado_plateau_area
+								area = new_mexico_area
+								area = central_valley_area
+								area = apacheria_area
+								area = northern_california_area
+								area = great_basin_area
+							}
+						}
+						OR = {
+							technology_group = high_american
+							technology_group = north_american
+							technology_group = south_american
+							technology_group = andean
+						}
+					}
+				}
+			}
+			has_discovered = ROOT
+		}
+		
+		ai_priority = {
+			factor = 1000
+		}
+		
+		trigger = {
+			custom_trigger_tooltip = {
+				tooltip = southern_border_tt
+				OR = {
+					AND = {
+						colonial_texas = {
+							type = all
+							OR = {
+								country_or_non_sovereign_subject_holds = ROOT
+								controlled_by = ROOT
+								controller = {
+									OR = {
+										is_subject_of = ROOT
+									}
+								}
+								owner = {
+									capital_scope = {
+										colonial_region = colonial_texas
+									}
+									OR = {
+										technology_group = high_american
+										technology_group = north_american
+										technology_group = south_american
+										technology_group = andean
+									}
+								}
+							}
+						}
+						colonial_arizona = {
+							type = all
+							OR = {
+								country_or_non_sovereign_subject_holds = ROOT
+								controlled_by = ROOT
+								controller = {
+									OR = {
+										is_subject_of = ROOT
+									}
+								}
+								owner = {
+									capital_scope = {
+										colonial_region = colonial_arizona
+									}
+									OR = {
+										technology_group = high_american
+										technology_group = north_american
+										technology_group = south_american
+										technology_group = andean
+									}
+								}
+							}
+						}
+						california_area = {
+							type = all
+							OR = {
+								country_or_non_sovereign_subject_holds = ROOT
+								controlled_by = ROOT
+								controller = {
+									OR = {
+										is_subject_of = ROOT
+									}
+								}
+								owner = {
+									capital_scope = {
+										area = california_area
+									}
+									OR = {
+										technology_group = high_american
+										technology_group = north_american
+										technology_group = south_american
+										technology_group = andean
+									}
+								}
+							}
+						}
+						arizona_area = {
+							type = all
+							OR = {
+								country_or_non_sovereign_subject_holds = ROOT
+								controlled_by = ROOT
+								controller = {
+									OR = {
+										is_subject_of = ROOT
+									}
+								}
+								owner = {
+									capital_scope = {
+										area = arizona_area
+									}
+									OR = {
+										technology_group = high_american
+										technology_group = north_american
+										technology_group = south_american
+										technology_group = andean
+									}
+								}
+							}
+						}
+						colorado_plateau_area = {
+							type = all
+							OR = {
+								country_or_non_sovereign_subject_holds = ROOT
+								controlled_by = ROOT
+								controller = {
+									OR = {
+										is_subject_of = ROOT
+									}
+								}
+								owner = {
+									capital_scope = {
+										area = colorado_plateau_area
+									}
+									OR = {
+										technology_group = high_american
+										technology_group = north_american
+										technology_group = south_american
+										technology_group = andean
+									}
+								}
+							}
+						}
+						new_mexico_area = {
+							type = all
+							OR = {
+								country_or_non_sovereign_subject_holds = ROOT
+								controlled_by = ROOT
+								controller = {
+									OR = {
+										is_subject_of = ROOT
+									}
+								}
+								owner = {
+									capital_scope = {
+										area = new_mexico_area
+									}
+									OR = {
+										technology_group = high_american
+										technology_group = north_american
+										technology_group = south_american
+										technology_group = andean
+									}
+								}
+							}
+						}
+						central_valley_area = {
+							type = all
+							OR = {
+								country_or_non_sovereign_subject_holds = ROOT
+								controlled_by = ROOT
+								controller = {
+									OR = {
+										is_subject_of = ROOT
+									}
+								}
+								owner = {
+									capital_scope = {
+										area = central_valley_area
+									}
+									OR = {
+										technology_group = high_american
+										technology_group = north_american
+										technology_group = south_american
+										technology_group = andean
+									}
+								}
+							}
+						}
+						apacheria_area = {
+							type = all
+							OR = {
+								country_or_non_sovereign_subject_holds = ROOT
+								controlled_by = ROOT
+								controller = {
+									OR = {
+										is_subject_of = ROOT
+									}
+								}
+								owner = {
+									capital_scope = {
+										area = apacheria_area
+									}
+									OR = {
+										technology_group = high_american
+										technology_group = north_american
+										technology_group = south_american
+										technology_group = andean
+									}
+								}
+							}
+						}
+						northern_california_area = {
+							type = all
+							OR = {
+								country_or_non_sovereign_subject_holds = ROOT
+								controlled_by = ROOT
+								controller = {
+									OR = {
+										is_subject_of = ROOT
+									}
+								}
+								owner = {
+									capital_scope = {
+										area = northern_california_area
+									}
+									OR = {
+										technology_group = high_american
+										technology_group = north_american
+										technology_group = south_american
+										technology_group = andean
+									}
+								}
+							}
+						}
+						great_basin_area = {
+							type = all
+							OR = {
+								country_or_non_sovereign_subject_holds = ROOT
+								controlled_by = ROOT
+								controller = {
+									OR = {
+										is_subject_of = ROOT
+									}
+								}
+								owner = {
+									capital_scope = {
+										area = great_basin_area
+									}
+									OR = {
+										technology_group = high_american
+										technology_group = north_american
+										technology_group = south_american
+										technology_group = andean
+									}
+								}
+							}
+						}
+					}
+					has_global_flag = mexican_cession
+				}
+			}
+		}
+		effect = {
+			add_prestige = 25
+			add_dip_power = 200
+			set_global_flag = mexican_cession
+			ROOT = {
+				country_event = { id = flavor_rh.10026 days = 1 }
+			}
+		}
+	}
+	usa_conquer_canada = {
+		icon = mission_rb_colonise_canada
+		required_missions = { usa_buy_alaska usa_conquer_california usa_seize_philippines }
+		
+		provinces_to_highlight = {
+			OR = {
+				colonial_region = colonial_columbia
+				colonial_region = colonial_alberta
+				colonial_region = colonial_hudson_bay
+				colonial_region = colonial_quebec
+				colonial_region = colonial_acadia
+				province_id = 2005
+				province_id = 2598
+			}
+			NOT = {
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+			has_discovered = ROOT
+		}
+		trigger = {
+			colonial_columbia = {
+				type = all
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+			colonial_alberta = {
+				type = all
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+			colonial_hudson_bay = {
+				type = all
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+			colonial_quebec = {
+				type = all
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+			colonial_acadia = {
+				type = all
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+			2005 = {
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+			2598 = {
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+		}
+		effect = {
+			add_stability = 1
+			add_country_modifier = {
+				name = "american_pride"
+				duration = -1
+			}
+			newfoundland_area = {
+				limit = {
+					NOT = { is_core = ROOT }
+					NOT = { is_permanent_claim = ROOT }
+				}
+				add_permanent_claim = ROOT
+			}
+			greenland_area = {
+				limit = {
+					NOT = { is_core = ROOT }
+					NOT = { is_permanent_claim = ROOT }
+				}
+				add_permanent_claim = ROOT
+			}
+			481 = {
+				if = {
+					limit = {
+						NOT = { is_core = ROOT }
+						NOT = { is_permanent_claim = ROOT }
+					}
+					add_permanent_claim = ROOT
+				}
+			}
+			482 = {
+				if = {
+					limit = {
+						NOT = { is_core = ROOT }
+						NOT = { is_permanent_claim = ROOT }
+					}
+					add_permanent_claim = ROOT
+				}
+			}
+			483 = {
+				if = {
+					limit = {
+						NOT = { is_core = ROOT }
+						NOT = { is_permanent_claim = ROOT }
+					}
+					add_permanent_claim = ROOT
+				}
+			}
+			487 = {
+				if = {
+					limit = {
+						NOT = { is_core = ROOT }
+						NOT = { is_permanent_claim = ROOT }
+					}
+					add_permanent_claim = ROOT
+				}
+			}
+			493 = {
+				if = {
+					limit = {
+						NOT = { is_core = ROOT }
+						NOT = { is_permanent_claim = ROOT }
+					}
+					add_permanent_claim = ROOT
+				}
+			}
+		}
+	}
+}
+usa_missions_b = {
+	slot = 6
+	generic = no
+	ai = yes
+	potential = {
+		OR = {
+			tag = USA
+			tag = TTC
+		}
+		NOT = { map_setup = map_setup_random }
+	}
+	has_country_shield = yes
+	
+	usa_take_ohio = {
+		icon = mission_assemble_an_army
+		required_missions = { unite_the_east_coast }
+		position = 4
+		
+		provinces_to_highlight = {
+			OR = {
+				colonial_region = colonial_ohio
+			}
+			NOT = {
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+			has_discovered = ROOT
+		}
+		trigger = {
+			colonial_ohio = {
+				type = all
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+		}
+		effect = {
+			add_country_modifier = {
+				name = "military_victory"
+				duration = 7300
+			}
+		}
+	}
+	usa_colonize_hawaii = {
+		icon = mission_invade_island
+		required_missions = { usa_take_ohio usa_louisiana_purchase }
+		position = 7
+		
+		provinces_to_highlight = {
+			OR = {
+				province_id = 1240
+			}
+			NOT = {
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+			has_discovered = ROOT
+		}
+		trigger = {
+			1240 = {
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+		}
+		effect = {
+			if = {
+				limit = {
+					1997 = { owner = { NOT = { OR = { technology_group = western technology_group = eastern technology_group = ottoman } } is_colonial_nation = no } }
+				}
+				hidden_effect = {
+					1997 = {				
+						if = {
+							limit = { is_empty = yes }
+							change_religion = ROOT	
+							change_culture = ROOT
+						}
+						else_if = {
+						limit = { is_colony = yes country_or_non_sovereign_subject_holds = ROOT  }
+						add_colonysize = 999
+						}
+						else_if = {
+							limit = { is_city = yes NOT = { country_or_non_sovereign_subject_holds = ROOT } }
+							add_claim = ROOT
+						}
+						
+						add_territorial_core = ROOT
+					}
+				}
+			}
+			1997 = {
+				if = {
+				limit = { is_empty = yes }
+					change_religion = ROOT	
+					change_culture = ROOT
+					cede_province = ROOT
+				}
+			}
+			custom_tooltip = colonial_philipines_claim
+			colonial_philippines = {
+				limit = {
+					NOT = { is_core = ROOT }
+					NOT = { is_permanent_claim = ROOT }
+				}
+				add_permanent_claim = ROOT
+			}
+			492 = {
+				if = {
+					limit = {
+						NOT = { is_core = ROOT }
+						NOT = { is_permanent_claim = ROOT }
+					}
+					add_permanent_claim = ROOT
+				}
+			}
+			1235 = { #Guam
+				if = {
+					limit = {
+						NOT = { is_core = ROOT }
+						NOT = { is_permanent_claim = ROOT }
+					}
+					add_permanent_claim = ROOT
+				}
+			}
+		}
+	}
+	usa_seize_philippines = {
+		icon = mission_las_islas_filipinas
+		required_missions = { usa_colonize_hawaii }
+		
+		provinces_to_highlight = {
+			OR = {
+				colonial_region = colonial_philippines
+				province_id = 492
+				province_id = 1235 #Guam
+			}
+			NOT = {
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+			has_discovered = ROOT
+		}
+		trigger = {
+			colonial_philippines = {
+				type = all
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+			492 = {
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+			1235 = {
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+		}
+		effect = {
+			add_prestige = 10
+			add_mil_power = 200
+		}
+	}
+}

@@ -1,0 +1,2266 @@
+french_missions_north = {
+	slot = 1
+	generic = no
+	ai = yes
+	potential = {
+		tag = FRA
+		NOT = { map_setup = map_setup_random }
+	}
+	has_country_shield = yes
+
+	reconquer_normandy = {
+		icon = mission_conquer_50_development
+		required_missions = { }
+		completed_by = 1450.1.1
+		provinces_to_highlight = {
+			area = normandy_area
+			NOT = {
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+		}
+		trigger = {
+			normandy_area = {
+				type = all
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+		}
+		effect = {
+			brittany_area = {
+				limit = {
+					NOT = { is_core = ROOT }
+					NOT = { is_permanent_claim = ROOT }
+				}
+				add_permanent_claim = ROOT
+			}
+		}
+	}
+	subjugate_brittany = {
+		icon = mission_have_two_subjects
+		required_missions = { reconquer_normandy }
+		position = 4
+		completed_by = 1491.12.6
+		provinces_to_highlight = {
+			area = brittany_area
+			NOT = {
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+		}
+		trigger = {
+			brittany_area = {
+				type = all
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+		}
+		effect = {
+			champagne_area = {
+				limit = {
+					NOT = { is_core = ROOT }
+					NOT = { is_permanent_claim = ROOT }
+				}
+				add_permanent_claim = ROOT
+			}
+			# individual provinces of picardy because calais is its own mission
+			89 = {
+				if = {
+					limit = {
+						NOT = {
+							is_permanent_claim = ROOT
+							is_core = ROOT
+						}
+					}
+					add_permanent_claim = ROOT
+				}
+			}
+			88 = {
+				if = {
+					limit = {
+						NOT = {
+							is_permanent_claim = ROOT
+							is_core = ROOT
+						}
+					}
+					add_permanent_claim = ROOT
+				}
+			}
+			1743 = {
+				if = {
+					limit = {
+						NOT = {
+							is_permanent_claim = ROOT
+							is_core = ROOT
+						}
+					}
+					add_permanent_claim = ROOT
+				}
+			}
+		}
+	}
+	conquer_picardy_fra = {
+		icon = mission_assemble_an_army
+		required_missions = { subjugate_brittany }
+		position = 5
+		completed_by = 1477.1.5
+		provinces_to_highlight = {
+			OR = {
+				area = champagne_area
+				province_id = 89
+				province_id = 88
+				province_id = 1743
+			}
+			NOT = {
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+		}
+		trigger = {
+			champagne_area = {
+				type = all
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+			89 = {
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+			88 = {
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+			1743 = {
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+		}
+		effect = {
+			wallonia_area = {
+				limit = {
+					NOT = { is_core = ROOT }
+					NOT = { is_permanent_claim = ROOT }
+				}
+				add_permanent_claim = ROOT
+			}
+			flanders_area = {
+				limit = {
+					NOT = { is_core = ROOT }
+					NOT = { is_permanent_claim = ROOT }
+				}
+				add_permanent_claim = ROOT
+			}
+			87 = {
+				if = {
+					limit = {
+						NOT = {
+							is_permanent_claim = ROOT
+							is_core = ROOT
+						}
+					}
+					add_permanent_claim = ROOT
+				}
+			}
+		}
+	}
+	conquer_flanders_wallonia = {
+		icon = mission_cannons_firing
+		required_missions = { conquer_picardy_fra }
+		provinces_to_highlight = {
+			OR = {
+				area = wallonia_area
+				area = flanders_area
+			}
+			NOT = {
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+		}
+		trigger = {
+			wallonia_area = {
+				type = all
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+			flanders_area = {
+				type = all
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+		}
+		effect = {
+			wallonia_area = {
+				add_province_modifier = {
+					name = "faster_integration"
+					duration = 7300
+				}
+			}
+			flanders_area = {
+				add_province_modifier = {
+					name = "faster_integration"
+					duration = 7300
+				}
+			}
+		}
+	}
+	
+	fra_batavian_republic = {
+		icon = mission_restore_faith_in_the_throne
+		required_missions = { conquer_flanders_wallonia recover_calais }
+		provinces_to_highlight = {
+			OR = {
+				area = holland_area
+				area = flanders_area
+				area = frisia_area
+				area = netherlands_area
+				province_id = 92
+			}
+			NOT = {
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+		}
+		trigger = {
+			current_age = age_of_revolutions
+			has_country_flag = formed_sister_republic_ned_flag
+			holland_area = {
+				type = all
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+			
+			flanders_area = {
+				type = all
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+			
+			frisia_area = {
+				type = all
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+			
+			netherlands_area = {
+				type = all
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+			
+			92 = {
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+		}
+		effect = {
+			add_prestige = 25
+		}
+	}
+	
+	conquer_milan = {
+		icon = mission_italian_condottiere
+		required_missions = { annex_savoy }
+		position = 8
+		provinces_to_highlight = {
+			area = lombardy_area
+			NOT = {
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+		}
+		trigger = {
+			lombardy_area = {
+				type = all
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+		}
+		effect = {
+			if = {
+				limit = {
+					exists = NAP
+					is_subject = no
+					government = monarchy
+					religion_group = christian
+					NAP = {
+						is_subject = no
+						government = monarchy
+					}
+				}
+				add_casus_belli = {
+					type = cb_restore_personal_union
+					months = 300
+					target = NAP
+				}
+			}
+			else = {
+				calabria_area = {
+					limit = {
+						NOT = { is_core = ROOT }
+						NOT = { is_permanent_claim = ROOT }
+					}
+					add_permanent_claim = ROOT
+				}
+				apulia_area = {
+					limit = {
+						NOT = { is_core = ROOT }
+						NOT = { is_permanent_claim = ROOT }
+					}
+					add_permanent_claim = ROOT
+				}
+				121 = {
+					if = {
+						limit = {
+							NOT = {
+								is_permanent_claim = ROOT
+								is_core = ROOT
+							}
+						}
+						add_permanent_claim = ROOT
+					}
+				}
+				120 = {
+					if = {
+						limit = {
+							NOT = {
+								is_permanent_claim = ROOT
+								is_core = ROOT
+							}
+						}
+						add_permanent_claim = ROOT
+					}
+				}
+				2983 = {
+					if = {
+						limit = {
+							NOT = {
+								is_permanent_claim = ROOT
+								is_core = ROOT
+							}
+						}
+						add_permanent_claim = ROOT
+					}
+				}
+			}
+		}
+	}
+	french_claim_to_naples = {
+		icon = mission_monarch_in_throne_room
+		required_missions = { conquer_milan }
+		provinces_to_highlight = {
+			OR = {
+				area = calabria_area
+				area = apulia_area
+				province_id = 121
+				province_id = 120
+				province_id = 2983
+			}
+			NOT = {
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+		}
+		trigger = {
+			OR = {
+				NAP = {
+					junior_union_with = ROOT
+				}
+				AND = {
+					calabria_area = {
+						type = all
+						country_or_non_sovereign_subject_holds = ROOT
+					}
+					apulia_area = {
+						type = all
+						country_or_non_sovereign_subject_holds = ROOT
+					}
+					121 = {
+						country_or_non_sovereign_subject_holds = ROOT
+					}
+					120 = {
+						country_or_non_sovereign_subject_holds = ROOT
+					}
+					2983 = {
+						country_or_non_sovereign_subject_holds = ROOT
+					}
+				}
+			}
+		}
+		effect = {
+			add_prestige = 20
+			hidden_effect = {
+				remove_casus_belli = {
+					type = cb_restore_personal_union
+					target = NAP
+				}
+			}
+		}
+	}
+	
+	fra_conquer_corisa = {
+		icon = mission_invade_island
+		required_missions = { french_claim_to_naples }
+		provinces_to_highlight = {
+			province_id = 1247
+			NOT = {
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+		}
+		trigger = {
+			1247 = {
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+		}
+		effect = {
+			1247 = {
+				add_province_modifier = {
+					name = "faster_integration"
+					duration = 7300
+				}
+			}
+		}
+	}
+	
+	fra_conquer_catalonia = {
+		icon = mission_city_of_the_world's_desire
+		required_missions = { fra_conquer_corisa }
+		provinces_to_highlight = {
+			area = catalonia_area
+			NOT = {
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+		}
+		trigger = {
+			catalonia_area = {
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+		}
+		effect = {
+			catalonia_area = {
+				add_province_modifier = {
+					name = "faster_integration"
+					duration = 7300
+				}
+			}
+		}
+	}
+}
+
+french_mission_slot_2 = {
+	slot = 2
+	generic = no
+	ai = yes
+	potential = {
+		tag = FRA
+		NOT = { map_setup = map_setup_random }
+	}
+	has_country_shield = yes
+	
+	recover_calais = {
+		icon = mission_galleys_in_port
+		required_missions = { conquer_picardy_fra }
+		position = 6
+		completed_by = 1558.1.7
+		provinces_to_highlight = {
+			province_id = 87
+			NOT = {
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+		}
+		trigger = {
+			87 = {
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+		}
+		effect = {
+			87 = {
+				add_province_modifier = {
+					name = "french_callais"
+					duration = 7300
+				}
+			}
+		}
+	}
+}
+
+french_missions_colonial = {
+	slot = 5
+	generic = no
+	ai = yes
+	potential = {
+		tag = FRA
+		is_random_new_world = no
+		NOT = { map_setup = map_setup_random }
+	}
+	has_country_shield = yes
+	build_french_fleet = {
+		icon = mission_galleys_in_port
+		required_missions = { }
+		completed_by = 1535.1.1
+		trigger = {
+			OR = {
+				num_of_heavy_ship = 16
+				AND = {
+					ai = yes
+					current_age = age_of_absolutism
+				}
+			}
+		}
+		
+		ai_priority = {
+            factor = 200
+        }
+		
+		effect = {
+			add_country_modifier = {
+				name = "naval_enthusiasm_mission"
+				duration = 9125 #25 years
+			}
+		}
+	}
+	france_discovers_north_america = {
+		icon = mission_establish_high_seas_navy
+		required_missions = { build_french_fleet }
+		completed_by = 1535.1.1
+		trigger = {
+			has_idea_group = exploration_ideas
+			has_idea = quest_for_the_new_world
+			custom_trigger_tooltip = {
+				tooltip = fra_louis_discovery.tooltip
+				colonial_louisiana = {
+					has_discovered = ROOT
+				}
+			}
+			colonial_quebec = {
+				has_discovered = ROOT
+			}
+			colonial_acadia = {
+				has_discovered = ROOT
+			}
+		}
+		effect = {
+			add_country_modifier = {
+				name = "colonial_enthusiasm"
+				duration = 7300
+			}
+			
+			hidden_effect = {
+				if = {
+					limit = {
+						2568 = { owner = { NOT = { OR = { technology_group = western technology_group = eastern technology_group = ottoman } } is_colonial_nation = no } }
+					}
+					2568 = {
+						owner = { save_global_event_target_as = native_move country_event = { id = orion_seize.1 days = 0 } }
+						
+						random_empty_neighbor_province = { 
+							change_religion = event_target:native_move
+							change_culture = event_target:native_move
+							add_core = event_target:native_move			
+							cede_province = event_target:native_move
+						}
+						clear_global_event_target = native_move				
+						
+						cede_province = 0
+					}
+				}
+			}
+			
+			2568 = {
+				if = {
+					limit = { is_empty = yes }
+					change_religion = ROOT	
+					change_culture = ROOT
+					cede_province = ROOT
+				}
+				else_if = {
+					limit = { is_colony = yes country_or_non_sovereign_subject_holds = ROOT  }
+					add_colonysize = 999
+				}
+				else_if = {
+					limit = { is_city = yes NOT = { country_or_non_sovereign_subject_holds = ROOT } }
+					add_claim = ROOT
+				}
+				add_territorial_core = ROOT
+			}
+			
+			colonial_acadia = {
+				add_permanent_claim = ROOT
+			}
+		}
+	}
+	french_colony_in_north_america = {
+		icon = mission_colonial
+		required_missions = { france_discovers_north_america }
+		completed_by = 1608.7.3
+		provinces_to_highlight = {
+			OR = {
+				colonial_region = colonial_acadia
+			}
+			NOT = {
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+		}
+		trigger = {
+			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+				value = 3
+				colonial_region = colonial_acadia
+			}
+		}
+		effect = {
+			hidden_effect = {
+				if = {
+					limit = {
+						893 = { owner = { NOT = { OR = { technology_group = western technology_group = eastern technology_group = ottoman } } is_colonial_nation = no } }
+					}
+					893 = {
+						owner = { save_global_event_target_as = native_move country_event = { id = orion_seize.1 days = 0 } }
+						
+						random_empty_neighbor_province = { 
+							change_religion = event_target:native_move
+							change_culture = event_target:native_move
+							add_core = event_target:native_move			
+							cede_province = event_target:native_move
+						}
+						clear_global_event_target = native_move				
+						
+						cede_province = 0
+					}
+				}
+			}
+			
+			893 = {
+				if = {
+					limit = { is_empty = yes }
+					change_religion = ROOT	
+					change_culture = ROOT
+					cede_province = ROOT
+				}
+				else_if = {
+					limit = { is_colony = yes country_or_non_sovereign_subject_holds = ROOT  }
+					add_colonysize = 999
+				}
+				else_if = {
+					limit = { is_city = yes NOT = { country_or_non_sovereign_subject_holds = ROOT } }
+					add_claim = ROOT
+				}
+				add_territorial_core = ROOT
+			}
+			
+			colonial_louisiana = {
+				add_permanent_claim = ROOT
+			}
+			
+			add_country_modifier = {
+				name = "french_tariffs"
+				duration = 7300
+			}
+		}
+	}
+	
+	france_discovers_carribean = {
+		icon = mission_establish_high_seas_navy
+		required_missions = { french_colony_in_north_america }
+		position = 5
+		completed_by = 1535.1.1
+
+		trigger = {
+			custom_trigger_tooltip = {
+				tooltip = fra_carib_discovery.tooltip
+				colonial_the_carribean = {
+					has_discovered = ROOT
+				}
+			}
+		}
+		effect = {
+			add_country_modifier = {
+				name = "colonial_enthusiasm"
+				duration = 7300
+			}
+			
+			hidden_effect = {
+				if = {
+					limit = {
+						496 = { owner = { NOT = { OR = { technology_group = western technology_group = eastern technology_group = ottoman } } is_colonial_nation = no } }
+					}
+					496 = {
+						owner = { save_global_event_target_as = native_move country_event = { id = orion_seize.1 days = 0 } }
+						
+						random_empty_neighbor_province = { 
+							change_religion = event_target:native_move
+							change_culture = event_target:native_move
+							add_core = event_target:native_move			
+							cede_province = event_target:native_move
+						}
+						clear_global_event_target = native_move
+					
+						cede_province = 0
+					}
+				}
+				
+				if = {
+					limit = {
+						497 = { owner = { NOT = { OR = { technology_group = western technology_group = eastern technology_group = ottoman } } is_colonial_nation = no } }
+					}
+					497 = {
+						owner = { save_global_event_target_as = native_move country_event = { id = orion_seize.1 days = 0 } }
+						
+						random_empty_neighbor_province = { 
+							change_religion = event_target:native_move
+							change_culture = event_target:native_move
+							add_core = event_target:native_move			
+							cede_province = event_target:native_move
+						}
+						clear_global_event_target = native_move
+					
+						cede_province = 0
+					}
+				}
+			}
+			
+			496 = {
+				if = {
+					limit = { is_empty = yes }
+					change_religion = ROOT	
+					change_culture = ROOT
+					cede_province = ROOT
+				}
+				else_if = {
+					limit = { is_colony = yes country_or_non_sovereign_subject_holds = ROOT  }
+					add_colonysize = 999
+				}
+				else_if = {
+					limit = { is_city = yes NOT = { country_or_non_sovereign_subject_holds = ROOT } }
+					add_claim = ROOT
+				}
+				
+				add_territorial_core = ROOT
+			}
+			
+			497 = {
+				if = {
+					limit = { is_empty = yes }
+					change_religion = ROOT	
+					change_culture = ROOT
+					cede_province = ROOT
+				}
+				else_if = {
+					limit = { is_colony = yes country_or_non_sovereign_subject_holds = ROOT  }
+					add_colonysize = 999
+				}
+				else_if = {
+					limit = { is_city = yes NOT = { country_or_non_sovereign_subject_holds = ROOT } }
+					add_claim = ROOT
+				}
+				
+				add_territorial_core = ROOT
+			}
+			hispaniola_area = {
+				add_permanent_claim = ROOT
+			}
+		}
+	}
+	
+	france_discovers_the_carribean = {
+		icon = mission_sea_battles
+		required_missions = { france_discovers_carribean }
+		
+		trigger = {
+			custom_trigger_tooltip = {
+				tooltip = fra_bengal_discovery.tooltip
+				bengal_region = {
+					has_discovered = ROOT
+				}
+			}
+			custom_trigger_tooltip = {
+				tooltip = fra_coromandel_discovery.tooltip
+				coromandel_region = {
+					has_discovered = ROOT
+				}
+			}
+		}
+		effect = {
+			add_country_modifier = {
+				name = "fra_to_india"
+				duration = 7300
+			}
+			andhra_area = {
+				limit = {
+					NOT = { is_core = ROOT }
+					NOT = { is_permanent_claim = ROOT }
+				}
+				add_permanent_claim = ROOT
+			}
+			orissa_area = {
+				limit = {
+					NOT = { is_core = ROOT }
+					NOT = { is_permanent_claim = ROOT }
+				}
+				add_permanent_claim = ROOT
+			}
+			north_carnatic_area = {
+				limit = {
+					NOT = { is_core = ROOT }
+					NOT = { is_permanent_claim = ROOT }
+				}
+				add_permanent_claim = ROOT
+			}
+		}
+	}
+	
+	fra_second_colonial_empire = {
+		icon = mission_colonial
+		position = 8
+		completed_by = 1800.1.1
+		required_missions = { france_discovers_the_carribean }
+		
+		trigger = {
+			current_age = age_of_revolutions
+		}
+		
+		effect = {
+			add_prestige = 10
+			1113 = {
+				if = {
+					limit = {
+						OR = {
+							is_empty = yes
+							owner = { ai = yes }
+						}
+					}
+					add_territorial_core = ROOT
+					cede_province = ROOT
+				}
+			}
+			1165 = {
+				if = {
+					limit = {
+						OR = {
+							is_empty = yes
+							owner = { ai = yes }
+						}
+					}
+					change_religion = ROOT	
+					change_culture = ROOT
+					add_territorial_core = ROOT
+					cede_province = ROOT
+				}
+			}
+			1126 = {
+				if = {
+					limit = {
+						OR = {
+							is_empty = yes
+							owner = { ai = yes }
+						}
+					}
+					change_religion = ROOT	
+					change_culture = ROOT
+					add_territorial_core = ROOT
+					cede_province = ROOT
+				}
+			}
+		}
+	}
+	
+	fra_discovers_indochina = {
+		icon = mission_establish_high_seas_navy
+		required_missions = { fra_second_colonial_empire }
+		
+		provinces_to_highlight = {
+			colonial_region = colonial_indochina
+			NOT = { country_or_non_sovereign_subject_holds = ROOT }
+			has_discovered = ROOT
+		}
+		
+		trigger = {
+			colonial_indochina = {
+				type = all
+				has_discovered = ROOT
+			}
+		}
+		
+		effect = {
+			605 = {
+				if = {
+					limit = {
+						OR = {
+							is_empty = yes
+							owner = { ai = yes }
+						}
+					}
+					change_religion = ROOT	
+					change_culture = ROOT
+					add_territorial_core = ROOT
+					cede_province = ROOT
+				}
+			}
+			mekong_area = {
+				add_permanent_claim = ROOT
+			}
+			
+			cambodia_area = {
+				add_permanent_claim = ROOT
+			}
+			
+			champa_area = {
+				add_permanent_claim = ROOT
+			}
+			
+			vietnam_area = {
+				add_permanent_claim = ROOT
+			}
+			
+			south_laos_area = {
+				add_permanent_claim = ROOT
+			}
+			
+			north_laos_area = {
+				add_permanent_claim = ROOT
+			}
+			
+			red_river_delta_area = {
+				add_permanent_claim = ROOT
+			}
+		}
+	}
+	fra_vietnam_colony = {
+		icon = mission_rule_indochina
+		required_missions = { fra_discovers_indochina }
+		provinces_to_highlight = {
+			OR = {
+				area = mekong_area
+				area = cambodia_area
+				area = champa_area
+				area = vietnam_area
+				area = south_laos_area
+				area = north_laos_area
+				area = red_river_delta_area
+			}
+			NOT = {
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+			has_discovered = ROOT
+		}
+		ai_priority = {
+            factor = 200
+        }
+		trigger = {
+			mekong_area = {
+				type = all
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+			cambodia_area = {
+				type = all
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+			champa_area = {
+				type = all
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+			vietnam_area = {
+				type = all
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+			south_laos_area = {
+				type = all
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+			north_laos_area = {
+				type = all
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+			red_river_delta_area = {
+				type = all
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+		}
+		effect = {
+			add_prestige = 25
+			add_treasury = 100
+			add_adm_power = 100
+			add_dip_power = 100
+			add_mil_power = 100
+			1986 = {
+				if = {
+					limit = {
+						NOT = { is_permanent_claim = ROOT }
+						NOT = { is_core = ROOT }
+					}
+					add_permanent_claim = ROOT
+				}
+			}
+			1239 = {
+				if = {
+					limit = {
+						NOT = { is_permanent_claim = ROOT }
+						NOT = { is_core = ROOT }
+					}
+					add_permanent_claim = ROOT
+				}
+			}
+		}
+	}
+	fra_caledonia_colony = {
+		icon = mission_invade_island
+		required_missions = { fra_vietnam_colony }
+		provinces_to_highlight = {
+			OR = {
+				province_id = 1986
+				province_id = 1239
+			}
+			NOT = {
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+			has_discovered = ROOT
+		}
+		trigger = {
+			1986 = {
+				country_or_non_sovereign_subject_holds = ROOT
+				is_city = yes
+			}
+			1239 = {
+				country_or_non_sovereign_subject_holds = ROOT
+				is_city = yes
+			}
+		}
+		effect = {
+			add_treasury = 100
+			1986 = {
+				add_base_tax = 2
+				add_base_production = 2
+				add_base_manpower = 2
+			}
+		}
+	}
+	fra_syria_colony = {
+		icon = mission_bedouins
+		required_missions = { fra_madagascar_colony fra_morocco_colony }
+		
+		provinces_to_highlight = {
+			OR = {
+				area = syria_area
+				area = syrian_desert_area
+			}
+			NOT = {
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+			has_discovered = ROOT
+		}
+		trigger = {
+			syria_area = {
+				type = all
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+			syrian_desert_area = {
+				type = all
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+		}
+		effect = {
+			add_treasury = 250
+			add_adm_power = 100
+			add_dip_power = 100
+			add_mil_power = 100
+		}
+	}
+}
+
+france_expand_south = {
+	slot = 3
+	generic = no
+	ai = yes
+	potential = {
+		tag = FRA
+		NOT = { map_setup = map_setup_random }
+	}
+	has_country_shield = yes
+	reconquer_gascony = {
+		icon = mission_conquer_50_development
+		required_missions = { }
+		completed_by = 1453.7.18
+		provinces_to_highlight = {
+			OR = {
+				province_id = 174
+				province_id = 173
+				province_id = 177
+			}
+			NOT = {
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+		}
+		trigger = {
+			owns_core_province = 174
+			owns_core_province = 173
+			owns_core_province = 177
+		}
+		effect = {
+			provence_area = {
+				limit = {
+					NOT = { is_core = ROOT }
+					NOT = { is_permanent_claim = ROOT }
+				}
+				add_permanent_claim = ROOT
+			}
+			loire_area = {
+				limit = {
+					NOT = { is_core = ROOT }
+					NOT = { is_permanent_claim = ROOT }
+				}
+				add_permanent_claim = ROOT
+			}
+		}
+	}
+	conquer_provence = {
+		icon = mission_cannons_firing
+		required_missions = { reconquer_gascony }
+		position = 3
+		completed_by = 1481.1.1
+		provinces_to_highlight = {
+			OR = {
+				area = provence_area
+				area = loire_area
+			}
+			NOT = {
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+		}
+		trigger = {
+			provence_area = {
+				type = all
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+			loire_area = {
+				type = all
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+		}
+		effect = {
+			bourgogne_area = {
+				limit = {
+					NOT = { is_core = ROOT }
+					NOT = { is_permanent_claim = ROOT }
+				}
+				add_permanent_claim = ROOT
+			}
+		}
+	}
+	conquer_burgundy_area = {
+		icon = mission_landsknecht_soldier
+		required_missions = { conquer_provence }
+		position = 6
+		provinces_to_highlight = {
+			area = bourgogne_area
+			NOT = {
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+		}
+		trigger = {
+			bourgogne_area = {
+				type = all
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+		}
+		effect = {
+			lorraine_area = {
+				limit = {
+					NOT = { is_core = ROOT }
+					NOT = { is_permanent_claim = ROOT }
+				}
+				add_permanent_claim = ROOT
+			}
+			savoy_dauphine_area = {
+				limit = {
+					NOT = { is_core = ROOT }
+					NOT = { is_permanent_claim = ROOT }
+				}
+				add_permanent_claim = ROOT
+			}
+			piedmont_area = {
+				limit = {
+					NOT = { is_core = ROOT }
+					NOT = { is_permanent_claim = ROOT }
+				}
+				add_permanent_claim = ROOT
+			}
+		}
+	}
+	subjugate_lorraine = {
+		icon = mission_build_up_to_force_limit
+		required_missions = { conquer_burgundy_area }
+		provinces_to_highlight = {
+			area = lorraine_area
+			NOT = {
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+		}
+		trigger = {
+			lorraine_area = {
+				type = all
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+		}
+		effect = {
+			upper_rhineland_area = {
+				limit = {
+					NOT = { is_core = ROOT }
+					NOT = { is_permanent_claim = ROOT }
+				}
+				add_permanent_claim = ROOT
+			}
+		}
+	}
+	annex_alsace = {
+		icon = mission_assemble_an_army
+		required_missions = { subjugate_lorraine }
+		provinces_to_highlight = {
+			area = upper_rhineland_area
+			NOT = {
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+		}
+		trigger = {
+			upper_rhineland_area = {
+				type = all
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+		}
+		effect = {
+			1761 = {
+				if = {
+					limit = {
+						NOT = { owned_by = ROOT }
+						NOT = { is_permanent_claim = ROOT }
+					}
+					add_permanent_claim = ROOT
+				}
+			}
+			
+			1760 = {
+				if = {
+					limit = {
+						NOT = { owned_by = ROOT }
+						NOT = { is_permanent_claim = ROOT }
+					}
+					add_permanent_claim = ROOT
+				}
+			}
+			
+			80 = {
+				if = {
+					limit = {
+						NOT = { owned_by = ROOT }
+						NOT = { is_permanent_claim = ROOT }
+					}
+					add_permanent_claim = ROOT
+				}
+			}
+		}
+	}
+	fra_annex_saarland = {
+		icon = mission_assemble_an_army
+		required_missions = { annex_alsace }
+		provinces_to_highlight = {
+			OR = {
+				province_id = 1761
+				province_id = 1760
+				province_id = 80
+			}
+			NOT = {
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+		}
+		trigger = {
+			1761 = {
+				country_or_non_sovereign_subject_holds = ROOT
+			}	
+			1760 = {
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+			80 = {
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+		}
+		effect = {
+			add_country_modifier = {
+				name = "fra_into_germany"
+				duration = 7300
+			}
+		}
+	}
+}
+france_expand_south_2 = {
+	slot = 2
+	generic = no
+	ai = yes
+	potential = {
+		tag = FRA
+	}
+	has_country_shield = yes
+	annex_savoy = {
+		icon = mission_unite_home_region
+		required_missions = { conquer_burgundy_area }
+		position = 6
+		provinces_to_highlight = {
+			OR = {
+				area = savoy_dauphine_area
+				area = piedmont_area
+			}
+			NOT = {
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+		}
+		trigger = {
+			savoy_dauphine_area = {
+				type = all
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+			piedmont_area = {
+				type = all
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+		}
+		effect = {
+			liguria_area = {
+				limit = {
+					NOT = { is_core = ROOT }
+					NOT = { is_permanent_claim = ROOT }
+				}
+				add_permanent_claim = ROOT
+			}
+			lombardy_area = {
+				limit = {
+					NOT = { is_core = ROOT }
+					NOT = { is_permanent_claim = ROOT }
+				}
+				add_permanent_claim = ROOT
+			}
+		}
+	}
+	annex_genoa = {
+		icon = mission_dominate_genoa
+		required_missions = { annex_savoy }
+		provinces_to_highlight = {
+			area = liguria_area
+			NOT = {
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+		}
+		trigger = {
+			liguria_area = {
+				type = all
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+		}
+		effect = {
+			add_country_modifier = {
+				name = "italian_ambition_modifier"
+				duration = 7300
+			}
+			
+			1247 = {
+				add_permanent_claim = ROOT
+			}
+		}
+	}
+	
+	fra_italian_republic = {
+		icon = mission_restore_faith_in_the_throne
+		required_missions = { conquer_milan annex_genoa }
+		provinces_to_highlight = {
+			OR = {
+				area = lombardy_area
+				area = emilia_romagna_area
+			}
+			NOT = {
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+		}
+		trigger = {
+			current_age = age_of_revolutions
+			has_country_flag = formed_sister_republic_swi_flag
+			lombardy_area = {
+				type = all
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+			
+			emilia_romagna_area = {
+				type = all
+				country_or_non_sovereign_subject_holds = ROOT
+			}		
+		}
+		effect = {
+			add_prestige = 25
+		}
+	}
+}
+
+fra_republic_swi_conquest = {
+	slot = 4
+	generic = no
+	ai = yes
+	potential = {
+		tag = FRA
+	}
+	has_country_shield = yes
+	
+	fra_india_expansion = {
+		icon = mission_trade_company_region_abroad
+		required_missions = { france_discovers_the_carribean }
+		position = 6
+		
+		provinces_to_highlight = {
+			OR = {
+				area = andhra_area
+				area = orissa_area
+				area = north_carnatic_area
+			}
+			NOT = {
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+		}
+		trigger = {
+			andhra_area = {
+				type = all
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+			orissa_area = {
+				type = all
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+			north_carnatic_area = {
+				type = all
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+		}
+		effect = {
+			add_country_modifier = {
+				name = "east_india_trade_rush"
+				duration = 9125 #25 years
+			}
+			telingana_area = {
+				limit = {
+					NOT = { is_core = ROOT }
+					NOT = { is_claim = ROOT }
+				}
+				add_claim = ROOT
+			}
+			garjat_area = {
+				limit = {
+					NOT = { is_core = ROOT }
+					NOT = { is_claim = ROOT }
+				}
+				add_claim = ROOT
+			}
+		}
+	}	
+	
+	conquer_haiti = {
+		icon = mission_claim_hispaniola
+		required_missions = { france_discovers_carribean }
+		provinces_to_highlight = {
+			OR = {
+				area = hispaniola_area
+			}
+			NOT = {
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+		}
+		trigger = {
+			hispaniola_area = {
+				type = all
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+		}
+		effect = {
+			add_prestige = 15
+			add_treasury = 100
+			
+			dominica_area = {
+				add_permanent_claim = ROOT
+			}
+		}
+	}
+	
+	fra_helvetic_republic = {
+		icon = mission_restore_faith_in_the_throne
+		required_missions = { subjugate_lorraine }
+		position = 8
+		
+		provinces_to_highlight = {
+			OR = {
+				area = switzerland_area
+				area = romandie_area
+			}
+			NOT = {
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+		}
+		trigger = {
+			current_age = age_of_revolutions
+			has_country_flag = formed_sister_republic_swi_flag
+			switzerland_area = {
+				type = all
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+			
+			romandie_area = {
+				type = all
+				country_or_non_sovereign_subject_holds = ROOT
+			}		
+		}
+		effect = {
+			add_prestige = 25
+		}
+	}
+	fra_mali_colony = {
+		icon = mission_invade_mali
+		required_missions = { fra_second_colonial_empire }
+		
+		provinces_to_highlight = {
+			OR = {
+				colonial_region = colonial_mali
+			}
+			NOT = {
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+			has_discovered = ROOT
+		}
+		trigger = {
+			colonial_mali = {
+				type = all
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+		}
+		effect = {
+			azbin_area = {
+				limit = {
+					NOT = { is_core = ROOT }
+					NOT = { is_claim = ROOT }
+				}
+				add_permanent_claim = ROOT
+			}
+			east_azbin_area = {
+				limit = {
+					NOT = { is_core = ROOT }
+					NOT = { is_claim = ROOT }
+				}
+				add_permanent_claim = ROOT
+			}
+			1127 = {
+				if = {
+					limit = {
+						NOT = { is_core = ROOT }
+						NOT = { is_claim = ROOT }
+					}
+					add_permanent_claim = ROOT
+				}
+			}
+			1128 = {
+				if = {
+					limit = {
+						NOT = { is_core = ROOT }
+						NOT = { is_claim = ROOT }
+					}
+					add_permanent_claim = ROOT
+				}
+			}
+		}
+	}
+	
+	fra_expand_mali = {
+		icon = mission_saharan_route
+		required_missions = { fra_mali_colony }
+		
+		ai_priority = {
+            factor = 1
+        }
+		
+		provinces_to_highlight = {
+			OR = {
+				area = azbin_area
+				area = east_azbin_area
+				province_id = 1127
+				province_id = 1128
+			}
+			NOT = {
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+			has_discovered = ROOT
+		}
+		trigger = {
+			azbin_area = {
+				type = all
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+			east_azbin_area = {
+				type = all
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+			1127 = {
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+			1128 = {
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+		}
+		effect = {
+			tafilalt_area = {
+				limit = {
+					NOT = { is_core = ROOT }
+					NOT = { is_claim = ROOT }
+				}
+				add_permanent_claim = ROOT
+			}
+			sus_area = {
+				limit = {
+					NOT = { is_core = ROOT }
+					NOT = { is_claim = ROOT }
+				}
+				add_permanent_claim = ROOT
+			}
+			southern_morocco_area = {
+				limit = {
+					NOT = { is_core = ROOT }
+					NOT = { is_claim = ROOT }
+					NOT = { province_id = 347 }
+				}
+				add_permanent_claim = ROOT
+			}
+			marrekesh_area = {
+				limit = {
+					NOT = { is_core = ROOT }
+					NOT = { is_claim = ROOT }
+				}
+				add_permanent_claim = ROOT
+			}
+			western_morocco_area = {
+				limit = {
+					NOT = { is_core = ROOT }
+					NOT = { is_claim = ROOT }
+				}
+				add_permanent_claim = ROOT
+			}
+		}
+	}
+	fra_morocco_colony = {
+		icon = mission_new_world_power
+		required_missions = { fra_expand_mali }
+		
+		ai_priority = {
+            factor = 1
+        }
+		
+		provinces_to_highlight = {
+			OR = {
+				area = tafilalt_area
+				area = sus_area
+				area = southern_morocco_area
+				area = marrekesh_area
+				area = western_morocco_area
+			}
+			NOT = {
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+			has_discovered = ROOT
+		}
+		trigger = {
+			tafilalt_area = {
+				type = all
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+			sus_area = {
+				type = all
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+			southern_morocco_area = {
+				type = all
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+			marrekesh_area = {
+				type = all
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+			western_morocco_area = {
+				type = all
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+		}
+		effect = {
+			add_treasury = 150
+			add_dip_power = 100
+			western_morocco_area = {
+				add_province_modifier = {
+					name = "spa_rb_overseas_trade"
+					duration = 5475
+				}
+			}
+			
+			syrian_desert_area = {
+				limit = {
+					NOT = { is_core = ROOT }
+					NOT = { is_claim = ROOT }
+				}
+				add_permanent_claim = ROOT
+			}
+			
+			4563 = {
+				if = {
+					limit = {
+						NOT = { owned_by = ROOT }
+					}
+					add_permanent_claim = ROOT
+				}
+			}
+		}
+	}
+}
+
+fra_american_colonization = {
+	slot = 6
+	generic = no
+	ai = yes
+	potential = {
+		tag = FRA
+	}
+	has_country_shield = yes
+	
+	fra_acadia_colony = {
+		icon = mission_settlers_north_america
+		required_missions = { french_colony_in_north_america }
+		position = 4
+		
+		provinces_to_highlight = {
+			colonial_region = colonial_acadia
+			NOT = { country_or_non_sovereign_subject_holds = ROOT }
+			has_discovered = ROOT
+		}
+		
+		trigger = { 
+			colonial_acadia = {
+					has_discovered = ROOT
+			}
+			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+					value = 10
+					colonial_region = colonial_acadia
+					is_city = yes
+			}
+		}
+		
+		ai_priority = {
+            factor = 800
+        }
+	
+		effect = {
+			custom_tooltip = fra_acadia_colony_tt
+			hidden_effect = {
+				every_province = {
+					limit = {
+						colonial_region = colonial_acadia
+					}
+					if = { 
+						limit = { is_empty = yes }
+						add_territorial_core = ROOT	
+						cede_province = ROOT
+						change_religion = ROOT	
+						change_culture = ROOT
+					}
+					else_if = {
+						limit = { is_colony = yes country_or_non_sovereign_subject_holds = ROOT  }
+						add_colonysize = 999
+					}
+					else_if = { 
+						limit = { is_city = yes NOT = { country_or_non_sovereign_subject_holds = ROOT } }
+						add_claim = ROOT
+					}
+				}
+			}
+			colonial_quebec = {
+				add_permanent_claim = ROOT
+			}
+		}
+	}
+	
+	fra_quebec_colony = {
+		icon = mission_rb_colonise_canada
+		required_missions = { fra_acadia_colony }
+		
+		provinces_to_highlight = {
+			colonial_region = colonial_quebec
+			NOT = { country_or_non_sovereign_subject_holds = ROOT }
+			has_discovered = ROOT
+		}
+		
+		trigger = { 
+			colonial_quebec = {
+					has_discovered = ROOT
+			}
+			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+					value = 18
+					colonial_region = colonial_quebec
+					is_city = yes
+			}
+		}
+		
+		ai_priority = {
+            factor = 800
+        }
+	
+		effect = {
+			custom_tooltip = fra_quebec_colony_tt
+			hidden_effect = {
+				every_province = {
+					limit = {
+						colonial_region = colonial_quebec
+					}
+					if = { 
+						limit = { is_empty = yes }
+						add_territorial_core = ROOT	
+						cede_province = ROOT
+						change_religion = ROOT	
+						change_culture = ROOT
+					}
+					else_if = {
+						limit = { is_colony = yes country_or_non_sovereign_subject_holds = ROOT  }
+						add_colonysize = 999
+					}
+					else_if = { 
+						limit = { is_city = yes NOT = { country_or_non_sovereign_subject_holds = ROOT } }
+						add_claim = ROOT
+					}
+				}
+			}
+			colonial_louisiana = {
+				limit = {
+					NOT = { is_core = ROOT }
+					NOT = { is_permanent_claim = ROOT }
+				}
+				add_permanent_claim = ROOT
+			}
+			
+			colonial_hudson_bay = {
+				limit = {
+					NOT = { is_core = ROOT }
+					NOT = { is_permanent_claim = ROOT }
+				}
+				add_permanent_claim = ROOT
+			}
+		}
+	}
+	
+	fra_louisiana_colony = {
+		icon = mission_settlers_north_america
+		required_missions = { france_discovers_carribean fra_quebec_colony }
+		
+		provinces_to_highlight = {
+			colonial_region = colonial_louisiana
+			NOT = { country_or_non_sovereign_subject_holds = ROOT }
+			has_discovered = ROOT
+		}
+		
+		trigger = { 
+			colonial_louisiana = {
+					has_discovered = ROOT
+			}
+			if = {
+				limit = { ai = no }
+				num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+						value = 20
+						colonial_region = colonial_louisiana
+						is_city = yes
+				}
+			}
+			else = {
+				num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+						value = 18
+						colonial_region = colonial_louisiana
+						is_city = yes
+				}
+			}
+		}
+		
+		ai_priority = {
+            factor = 800
+        }
+	
+		effect = {
+			custom_tooltip = fra_louisiana_colony_tt
+			hidden_effect = {
+				every_province = {
+					limit = {
+						colonial_region = colonial_louisiana
+					}
+					if = { 
+						limit = { is_empty = yes }
+						add_territorial_core = ROOT	
+						cede_province = ROOT
+						change_religion = ROOT	
+						change_culture = ROOT
+					}
+					else_if = {
+						limit = { is_colony = yes country_or_non_sovereign_subject_holds = ROOT  }
+						add_colonysize = 999
+					}
+					else_if = { 
+						limit = { is_city = yes NOT = { country_or_non_sovereign_subject_holds = ROOT } }
+						add_claim = ROOT
+					}
+				}
+			}
+			colonial_ohio = {
+				limit = {
+					NOT = { is_core = ROOT }
+					NOT = { is_permanent_claim = ROOT }
+				}
+				add_permanent_claim = ROOT
+			}
+		}
+	}
+	
+	fra_ohio_colony = {
+		icon = mission_settlers_north_america
+		required_missions = { fra_louisiana_colony }
+		
+		provinces_to_highlight = {
+			colonial_region = colonial_ohio
+			NOT = { country_or_non_sovereign_subject_holds = ROOT }
+			has_discovered = ROOT
+		}
+		
+		trigger = { 
+			colonial_ohio = {
+					has_discovered = ROOT
+			}
+			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+					value = 14
+					colonial_region = colonial_ohio
+					is_city = yes
+			}
+		}
+		
+		ai_priority = {
+            factor = 800
+        }
+	
+		effect = {
+			custom_tooltip = fra_ohio_colony_tt
+			hidden_effect = {
+				every_province = {
+					limit = {
+						colonial_region = colonial_ohio
+					}
+					if = { 
+						limit = { is_empty = yes }
+						add_territorial_core = ROOT	
+						cede_province = ROOT
+						change_religion = ROOT	
+						change_culture = ROOT
+					}
+					else_if = {
+						limit = { is_colony = yes country_or_non_sovereign_subject_holds = ROOT  }
+						add_colonysize = 999
+					}
+					else_if = { 
+						limit = { is_city = yes NOT = { country_or_non_sovereign_subject_holds = ROOT } }
+						add_claim = ROOT
+					}
+				}
+			}
+			colonial_mississippi = {
+				limit = {
+					NOT = { is_core = ROOT }
+					NOT = { is_permanent_claim = ROOT }
+				}
+				add_permanent_claim = ROOT
+			}
+			colonial_kentucky = {
+				limit = {
+					NOT = { is_core = ROOT }
+					NOT = { is_permanent_claim = ROOT }
+				}
+				add_permanent_claim = ROOT
+			}
+		}
+	}
+	
+	fra_louisiana_expansion = {
+		icon = mission_settlers_north_america
+		required_missions = { fra_ohio_colony }
+		
+		provinces_to_highlight = {
+			OR = {
+				colonial_region = colonial_mississippi
+				colonial_region = colonial_kentucky
+			}
+			NOT = { country_or_non_sovereign_subject_holds = ROOT }
+			has_discovered = ROOT
+		}
+		ai_priority = {
+            factor = 1
+        }
+		trigger = { 
+			colonial_mississippi = {
+					has_discovered = ROOT
+			}
+			colonial_kentucky = {
+					has_discovered = ROOT
+			}
+			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+					value = 10
+					OR = {
+						colonial_region = colonial_mississippi
+						colonial_region = colonial_kentucky
+					}
+					is_city = yes
+			}
+		}
+	
+		effect = {
+			add_prestige = 15
+			add_adm_power = 100
+			add_dip_power = 100
+			add_mil_power = 100
+			custom_tooltip = fra_louisiana_expansion_tt_mississippi
+			custom_tooltip = fra_louisiana_expansion_tt_kentucky
+			hidden_effect = {
+				every_province = {
+					limit = {
+						OR = {
+							colonial_region = colonial_mississippi
+							colonial_region = colonial_kentucky
+						}
+					}
+					if = { 
+						limit = { is_empty = yes }
+						add_territorial_core = ROOT	
+						cede_province = ROOT
+						change_religion = ROOT	
+						change_culture = ROOT
+					}
+					else_if = {
+						limit = { is_colony = yes country_or_non_sovereign_subject_holds = ROOT  }
+						add_colonysize = 999
+					}
+					else_if = { 
+						limit = { is_city = yes NOT = { country_or_non_sovereign_subject_holds = ROOT } }
+						add_claim = ROOT
+					}
+				}
+			}
+			colonial_texas = {
+				limit = {
+					NOT = { is_core = ROOT }
+					NOT = { is_permanent_claim = ROOT }
+				}
+				add_permanent_claim = ROOT
+			}
+			colonial_alberta = {
+				limit = {
+					NOT = { is_core = ROOT }
+					NOT = { is_permanent_claim = ROOT }
+				}
+				add_permanent_claim = ROOT
+			}
+		}
+	}
+	fra_algeria_coast = {
+		icon = mission_control_the_barbary_coast
+		required_missions = { fra_second_colonial_empire }
+		provinces_to_highlight = {
+			OR = {
+				area = barbary_coast_area
+				area = kabylia_area
+			}
+			NOT = {
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+			has_discovered = ROOT
+		}
+		trigger = {
+			barbary_coast_area = {
+				type = all
+				OR = {
+					controlled_by = ROOT
+					any_subject_country = {
+						is_subject_of = ROOT
+						controlled_by = THIS
+					}
+					country_or_non_sovereign_subject_holds = ROOT
+				}
+			}
+			
+			kabylia_area = {
+				type = all
+				OR = {
+					controlled_by = ROOT
+					any_subject_country = {
+						is_subject_of = ROOT
+						controlled_by = THIS
+					}
+					country_or_non_sovereign_subject_holds = ROOT
+				}
+			}
+		}
+		effect = {
+			add_treasury = 50
+			add_country_modifier = {
+				name = "fra_privateer_efficiency"
+				duration = 5475
+			}
+			
+			algiers_area = {
+				limit = {
+					NOT = { is_core = ROOT }
+					NOT = { is_claim = ROOT }
+				}
+				add_permanent_claim = ROOT
+			}
+			
+			hautes_plaines_area = {
+				limit = {
+					NOT = { is_core = ROOT }
+					NOT = { is_claim = ROOT }
+				}
+				add_permanent_claim = ROOT
+			}
+			
+			ouled_nail_area = {
+				limit = {
+					NOT = { is_core = ROOT }
+					NOT = { is_claim = ROOT }
+				}
+				add_permanent_claim = ROOT
+			}
+			
+			2457 = {
+				if = {
+					limit = {
+						NOT = { owned_by = ROOT }
+					}
+					add_permanent_claim = ROOT
+				}
+			}
+			
+			2456 = {
+				if = {
+					limit = {
+						NOT = { owned_by = ROOT }
+					}
+					add_permanent_claim = ROOT
+				}
+			}
+			
+			2472 = {
+				if = {
+					limit = {
+						NOT = { owned_by = ROOT }
+					}
+					add_permanent_claim = ROOT
+				}
+			}
+		}
+	}
+	fra_algeria_conquest = {
+		icon = mission_conquer_algiers
+		required_missions = { fra_algeria_coast }
+		provinces_to_highlight = {
+			OR = {
+				area = algiers_area
+				area = hautes_plaines_area
+				area = ouled_nail_area
+				province_id = 2457
+				province_id = 2456
+				province_id = 2472
+			}
+			NOT = {
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+			has_discovered = ROOT
+		}
+		trigger = {
+			algiers_area = {
+				type = all
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+			hautes_plaines_area = {
+				type = all
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+			ouled_nail_area = {
+				type = all
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+			2457 = {
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+			2456 = {
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+			2472 = {
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+		}
+		effect = {
+			add_treasury = 50
+			add_country_modifier = {
+				name = "fra_privateer_efficiency"
+				duration = 5475
+			}
+			
+			colonial_mali = {
+				limit = {
+					NOT = { is_core = ROOT }
+					NOT = { is_claim = ROOT }
+				}
+				add_permanent_claim = ROOT
+			}
+		}
+	}
+	fra_madagascar_colony = {
+		icon = mission_clear_the_delta
+		required_missions = { fra_algeria_conquest }
+		provinces_to_highlight = {
+			colonial_region = colonial_madagascar
+			NOT = {
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+			has_discovered = ROOT
+		}
+		trigger = {
+			colonial_madagascar = {
+				type = all
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+		}
+		effect = {
+			syria_area = {
+				limit = {
+					NOT = { is_core = ROOT }
+					NOT = { is_claim = ROOT }
+				}
+				add_permanent_claim = ROOT
+			}
+		}
+	}
+	
+	fra_tunis_colony = {
+		icon = mission_conquer_tunisia
+		required_missions = { fra_madagascar_colony }
+		provinces_to_highlight = {
+			OR = {
+				area = tunisia_area
+				area = djerba_area
+				province_id = 352
+				province_id = 2450
+			}
+			NOT = {
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+			has_discovered = ROOT
+		}
+		trigger = {
+			tunisia_area = {
+				type = all
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+			djerba_area = {
+				type = all
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+			352 = {
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+			2450 = {
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+		}
+		effect = {
+			add_prestige = 10
+			add_dip_power = 100
+			tunisia_area = {
+				add_province_modifier = {
+					name = "spa_rb_overseas_trade"
+					duration = 5475
+				}
+			}
+		}
+	}
+}

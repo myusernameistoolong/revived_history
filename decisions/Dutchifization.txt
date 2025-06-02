@@ -1,0 +1,94 @@
+country_decisions = {
+	dutch_southern_provinces = {
+		major = yes
+		potential = {
+			OR = {
+				tag = BNL
+			}
+			culture_group = germanic
+			NOT = {
+				AND = {
+					low_countries_region = {
+						type = all
+						OR = {
+							culture = dutch
+							culture = flemish
+							culture = brabantian
+							culture = frisian
+						}
+					}
+					picardy_area = {
+						type = all
+						OR = {
+							culture = dutch
+							culture = flemish
+							culture = brabantian
+							culture = frisian
+						}
+					}
+					181 = {
+						OR = {
+							culture = dutch
+							culture = flemish
+							culture = brabantian
+							culture = frisian
+						}
+					}
+				}
+			}
+			NOT = { has_country_flag = dutch_southern_provinces }
+		}
+		provinces_to_highlight = {
+			OR = {
+				region = low_countries_region
+				area = picardy_area
+				province_id = 181
+			}
+			NOT = { country_or_non_sovereign_subject_holds = ROOT }
+			NOT = { is_core = ROOT }
+			NOT = {
+				OR = {
+					culture = dutch
+					culture = flemish
+					culture = brabantian
+					culture = frisian
+				}
+			}
+		}
+		allow = {
+			OR = {
+				tag = BNL
+			}
+			culture_group = germanic
+			low_countries_region = {
+				type = all
+				country_or_non_sovereign_subject_holds = ROOT
+				is_core = ROOT
+			}
+			picardy_area = {
+				type = all
+				country_or_non_sovereign_subject_holds = ROOT
+				is_core = ROOT
+			}
+			181 = {
+				country_or_non_sovereign_subject_holds = ROOT
+				is_core = ROOT
+			}
+			dip_power = 150
+			NOT = { has_country_flag = dutch_southern_provinces }
+		}
+		effect = {
+			add_dip_power = -150
+			country_event = { id = flavor_rh.10060 days = 10 }
+			custom_tooltip = "dutch_southern_provinces.tt"
+			set_country_flag = dutch_southern_provinces
+		}
+		ai_will_do = {
+			factor = 100
+			modifier = {
+				factor = 0
+				NOT = { dip_power = 150 }
+			}
+		}
+	}
+}

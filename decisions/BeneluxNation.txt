@@ -1,0 +1,222 @@
+country_decisions = {
+	benelux_nation = {
+		major = yes
+		potential = {
+			normal_or_historical_nations = yes
+			#was_never_end_game_tag_trigger = yes
+			NOT = { has_country_flag = formed_benelux_flag }
+			OR = {
+				ai = no
+				is_playing_custom_nation = no
+			}
+			OR = {
+				NOT = { exists = BNL }
+				ai = no
+			}
+			OR = {
+				tag = NED
+				tag = BEL
+			}
+			NOT = { tag = PAP }
+			NOT = { tag = BNL }
+			NOT = { tag = HLR }
+			OR = {
+				primary_culture = dutch
+				primary_culture = flemish
+				primary_culture = frisian
+				primary_culture = brabantian
+				tag = BUR
+			}
+			#capital = 97
+			OR = {
+				ai = no
+				AND = {
+					ai = yes
+					num_of_cities = 3
+				}
+			}
+		}
+		provinces_to_highlight = {
+			OR = {
+				region = low_countries_region
+				area = picardy_area
+				province_id = 181
+			}
+			OR = {
+				NOT = { owned_by = ROOT }
+				NOT = { is_core = ROOT }
+			}
+		}
+		allow = {
+			NOT = {
+				OR = {
+					current_age = age_of_discovery
+					current_age = age_of_reformation
+				}
+			}
+			is_free_or_tributary_trigger = yes
+			is_nomad = no
+			is_at_war = no
+			NOT = { exists = BNL }
+			
+			low_countries_region = {
+				type = all
+				country_or_non_sovereign_subject_holds = ROOT
+				is_core = owner
+			}
+			picardy_area = {
+				type = all
+				country_or_non_sovereign_subject_holds = ROOT
+				is_core = owner
+			}
+			181 = {
+				country_or_non_sovereign_subject_holds = ROOT
+				is_core = owner
+			}
+		}
+	 	effect = {
+			if = {
+				limit = {
+					any_owned_province = {
+						is_part_of_hre = yes
+					}
+					is_elector = no
+					is_emperor = no
+				}
+				every_owned_province = {
+					limit = {
+						is_part_of_hre = yes
+					}
+					set_in_empire = no
+				}
+			}
+	  		if = {
+	  			limit = {
+	  				tag = BUR
+	  			}
+	  			change_primary_culture = dutch
+				97 = {
+					move_capital_effect = yes
+				}
+			}
+			if = {
+				limit = {
+					tag = BUR
+					exists = FRA
+				}
+	  			france_region = {
+					limit = {
+						owned_by = BUR
+					}
+	  				remove_core = BUR
+	  				add_core = FRA
+	  				cede_province = FRA
+	  			}
+	  		}
+			if = {
+				limit = {
+					government = theocracy
+					religion = catholic
+				}
+				change_government = monarchy
+				set_legacy_government = administrative_monarchy
+				PAP = {
+					add_opinion = {
+						who = ROOT
+						modifier = opinion_displeased
+					}
+				}
+			}
+			if = {
+				limit = {
+					government = theocracy
+					NOT = { religion = catholic }
+				}
+				change_government = monarchy
+				set_legacy_government = administrative_monarchy
+			}
+			if = {
+				limit = {
+					tag = BUR
+					exists = FRA
+					BUR = {
+						any_subject_country = {
+							france_region = {
+								owned_by = PREV
+							}
+						}
+					}
+				}
+				every_subject_country = {
+					limit = {
+						france_region = {
+							owned_by = PREV
+						}
+					}
+					france_region = {
+						limit = {
+							owned_by = PREV
+						}
+						remove_core = BUR
+						remove_core = PREV
+						add_core = FRA
+						cede_province = FRA
+					}
+				}
+	  		}
+			change_tag = BNL
+			swap_non_generic_missions = no
+			low_countries_region = {
+				limit = {
+					NOT = { owned_by = ROOT }
+					NOT = { province_id = 87 }
+					NOT = { province_id = 181 }
+				}
+				add_permanent_claim = BNL
+			}
+			wallonia_area = {
+				limit = {
+					NOT = { owned_by = ROOT }
+				}
+				add_permanent_claim = ROOT
+			}
+			picardy_area = {
+				limit = {
+					NOT = { owned_by = ROOT }
+				}
+				add_permanent_claim = BNL
+			}
+			champagne_area = {
+				limit = {
+					NOT = { owned_by = ROOT }
+					province_id = 181
+				}
+				add_permanent_claim = BNL
+			}
+			add_accepted_culture = flemish
+			add_accepted_culture = frisian
+			add_accepted_culture = brabantian
+			add_accepted_culture = wallonian
+			set_government_rank = 3
+			set_country_flag = formed_benelux_flag
+			set_capital = 92
+			add_prestige = 25
+			if = {
+				limit = {
+					has_custom_ideas = no
+					NOT = { has_idea_group = NED_ideas }
+				}
+				country_event = { id = ideagroups.1 } #Swap Ideas
+			}
+		}
+		ai_will_do = {
+			factor = 1
+			modifier = {
+				factor = 0
+				tag = BUR
+			}
+		}
+		ai_importance = 400
+	}
+	
+}

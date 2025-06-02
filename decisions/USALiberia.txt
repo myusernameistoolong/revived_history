@@ -1,0 +1,45 @@
+country_decisions = {
+
+	usa_liberia = {
+		major = yes
+		potential = {
+			NOT = { has_global_flag = liberia_established }
+			tag = USA
+			is_year = 1820
+			2242 = {
+				NOT = {
+					owner = { ai = no }
+				}
+			}
+			1119 = {
+				NOT = {
+					owner = { ai = no }
+				}
+			}
+		}
+		allow = {
+			adm_power = 100
+		}
+		effect = {
+			add_adm_power = -100
+			every_province = {
+				limit = {
+					OR = {
+						province_id = 2242
+						province_id = 1119
+					}
+				}
+				remove_core = owner
+				
+				add_permanent_claim = ROOT
+				add_core = ROOT
+				cede_province = ROOT
+			}
+			set_global_flag = liberia_established
+		}
+		ai_will_do = {
+			factor = 400
+		}
+	}
+
+}

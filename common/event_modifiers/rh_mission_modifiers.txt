@@ -1,0 +1,19 @@
+spa_colonies_united = {
+	administrative_efficiency = 0.1
+}
+eng_british_raj = {
+	administrative_efficiency = 0.1
+}
+ita_united = {
+	land_morale = 0.1
+	hostile_attrition = 0.5
+}
+ita_otto_defeat = {
+	core_creation = -0.5
+}
+austrian_pride = {
+	land_morale = 0.1
+}
+ned_united = {
+	land_morale = 0.1
+}

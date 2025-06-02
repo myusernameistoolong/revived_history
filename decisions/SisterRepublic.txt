@@ -1,0 +1,282 @@
+#Sister Republic
+country_decisions = {
+	sister_republic_ned = {
+			major = yes
+			potential = {
+				tag = FRA
+				current_age = age_of_revolutions
+				NOT = { has_country_flag = formed_sister_republic_ned_flag }
+			}
+			provinces_to_highlight = {
+				OR = {
+					area = holland_area
+					area = flanders_area
+					area = frisia_area
+					area = netherlands_area
+					province_id = 92
+				}
+			}
+			allow = {
+				current_age = age_of_revolutions
+				NOT = { exists = NED }
+				NOT = { exists = BNL }
+				dip_power = 100
+				holland_area = {
+					type = all
+					country_or_non_sovereign_subject_holds = ROOT
+				}
+				
+				flanders_area = {
+					type = all
+					country_or_non_sovereign_subject_holds = ROOT
+				}
+				
+				frisia_area = {
+					type = all
+					country_or_non_sovereign_subject_holds = ROOT
+				}
+				
+				netherlands_area = {
+					type = all
+					country_or_non_sovereign_subject_holds = ROOT
+				}
+				
+				92 = {
+					country_or_non_sovereign_subject_holds = ROOT
+				}
+
+				is_at_war = no
+			}
+			effect = {
+				add_dip_power = -100
+				every_province = {
+					limit = {
+						country_or_non_sovereign_subject_holds = ROOT
+						OR = {
+							area = holland_area
+							area = flanders_area
+							area = frisia_area
+							area = netherlands_area
+						}
+					}
+					cede_province = NED
+					add_permanent_claim = NED
+				}
+				
+				if = {
+					limit = {
+						92 = {
+							country_or_non_sovereign_subject_holds = ROOT
+						}
+					}
+					92 = {
+						cede_province = NED
+						add_permanent_claim = NED
+					}
+				}
+				
+				hidden_effect = {
+					every_province = {
+						limit = {
+							country_or_non_sovereign_subject_holds = ROOT
+							OR = {
+								area = holland_area
+								area = flanders_area
+								area = frisia_area
+								area = netherlands_area
+							}
+						}
+						add_core = NED
+					}
+				
+					if = {
+						limit = {
+							92 = {
+								country_or_non_sovereign_subject_holds = ROOT
+							}
+						}
+						92 = {
+							add_core = NED
+						}
+					}
+				
+					NED = {
+						set_government_rank = 2
+						change_government = republic
+						add_government_reform = puppet_kingdom_reform
+						add_historical_friend = ROOT
+						change_primary_culture = ROOT
+						change_religion = ROOT
+						add_accepted_culture = dutch
+						add_accepted_culture = flemish
+						add_accepted_culture = frisian
+						add_accepted_culture = brabantian
+						add_accepted_culture = walloon
+					}
+				}
+				create_subject = {
+					subject_type = sister_republic
+					subject = NED
+				}
+				add_prestige = 10
+				set_country_flag = formed_sister_republic_ned_flag
+			}
+			ai_will_do = {
+				factor = 200
+			}
+		}
+		
+		sister_republic_swi = {
+			major = yes
+			potential = {
+				tag = FRA
+				current_age = age_of_revolutions
+				NOT = { has_country_flag = formed_sister_republic_swi_flag }
+			}
+			provinces_to_highlight = {
+				OR = {
+					area = switzerland_area
+					area = romandie_area
+				}
+			}
+			allow = {
+				current_age = age_of_revolutions
+				NOT = { exists = SWI }
+				dip_power = 100
+				switzerland_area = {
+					type = all
+					country_or_non_sovereign_subject_holds = ROOT
+				}
+				
+				romandie_area = {
+					type = all
+					country_or_non_sovereign_subject_holds = ROOT
+				}
+				
+				is_at_war = no
+			}
+			effect = {
+				add_dip_power = -100
+				every_province = {
+					limit = {
+						country_or_non_sovereign_subject_holds = ROOT
+						OR = {
+							area = switzerland_area
+							area = romandie_area
+						}
+					}
+					cede_province = SWI
+					add_permanent_claim = SWI
+				}
+				
+				hidden_effect = {
+					every_province = {
+						limit = {
+							country_or_non_sovereign_subject_holds = ROOT
+							OR = {
+								area = switzerland_area
+								area = romandie_area
+							}
+						}
+						add_core = SWI
+					}
+				
+					SWI = {
+						set_government_rank = 2
+						change_government = republic
+						add_government_reform = puppet_kingdom_reform
+						add_historical_friend = ROOT
+						change_primary_culture = ROOT
+						change_religion = ROOT
+						add_accepted_culture = swiss
+					}
+				}
+				create_subject = {
+					subject_type = sister_republic
+					subject = SWI
+				}
+				add_prestige = 10
+				set_country_flag = formed_sister_republic_swi_flag
+			}
+			ai_will_do = {
+				factor = 200
+			}
+		}
+		
+		sister_republic_ita = {
+			major = yes
+			potential = {
+				tag = FRA
+				current_age = age_of_revolutions
+				NOT = { has_country_flag = formed_sister_republic_ita_flag }
+			}
+			provinces_to_highlight = {
+				OR = {
+					area = lombardy_area
+					area = emilia_romagna_area
+				}
+			}
+			allow = {
+				current_age = age_of_revolutions
+				NOT = { exists = ITA }
+				dip_power = 100
+				lombardy_area = {
+					type = all
+					country_or_non_sovereign_subject_holds = ROOT
+				}
+				
+				emilia_romagna_area = {
+					type = all
+					country_or_non_sovereign_subject_holds = ROOT
+				}
+
+				is_at_war = no
+			}
+			effect = {
+				add_dip_power = -100
+				every_province = {
+					limit = {
+						country_or_non_sovereign_subject_holds = ROOT
+						OR = {
+							area = lombardy_area
+							area = emilia_romagna_area
+						}
+					}
+					cede_province = ITA
+					add_permanent_claim = ITA
+				}
+				
+				hidden_effect = {
+					every_province = {
+						limit = {
+							country_or_non_sovereign_subject_holds = ROOT
+							OR = {
+								area = lombardy_area
+								area = emilia_romagna_area
+							}
+						}
+						add_core = ITA
+					}
+				
+					ITA = {
+						set_government_rank = 2
+						change_government = republic
+						add_government_reform = puppet_kingdom_reform
+						add_historical_friend = ROOT
+						change_primary_culture = ROOT
+						change_religion = ROOT
+						add_accepted_culture = swiss
+					}
+				}
+				create_subject = {
+					subject_type = sister_republic
+					subject = ITA
+				}
+				add_prestige = 10
+				set_country_flag = formed_sister_republic_swi_flag
+			}
+			ai_will_do = {
+				factor = 200
+			}
+		}
+	}

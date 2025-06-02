@@ -1,0 +1,81 @@
+country_decisions = {
+	american_mexicans = {
+		major = yes
+		potential = {
+			has_global_flag = mexican_cession
+			OR = {
+				tag = USA
+			}
+			culture_group = british
+			any_province = {
+				continent = north_america
+				country_or_non_sovereign_subject_holds = ROOT
+				OR = {
+					culture = mexican
+					culture = leonese
+					culture = castillian
+					culture = aragonese
+					culture = catalan
+					culture = galician
+					culture = andalucian
+					culture = basque
+				}
+			}
+			NOT = { has_country_flag = american_mexicans }
+		}
+		provinces_to_highlight = {
+			OR = {
+				continent = north_america
+			}
+			country_or_non_sovereign_subject_holds = ROOT
+			OR = {
+				culture = mexican
+				culture = leonese
+				culture = castillian
+				culture = aragonese
+				culture = catalan
+				culture = galician
+				culture = andalucian
+				culture = basque
+			}
+		}
+		allow = {
+			OR = {
+				tag = USA
+			}
+			culture_group = british
+			has_global_flag = mexican_cession
+			dip_power = 150
+			NOT = { has_country_flag = american_mexicans }
+		}
+		effect = {
+			add_dip_power = -150
+			every_province = {
+				limit = {
+					continent = north_america
+					OR = {
+						culture = mexican
+						culture = leonese
+						culture = castillian
+						culture = aragonese
+						culture = catalan
+						culture = galician
+						culture = andalucian
+						culture = basque
+					}
+					country_or_non_sovereign_subject_holds = ROOT
+				}
+				change_culture = american
+			}
+			custom_tooltip = "american_mexicans.tt"
+			set_country_flag = american_mexicans
+		}
+		ai_will_do = {
+			factor = 100
+			modifier = {
+				factor = 0
+				NOT = { dip_power = 150 }
+			}
+		}
+	}
+}
