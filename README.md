@@ -43,7 +43,7 @@ The mod enhances gameplay especially for:
 - Denmark
 - Portugal
 - Belgium
-- Savoy / Italy 🇮🇹
+- Savoy / Italy
 - Brandenburg / Prussia / Germany
 - United States
 - Austria
